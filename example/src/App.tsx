@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
-import { decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
+import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 import * as REA from 'react-native-reanimated';
 
 export default function App() {
@@ -11,7 +11,10 @@ export default function App() {
   const device = devices.back;
   const frameProcessor = useFrameProcessor((frame) => {
     'worklet'
-    const results:TextResult[] = decode(frame)
+    const config:DBRConfig = {};
+    //config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
+
+    const results:TextResult[] = decode(frame,config)
     REA.runOnJS(setBarcodeResults)(results);
   }, [])
 

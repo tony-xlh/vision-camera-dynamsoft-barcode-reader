@@ -21,6 +21,12 @@ export interface TextResult{
     y4:number;
 }
 
+export interface DBRConfig{
+  template?:string;
+  organizationID?:string;
+  license?:string;
+}
+
 const VisionCameraDynamsoftBarcodeReader = NativeModules.VisionCameraDynamsoftBarcodeReader
   ? NativeModules.VisionCameraDynamsoftBarcodeReader
   : new Proxy(
@@ -32,9 +38,9 @@ const VisionCameraDynamsoftBarcodeReader = NativeModules.VisionCameraDynamsoftBa
       }
     );
 
-  export function decode(frame: Frame): TextResult[] {
+  export function decode(frame: Frame, config: DBRConfig): TextResult[] {
     'worklet'
     // @ts-ignore
     // eslint-disable-next-line no-undef
-    return __decode(frame)
+    return __decode(frame, config)
   }
