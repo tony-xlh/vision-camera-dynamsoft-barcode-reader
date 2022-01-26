@@ -1,19 +1,47 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'vision-camera-dynamsoft-barcode-reader';
+import { StyleSheet, Text } from 'react-native';
+import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
+import { decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const [barcodeResults, setBarcodeResults] = React.useState(Array<TextResult>());
+  const devices = useCameraDevices();
+  const device = devices.back;
+  
+  const frameProcessor = useFrameProcessor((frame) => {
+    'worklet'
+    const results = decode(frame)
+    setBarcodeResults(results);
+    console.log(`Barcodes in Frame: ${results}`)
+  }, [])
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    (async () => {
+      const status = await Camera.requestCameraPermission();
+      setHasPermission(status === 'authorized');
+    })();
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    device != null &&
+    hasPermission && (
+      <>
+        <Camera
+          style={StyleSheet.absoluteFill}
+          device={device}
+          isActive={true}
+          frameProcessor={frameProcessor}
+          frameProcessorFps={5}
+        />
+        {barcodeResults.map((barcode, idx) => (
+          <Text key={idx} style={styles.barcodeTextURL}>
+            {barcode.barcodeText}
+          </Text>
+        ))}
+      </>
+    )
   );
 }
 
@@ -27,5 +55,10 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginVertical: 20,
+  },
+  barcodeTextURL: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
