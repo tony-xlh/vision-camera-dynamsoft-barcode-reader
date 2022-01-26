@@ -32,7 +32,7 @@ const VisionCameraDynamsoftBarcodeReader = NativeModules.VisionCameraDynamsoftBa
       }
     );
 
-  export function decode(frame: Frame): string[] {
+  export function decode(frame: Frame): TextResult[] {
     'worklet'
     // @ts-ignore
     // eslint-disable-next-line no-undef

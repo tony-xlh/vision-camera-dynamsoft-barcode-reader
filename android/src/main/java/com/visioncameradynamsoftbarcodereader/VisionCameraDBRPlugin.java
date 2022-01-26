@@ -43,8 +43,8 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         if (results!=null) {
             for (int i = 0; i < results.length; i++) {
                 Log.d("DBR",results[i].barcodeText);
-                //array.pushMap(wrapResults(results[i]));
-                array.pushString(results[i].barcodeText);
+                array.pushMap(wrapResults(results[i]));
+                //array.pushString(results[i].barcodeText);
             }
         }
 
