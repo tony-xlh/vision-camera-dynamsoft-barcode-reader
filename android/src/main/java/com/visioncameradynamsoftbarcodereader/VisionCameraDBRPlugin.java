@@ -72,7 +72,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
                 }
             }
         }
-        
+
         try {
             // Create an instance of Dynamsoft Barcode Reader.
             reader = new BarcodeReader();

@@ -38,7 +38,7 @@ export default function App() {
         />
         {barcodeResults.map((barcode, idx) => (
           <Text key={idx} style={styles.barcodeTextURL}>
-            {barcode.barcodeText}
+            {barcode.barcodeFormat +": "+ barcode.barcodeText}
           </Text>
         ))}
       </>
