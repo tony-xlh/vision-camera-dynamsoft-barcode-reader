@@ -1,20 +1,20 @@
 import * as React from 'react';
-
+import 'react-native-reanimated'
 import { StyleSheet, Text } from 'react-native';
 import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
-import { decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
+import { decode } from 'vision-camera-dynamsoft-barcode-reader';
+
 
 export default function App() {
   const [hasPermission, setHasPermission] = React.useState(false);
-  const [barcodeResults, setBarcodeResults] = React.useState(Array<TextResult>());
+  const [barcodeResults, setBarcodeResults] = React.useState([]);
   const devices = useCameraDevices();
   const device = devices.back;
-  
   const frameProcessor = useFrameProcessor((frame) => {
     'worklet'
-    const results = decode(frame)
-    setBarcodeResults(results);
+    const results:string[] = decode(frame)
     console.log(`Barcodes in Frame: ${results}`)
+    //runOnJS(setBarcodeResults)(results);
   }, [])
 
   React.useEffect(() => {
@@ -37,7 +37,7 @@ export default function App() {
         />
         {barcodeResults.map((barcode, idx) => (
           <Text key={idx} style={styles.barcodeTextURL}>
-            {barcode.barcodeText}
+            {barcode}
           </Text>
         ))}
       </>

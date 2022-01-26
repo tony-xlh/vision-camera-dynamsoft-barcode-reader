@@ -1,6 +1,7 @@
 import { NativeModules, Platform } from 'react-native';
 import type { Frame } from 'react-native-vision-camera'
 
+
 const LINKING_ERROR =
   `The package 'vision-camera-dynamsoft-barcode-reader' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
@@ -31,7 +32,7 @@ const VisionCameraDynamsoftBarcodeReader = NativeModules.VisionCameraDynamsoftBa
       }
     );
 
-  export function decode(frame: Frame): TextResult[] {
+  export function decode(frame: Frame): string[] {
     'worklet'
     // @ts-ignore
     // eslint-disable-next-line no-undef

@@ -1,6 +1,7 @@
 package com.visioncameradynamsoftbarcodereader;
 
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.camera.core.ImageProxy;
@@ -39,10 +40,11 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             e.printStackTrace();
         }
         WritableNativeArray array = new WritableNativeArray();
-
         if (results!=null) {
             for (int i = 0; i < results.length; i++) {
-                array.pushMap(wrapResults(results[0]));
+                Log.d("DBR",results[i].barcodeText);
+                //array.pushMap(wrapResults(results[i]));
+                array.pushString(results[i].barcodeText);
             }
         }
 
@@ -63,7 +65,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             reader.initLicenseFromDLS(dbrParameters, new DBRDLSLicenseVerificationListener() {
                 @Override
                 public void DLSLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-                    e.printStackTrace();
+
                 }
             });
 
