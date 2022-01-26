@@ -41,6 +41,16 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+rootProject.allprojects {
+    repositories {
+        maven {
+            url "http://download2.dynamsoft.com/maven/dbr/aar"
+        }
+        maven {
+            url "https://download2.dynamsoft.com/maven/dce/aar"
+        }
+    }
+}
 
 repositories {
     mavenLocal()
@@ -55,5 +65,8 @@ repositories {
 
 dependencies {
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.facebook.react:react-native:+"
+    implementation "androidx.camera:camera-core:1.1.0-alpha12"
+    implementation project(path: ':react-native-vision-camera')  // From node_modules
+    implementation 'com.dynamsoft:dynamsoftbarcodereader:8.9.1@aar'
 }

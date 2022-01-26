@@ -22,13 +22,4 @@ public class VisionCameraDynamsoftBarcodeReaderModule extends ReactContextBaseJa
         return NAME;
     }
 
-
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
-    @ReactMethod
-    public void multiply(int a, int b, Promise promise) {
-        promise.resolve(a * b);
-    }
-
-    public static native int nativeMultiply(int a, int b);
 }

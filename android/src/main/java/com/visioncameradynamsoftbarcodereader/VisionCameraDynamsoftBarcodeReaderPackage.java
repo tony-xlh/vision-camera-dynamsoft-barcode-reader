@@ -6,6 +6,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,8 @@ public class VisionCameraDynamsoftBarcodeReaderPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new VisionCameraDynamsoftBarcodeReaderModule(reactContext));
+        //modules.add(new VisionCameraDynamsoftBarcodeReaderModule(reactContext));
+        FrameProcessorPlugin.register(new VisionCameraDBRPlugin());
         return modules;
     }
 
