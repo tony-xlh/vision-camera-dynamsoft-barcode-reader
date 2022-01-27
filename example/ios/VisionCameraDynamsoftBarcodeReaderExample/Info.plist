@@ -53,5 +53,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+  <string>For barcode scanning</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>For barcode scanning</string>
 </dict>
 </plist>
