@@ -1,6 +1,6 @@
 # vision-camera-dynamsoft-barcode-reader
 
-React Native Vision Camera Frame Processor Plugin of Dynamsoft Barcode Reader
+React Native Vision Camera Frame Processor Plugin of [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/)
 
 ## Installation
 
@@ -87,6 +87,37 @@ const styles = StyleSheet.create({
 });
 
 ```
+
+## Supported Platforms
+
+* Android
+* iOS
+
+## Supported Barcode Symbologies
+
+* Code 39
+* Code 93
+* Code 128
+* Codabar
+* EAN-8
+* EAN-13
+* UPC-A
+* UPC-E
+* Interleaved 2 of 5 (ITF)
+* Industrial 2 of 5 (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5)
+* ITF-14 
+* QRCode
+* DataMatrix
+* PDF417
+* GS1 DataBar
+* Maxicode
+* Micro PDF417
+* Micro QR
+* PatchCode
+* GS1 Composite
+* Postal Code
+* Dot Code
+
 
 ## Contributing
 
