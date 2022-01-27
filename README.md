@@ -10,12 +10,14 @@ npm install vision-camera-dynamsoft-barcode-reader
 
 make sure you correctly setup react-native-reanimated and add this to your babel.config.js
 
+```
 [
   'react-native-reanimated/plugin',
   {
     globals: ['__decode'],
   },
 ]
+```
 
 ## Usage
 
