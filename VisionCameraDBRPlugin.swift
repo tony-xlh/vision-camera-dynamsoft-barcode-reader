@@ -45,12 +45,26 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
     static func configurationDBR(withArgs args: [Any]!) {
         var license = "";
         var organizationID = "200001";
+        var template = "";
+        if args.count>0 {
+            let config = args[0] as? [String: String]
+            license = config?["license"] ?? ""
+            organizationID = config?["organizationID"] ?? "200001"
+            template = config?["template"] ?? ""
+        }
+        
+
         let dls = iDMDLSConnectionParameters()
-        if (license != ""){
+        if license != "" {
            barcodeReader = DynamsoftBarcodeReader(license: license)
         }else{
            dls.organizationID = organizationID
            barcodeReader = DynamsoftBarcodeReader(licenseFromDLS: dls, verificationDelegate: self)
+        }
+        
+        if template != "" {
+            var error: NSError? = NSError()
+            barcodeReader.initRuntimeSettings(with: template, conflictMode: EnumConflictMode.overwrite, error: &error)
         }
      }
     
