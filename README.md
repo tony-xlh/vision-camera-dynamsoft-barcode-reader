@@ -99,7 +99,9 @@ Let's create a new react native project and use the plugin.
 3. Update the `babel.config.js` file
 4. Add camera permission for both Android and iOS
 5. Update `App.tsx` to use the camera and the plugin
-6. Run the project: `npx react-native run-andoid/run-ios
+6. Run the project: `npx react-native run-andoid/run-ios`
+
+You can check out the [example](https://github.com/xulihang/vision-camera-dynamsoft-barcode-reader/tree/main/example) for more details.
 
 ## Supported Platforms
 
