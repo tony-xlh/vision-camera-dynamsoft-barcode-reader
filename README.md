@@ -90,6 +90,17 @@ const styles = StyleSheet.create({
 
 ```
 
+## Detailed Installation Guide
+
+Let's create a new react native project and use the plugin.
+
+1. Create a new project: `npx react-native init MyTestApp`
+2. Install required packages: `npm install vision-camera-dynamsoft-barcode-reader react-native-reanimated react-native-vision-camera`. Update relevant files following the [react-native-reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/). You can use jsc instead of hermes
+3. Update the `babel.config.js` file
+4. Add camera permission for both Android and iOS
+5. Update `App.tsx` to use the camera and the plugin
+6. Run the project: `npx react-native run-andoid/run-ios
+
 ## Supported Platforms
 
 * Android
