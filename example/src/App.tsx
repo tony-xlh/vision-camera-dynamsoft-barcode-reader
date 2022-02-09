@@ -4,7 +4,7 @@ import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision
 import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 import * as REA from 'react-native-reanimated';
 
-export default function App() {
+export default function BarcodeScanner() {
   const [hasPermission, setHasPermission] = React.useState(false);
   const [barcodeResults, setBarcodeResults] = React.useState([] as TextResult[]);
   const devices = useCameraDevices();
@@ -26,32 +26,30 @@ export default function App() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-    {device != null &&
-      hasPermission &&} (
-      <>
-        <Camera
-          style={StyleSheet.absoluteFill}
-          device={device}
-          isActive={true}
-          frameProcessor={frameProcessor}
-          frameProcessorFps={5}
-        />
-        {barcodeResults.map((barcode, idx) => (
-          <Text key={idx} style={styles.barcodeTextURL}>
-            {barcode.barcodeFormat +": "+ barcode.barcodeText}
-          </Text>
-        ))}
-      </>)
-   </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        {device != null &&
+        hasPermission && (
+        <>
+            <Camera
+            style={StyleSheet.absoluteFill}
+            device={device}
+            isActive={true}
+            frameProcessor={frameProcessor}
+            frameProcessorFps={5}
+            />
+            {barcodeResults.map((barcode, idx) => (
+            <Text key={idx} style={styles.barcodeTextURL}>
+                {barcode.barcodeFormat +": "+ barcode.barcodeText}
+            </Text>
+            ))}
+        </>)}
+      </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1
   },
   box: {
     width: 60,
