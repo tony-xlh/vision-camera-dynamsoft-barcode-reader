@@ -50,24 +50,23 @@ export default function App() {
   }, []);
 
   return (
-     <SafeAreaView style={styles.container}>
-      {device != null &&
-        hasPermission &&} (
-        <>
-          <Camera
-            style={StyleSheet.absoluteFill}
-            device={device}
-            isActive={true}
-            frameProcessor={frameProcessor}
-            frameProcessorFps={5}
-          />
-          {barcodeResults.map((barcode, idx) => (
-            <Text key={idx} style={styles.barcodeTextURL}>
-              {barcode.barcodeFormat +": "+ barcode.barcodeText}
-            </Text>
-          ))}
-        </>)
-     </SafeAreaView>
+    device != null &&
+    hasPermission && (
+      <>
+        <Camera
+          style={StyleSheet.absoluteFill}
+          device={device}
+          isActive={true}
+          frameProcessor={frameProcessor}
+          frameProcessorFps={5}
+        />
+        {barcodeResults.map((barcode, idx) => (
+          <Text key={idx} style={styles.barcodeTextURL}>
+            {barcode.barcodeFormat +": "+ barcode.barcodeText}
+          </Text>
+        ))}
+      </>
+    )
   );
 }
 

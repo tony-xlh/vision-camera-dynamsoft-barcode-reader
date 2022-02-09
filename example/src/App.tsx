@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 import * as REA from 'react-native-reanimated';
@@ -26,8 +26,9 @@ export default function App() {
   }, []);
 
   return (
-    device != null &&
-    hasPermission && (
+    <SafeAreaView style={styles.container}>
+    {device != null &&
+      hasPermission &&} (
       <>
         <Camera
           style={StyleSheet.absoluteFill}
@@ -41,8 +42,8 @@ export default function App() {
             {barcode.barcodeFormat +": "+ barcode.barcodeText}
           </Text>
         ))}
-      </>
-    )
+      </>)
+   </SafeAreaView>
   );
 }
 
