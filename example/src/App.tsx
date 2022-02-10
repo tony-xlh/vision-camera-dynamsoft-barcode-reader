@@ -4,7 +4,7 @@ import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision
 import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 import * as REA from 'react-native-reanimated';
 
-export default function BarcodeScanner() {
+export default function App() {
   const [hasPermission, setHasPermission] = React.useState(false);
   const [barcodeResults, setBarcodeResults] = React.useState([] as TextResult[]);
   const devices = useCameraDevices();
