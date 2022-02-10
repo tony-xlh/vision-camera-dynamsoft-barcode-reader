@@ -90,19 +90,6 @@ const styles = StyleSheet.create({
 
 ```
 
-## Detailed Installation Guide
-
-Let's create a new react native project and use the plugin.
-
-1. Create a new project: `npx react-native init MyTestApp`
-2. Install required packages: `npm install vision-camera-dynamsoft-barcode-reader react-native-reanimated react-native-vision-camera`. Update relevant files following the [react-native-reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/). You can use jsc instead of hermes
-3. Update the `babel.config.js` file
-4. Add camera permission for both Android and iOS
-5. Update `App.tsx` to use the camera and the plugin
-6. Run the project: `npx react-native run-andoid/run-ios`
-
-You can check out the [example](https://github.com/xulihang/vision-camera-dynamsoft-barcode-reader/tree/main/example) for more details.
-
 ## Supported Platforms
 
 * Android
@@ -133,6 +120,25 @@ You can check out the [example](https://github.com/xulihang/vision-camera-dynams
 * Postal Code
 * Dot Code
 
+
+## Detailed Installation Guide
+
+Let's create a new react native project and use the plugin.
+
+1. Create a new project: `npx react-native init MyTestApp`
+2. Install required packages: `npm install vision-camera-dynamsoft-barcode-reader react-native-reanimated react-native-vision-camera`. Update relevant files following the [react-native-reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/). You can use jsc instead of hermes
+3. Update the `babel.config.js` file
+4. Add camera permission for both Android and iOS
+5. Update `App.tsx` to use the camera and the plugin
+6. For Android, register the plugin in `MainApplication.java` following the [guide](https://mrousavy.com/react-native-vision-camera/docs/guides/frame-processors-plugins-android)
+7. Run the project: `npx react-native run-andoid/run-ios`
+
+You can check out the [example](https://github.com/xulihang/vision-camera-dynamsoft-barcode-reader/tree/main/example) for more details.
+
+## Blogs on How the Plugin is Made
+
+* [Build a React Native Vision Camera Frame Processor Plugin to Scan Barcodes for Android](https://www.dynamsoft.com/codepool/react-native-vision-camera-barcode-plugin-android.html)
+* [Build a React Native Vision Camera Frame Processor Plugin to Scan Barcodes for iOS](https://www.dynamsoft.com/codepool/react-native-vision-camera-barcode-plugin-ios.html)
 
 ## Contributing
 
