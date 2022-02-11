@@ -38,11 +38,11 @@ export default function App() {
 
   function getViewBox(){
     let viewBox = null;
-    if (frameHeight>frameWidth && Dimensions.get('window').width>Dimensions.get('window').height){
+    if (frameWidth>frameHeight && Dimensions.get('window').width>Dimensions.get('window').height){
+      viewBox = "0 0 "+frameWidth+" "+frameHeight;
+    }else {
       console.log("Has rotation");
       viewBox = "0 0 "+frameHeight+" "+frameWidth;
-    }else {
-      viewBox = "0 0 "+frameWidth+" "+frameHeight;
     }    
     console.log("viewBox"+viewBox);
     return viewBox;
