@@ -1,7 +1,16 @@
 package com.visioncameradynamsoftbarcodereader;
 
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
+import android.graphics.Matrix;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
+import android.media.Image;
 import android.os.Build;
 import android.util.Log;
+import android.view.Display;
 
 import androidx.annotation.RequiresApi;
 import androidx.camera.core.ImageProxy;
@@ -18,6 +27,7 @@ import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
 public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
@@ -28,16 +38,16 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         if (reader==null){
             createDBRInstance(params);
         }
+
+        Bitmap bitmap = toJpegImage(image.getImage(),100);
+        if (image.getImageInfo().getRotationDegrees()!=0){
+            bitmap = rotatedBitmap(bitmap, image.getImageInfo().getRotationDegrees());
+        }
+
         TextResult[] results = null;
-        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-        int nRowStride = image.getPlanes()[0].getRowStride();
-        int nPixelStride = image.getPlanes()[0].getPixelStride();
-        int length = buffer.remaining();
-        byte[] bytes = new byte[length];
-        buffer.get(bytes);
 
         try {
-            results = reader.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21, "");
+            results = reader.decodeBufferedImage(bitmap,"");
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
         }
@@ -46,7 +56,6 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             for (int i = 0; i < results.length; i++) {
                 Log.d("DBR",results[i].barcodeText);
                 array.pushMap(wrapResults(results[i]));
-                //array.pushString(results[i].barcodeText);
             }
         }
 
@@ -115,6 +124,84 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         return map;
     }
 
+    private Bitmap rotatedBitmap(Bitmap bitmap,int rotationDegrees){
+        Matrix m = new Matrix();
+        m.postRotate(rotationDegrees);
+        Bitmap bitmapRotated = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),m,false);
+        return bitmapRotated;
+    }
+
+    private Bitmap toJpegImage(android.media.Image image, int imageQuality) {
+
+        if (image.getFormat() != ImageFormat.YUV_420_888) {
+            throw new IllegalArgumentException("Invalid image format");
+        }
+
+        YuvImage yuvImage = toYuvImage(image);
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        // Convert to jpeg
+        byte[] jpegImage = null;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        yuvImage.compressToJpeg(new Rect(0, 0, width, height), imageQuality, out);
+        jpegImage = out.toByteArray();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(jpegImage, 0, jpegImage.length);
+        return bitmap;
+    }
+
+    private YuvImage toYuvImage(Image image) {
+        if (image.getFormat() != ImageFormat.YUV_420_888) {
+            throw new IllegalArgumentException("Invalid image format");
+        }
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        // Order of U/V channel guaranteed, read more:
+        // https://developer.android.com/reference/android/graphics/ImageFormat#YUV_420_888
+        Image.Plane yPlane = image.getPlanes()[0];
+        Image.Plane uPlane = image.getPlanes()[1];
+        Image.Plane vPlane = image.getPlanes()[2];
+
+        ByteBuffer yBuffer = yPlane.getBuffer();
+        ByteBuffer uBuffer = uPlane.getBuffer();
+        ByteBuffer vBuffer = vPlane.getBuffer();
+
+        // Full size Y channel and quarter size U+V channels.
+        int numPixels = (int) (width * height * 1.5f);
+        byte[] nv21 = new byte[numPixels];
+        int index = 0;
+
+        // Copy Y channel.
+        int yRowStride = yPlane.getRowStride();
+        int yPixelStride = yPlane.getPixelStride();
+        for(int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                nv21[index++] = yBuffer.get(y * yRowStride + x * yPixelStride);
+            }
+        }
+
+        // Copy VU data; NV21 format is expected to have YYYYVU packaging.
+        // The U/V planes are guaranteed to have the same row stride and pixel stride.
+        int uvRowStride = uPlane.getRowStride();
+        int uvPixelStride = uPlane.getPixelStride();
+        int uvWidth = width / 2;
+        int uvHeight = height / 2;
+
+        for(int y = 0; y < uvHeight; ++y) {
+            for (int x = 0; x < uvWidth; ++x) {
+                int bufferIndex = (y * uvRowStride) + (x * uvPixelStride);
+                // V channel.
+                nv21[index++] = vBuffer.get(bufferIndex);
+                // U channel.
+                nv21[index++] = uBuffer.get(bufferIndex);
+            }
+        }
+
+        return new YuvImage(
+                nv21, ImageFormat.NV21, width, height, /* strides= */ null);
+    }
 
     VisionCameraDBRPlugin() {
         super("decode");
