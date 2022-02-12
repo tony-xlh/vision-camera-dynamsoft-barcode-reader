@@ -61,7 +61,7 @@ export default function App() {
           frameProcessorFps={5}
         />
         {barcodeResults.map((barcode, idx) => (
-          <Text key={idx} style={styles.barcodeTextURL}>
+          <Text key={idx} style={styles.barcodeText}>
             {barcode.barcodeFormat +": "+ barcode.barcodeText}
           </Text>
         ))}
@@ -76,12 +76,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-  barcodeTextURL: {
+  barcodeText: {
     fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
