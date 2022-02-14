@@ -295,7 +295,9 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - vision-camera-dynamsoft-barcode-reader (0.1.0):
+  - RNSVG (12.1.1):
+    - React
+  - vision-camera-dynamsoft-barcode-reader (0.2.0):
     - React-Core
   - VisionCamera (2.12.0):
     - React
@@ -334,6 +336,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - vision-camera-dynamsoft-barcode-reader (from `../..`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -399,6 +402,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   vision-camera-dynamsoft-barcode-reader:
     :path: "../.."
   VisionCamera:
@@ -436,7 +441,8 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 493d9abb8b23c3f84e19ae221eeba92cadcb70dc
   ReactCommon: 8fea6422328e2fc093e25c9fac67adbcf0f04fb4
   RNReanimated: 7f143675d94978c3555345d5bfa8ed6ae800c5d3
-  vision-camera-dynamsoft-barcode-reader: e4d3cae9d276a8291c2ed82afa79fc4b6e186c51
+  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
+  vision-camera-dynamsoft-barcode-reader: 9f87c5a02e073efa94364f4f802f276a96a7e25e
   VisionCamera: 2acf8cebb8924b6105ad6448af3a64b7b9ee816e
   Yoga: e6ecf3fa25af9d4c87e94ad7d5d292eedef49749
 
