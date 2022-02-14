@@ -20,6 +20,7 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
             configurationDBR(config: config)
         }
         
+        updateRuntimeSettingsWithTemplate(config: config)
         
         guard let imageBuffer = CMSampleBufferGetImageBuffer(frame.buffer) else {
           print("Failed to get CVPixelBuffer!")
