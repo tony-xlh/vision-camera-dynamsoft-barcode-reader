@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Dimensions, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { Dimensions, Platform, SafeAreaView, StyleSheet, Text } from 'react-native';
 import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 import * as REA from 'react-native-reanimated';
-import { Polygon, Rect, Svg } from 'react-native-svg';
+import { Polygon, Svg } from 'react-native-svg';
 
 export default function App() {
   const [hasPermission, setHasPermission] = React.useState(false);
@@ -38,12 +38,17 @@ export default function App() {
 
   function getViewBox(){
     let viewBox = null;
-    if (frameWidth>frameHeight && Dimensions.get('window').width>Dimensions.get('window').height){
+    if (Platform.OS === 'android') {
+      if (frameWidth>frameHeight && Dimensions.get('window').width>Dimensions.get('window').height){
+        viewBox = "0 0 "+frameWidth+" "+frameHeight;
+      }else {
+        console.log("Has rotation");
+        viewBox = "0 0 "+frameHeight+" "+frameWidth;
+      }
+    } else {
       viewBox = "0 0 "+frameWidth+" "+frameHeight;
-    }else {
-      console.log("Has rotation");
-      viewBox = "0 0 "+frameHeight+" "+frameWidth;
-    }    
+    }
+
     console.log("viewBox"+viewBox);
     return viewBox;
   }
