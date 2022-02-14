@@ -1,16 +1,8 @@
 package com.visioncameradynamsoftbarcodereader;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.ImageFormat;
-import android.graphics.Matrix;
-import android.graphics.Rect;
-import android.graphics.YuvImage;
-import android.media.Image;
 import android.os.Build;
 import android.util.Log;
-import android.view.Display;
 
 import androidx.annotation.RequiresApi;
 import androidx.camera.core.ImageProxy;
@@ -21,13 +13,13 @@ import com.dynamsoft.dbr.DBRDLSLicenseVerificationListener;
 import com.dynamsoft.dbr.DMDLSConnectionParameters;
 import com.dynamsoft.dbr.EnumConflictMode;
 import com.dynamsoft.dbr.EnumImagePixelFormat;
+import com.dynamsoft.dbr.Point;
 import com.dynamsoft.dbr.TextResult;
 import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
 
-import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
 public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
@@ -43,16 +35,16 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
 
         updateRuntimeSettingsWithTemplate(config);
 
-        Bitmap bitmap = toJpegImage(image.getImage(),100);
-        //Log.d("DBR","rotation degree: "+ image.getImageInfo().getRotationDegrees());
-        if (image.getImageInfo().getRotationDegrees()!=0){
-            bitmap = rotatedBitmap(bitmap, image.getImageInfo().getRotationDegrees());
-        }
-
+        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+        int nRowStride = image.getPlanes()[0].getRowStride();
+        int nPixelStride = image.getPlanes()[0].getPixelStride();
+        int length = buffer.remaining();
+        byte[] bytes = new byte[length];
+        buffer.get(bytes);
         TextResult[] results = null;
 
         try {
-            results = reader.decodeBufferedImage(bitmap,"");
+            results = reader.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21, "");
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
         }
@@ -60,7 +52,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         if (results != null) {
             for (int i = 0; i < results.length; i++) {
                 Log.d("DBR",results[i].barcodeText);
-                array.pushMap(wrapResults(results[i]));
+                array.pushMap(wrapResults(results[i], image));
             }
         }
 
@@ -147,98 +139,44 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         return null;
     }
 
-    private WritableNativeMap wrapResults(TextResult result) {
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private WritableNativeMap wrapResults(TextResult result, ImageProxy image) {
         WritableNativeMap map = new WritableNativeMap();
         map.putString("barcodeText",result.barcodeText);
         map.putString("barcodeFormat",result.barcodeFormatString);
-        map.putInt("x1",result.localizationResult.resultPoints[0].x);
-        map.putInt("x2",result.localizationResult.resultPoints[1].x);
-        map.putInt("x3",result.localizationResult.resultPoints[2].x);
-        map.putInt("x4",result.localizationResult.resultPoints[3].x);
-        map.putInt("y1",result.localizationResult.resultPoints[0].y);
-        map.putInt("y2",result.localizationResult.resultPoints[1].y);
-        map.putInt("y3",result.localizationResult.resultPoints[2].y);
-        map.putInt("y4",result.localizationResult.resultPoints[3].y);
+        Point[] points = result.localizationResult.resultPoints;
+        for (int i = 0; i <4 ; i++) {
+            Point point = points[i];
+            Point rotated = rotatedPoint(point, image);
+            map.putInt("x"+(i+1), rotated.x);
+            map.putInt("y"+(i+1), rotated.y);
+        }
+
         return map;
     }
 
-    private Bitmap rotatedBitmap(Bitmap bitmap,int rotationDegrees){
-        Matrix m = new Matrix();
-        m.postRotate(rotationDegrees);
-        Bitmap bitmapRotated = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),m,false);
-        return bitmapRotated;
-    }
-
-    private Bitmap toJpegImage(android.media.Image image, int imageQuality) {
-
-        if (image.getFormat() != ImageFormat.YUV_420_888) {
-            throw new IllegalArgumentException("Invalid image format");
+    //rotate point to match camera preview
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private Point rotatedPoint(Point point, ImageProxy image){
+        Point rotatedPoint = new Point();
+        switch (image.getImageInfo().getRotationDegrees()){
+            case 90:
+                rotatedPoint.x = image.getHeight() - point.y;
+                rotatedPoint.y = point.x;
+                break;
+            case 180:
+                rotatedPoint.x = image.getWidth() - point.x;
+                rotatedPoint.y = image.getHeight() - point.y;
+                break;
+            case 270:
+                rotatedPoint.x = image.getHeight() - point.y;
+                rotatedPoint.y = image.getWidth() - point.x;
+                break;
+            default:
+                rotatedPoint.x = point.x;
+                rotatedPoint.y = point.y;
         }
-
-        YuvImage yuvImage = toYuvImage(image);
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        // Convert to jpeg
-        byte[] jpegImage = null;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        yuvImage.compressToJpeg(new Rect(0, 0, width, height), imageQuality, out);
-        jpegImage = out.toByteArray();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(jpegImage, 0, jpegImage.length);
-        return bitmap;
-    }
-
-    private YuvImage toYuvImage(Image image) {
-        if (image.getFormat() != ImageFormat.YUV_420_888) {
-            throw new IllegalArgumentException("Invalid image format");
-        }
-
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        // Order of U/V channel guaranteed, read more:
-        // https://developer.android.com/reference/android/graphics/ImageFormat#YUV_420_888
-        Image.Plane yPlane = image.getPlanes()[0];
-        Image.Plane uPlane = image.getPlanes()[1];
-        Image.Plane vPlane = image.getPlanes()[2];
-
-        ByteBuffer yBuffer = yPlane.getBuffer();
-        ByteBuffer uBuffer = uPlane.getBuffer();
-        ByteBuffer vBuffer = vPlane.getBuffer();
-
-        // Full size Y channel and quarter size U+V channels.
-        int numPixels = (int) (width * height * 1.5f);
-        byte[] nv21 = new byte[numPixels];
-        int index = 0;
-
-        // Copy Y channel.
-        int yRowStride = yPlane.getRowStride();
-        int yPixelStride = yPlane.getPixelStride();
-        for(int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                nv21[index++] = yBuffer.get(y * yRowStride + x * yPixelStride);
-            }
-        }
-
-        // Copy VU data; NV21 format is expected to have YYYYVU packaging.
-        // The U/V planes are guaranteed to have the same row stride and pixel stride.
-        int uvRowStride = uPlane.getRowStride();
-        int uvPixelStride = uPlane.getPixelStride();
-        int uvWidth = width / 2;
-        int uvHeight = height / 2;
-
-        for(int y = 0; y < uvHeight; ++y) {
-            for (int x = 0; x < uvWidth; ++x) {
-                int bufferIndex = (y * uvRowStride) + (x * uvPixelStride);
-                // V channel.
-                nv21[index++] = vBuffer.get(bufferIndex);
-                // U channel.
-                nv21[index++] = uBuffer.get(bufferIndex);
-            }
-        }
-
-        return new YuvImage(
-                nv21, ImageFormat.NV21, width, height, /* strides= */ null);
+        return rotatedPoint;
     }
 
     VisionCameraDBRPlugin() {

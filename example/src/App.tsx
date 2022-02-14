@@ -16,7 +16,7 @@ export default function App() {
   const frameProcessor = useFrameProcessor((frame) => {
     'worklet'
     const config:DBRConfig = {};
-    config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ONED\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
+    //config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ONED\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
     
     const results:TextResult[] = decode(frame,config)
     
