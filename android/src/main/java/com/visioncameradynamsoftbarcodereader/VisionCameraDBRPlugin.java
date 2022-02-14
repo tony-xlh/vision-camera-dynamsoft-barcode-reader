@@ -32,14 +32,19 @@ import java.nio.ByteBuffer;
 
 public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
     private BarcodeReader reader = null;
+    private String mTemplate = null;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Object callback(ImageProxy image, Object[] params) {
+        ReadableNativeMap config = getConfig(params);
         if (reader==null){
-            createDBRInstance(params);
+            createDBRInstance(config);
         }
 
+        updateRuntimeSettingsWithTemplate(config);
+
         Bitmap bitmap = toJpegImage(image.getImage(),100);
+        //Log.d("DBR","rotation degree: "+ image.getImageInfo().getRotationDegrees());
         if (image.getImageInfo().getRotationDegrees()!=0){
             bitmap = rotatedBitmap(bitmap, image.getImageInfo().getRotationDegrees());
         }
@@ -52,7 +57,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             e.printStackTrace();
         }
         WritableNativeArray array = new WritableNativeArray();
-        if (results!=null) {
+        if (results != null) {
             for (int i = 0; i < results.length; i++) {
                 Log.d("DBR",results[i].barcodeText);
                 array.pushMap(wrapResults(results[i]));
@@ -62,30 +67,22 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         return array;
     }
 
-    private void createDBRInstance(Object[] params) {
-        String template = null;
+    private void createDBRInstance(ReadableNativeMap config) {
         String license = null;
         String organizationID = "200001";
-
-        if (params.length>0){
-            if (params[0] instanceof ReadableNativeMap) {
-                ReadableNativeMap config = (ReadableNativeMap) params[0];
-                if (config.hasKey("template")) {
-                    template = config.getString("template");
-                }
-                if (config.hasKey("license")) {
-                    license = config.getString("license");
-                }
-                if (config.hasKey("organizationID")) {
-                    organizationID = config.getString("organizationID");
-                }
+        if (config != null){
+            if (config.hasKey("license")) {
+                license = config.getString("license");
+            }
+            if (config.hasKey("organizationID")) {
+                organizationID = config.getString("organizationID");
             }
         }
 
         try {
             // Create an instance of Dynamsoft Barcode Reader.
             reader = new BarcodeReader();
-            if (license!=null){
+            if (license != null){
                 reader.initLicense(license);
             }else{
                 // Initialize license for Dynamsoft Barcode Reader.
@@ -101,12 +98,53 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
                     }
                 });
             }
-            if (template!=null){
-                reader.initRuntimeSettingsWithString(template, EnumConflictMode.CM_OVERWRITE);
-            }
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateRuntimeSettingsWithTemplate(ReadableNativeMap config){
+        if (config == null){
+            return;
+        }
+        if (config.hasKey("template")) {
+            String template = config.getString("template");
+            Boolean shouldUpdate = false;
+            if (mTemplate == null){
+                shouldUpdate = true;
+            }else{
+                if (!mTemplate.equals(template)) {
+                    shouldUpdate = true;
+                }
+            }
+            if (shouldUpdate){
+                try {
+                    reader.initRuntimeSettingsWithString(template,EnumConflictMode.CM_OVERWRITE);
+                } catch (BarcodeReaderException e) {
+                    e.printStackTrace();
+                }
+                mTemplate = template;
+            }
+        }else{
+            if (mTemplate != null) {
+                mTemplate = null;
+                try {
+                    reader.resetRuntimeSettings();
+                } catch (BarcodeReaderException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private ReadableNativeMap getConfig(Object[] params){
+        if (params.length>0) {
+            if (params[0] instanceof ReadableNativeMap) {
+                ReadableNativeMap config = (ReadableNativeMap) params[0];
+                return config;
+            }
+        }
+        return null;
     }
 
     private WritableNativeMap wrapResults(TextResult result) {
