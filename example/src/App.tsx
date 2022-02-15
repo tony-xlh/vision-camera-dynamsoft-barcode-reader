@@ -28,7 +28,7 @@ export default function App() {
     REA.runOnJS(setFrameHeight)(frame.height);
   }, [])
 
-  function getPointsData(lr:TextResult){
+  const getPointsData = (lr:TextResult) => {
     var pointsData = lr.x1 + "," + lr.y1 + " ";
     pointsData = pointsData+lr.x2 + "," + lr.y2 +" ";
     pointsData = pointsData+lr.x3 + "," + lr.y3 +" ";
@@ -36,22 +36,30 @@ export default function App() {
     return pointsData;
   }
 
-  function getViewBox(){
-    let viewBox = null;
-    if (Platform.OS === 'android') {
-      if (frameWidth>frameHeight && Dimensions.get('window').width>Dimensions.get('window').height){
-        viewBox = "0 0 "+frameWidth+" "+frameHeight;
-      }else {
-        console.log("Has rotation");
-        viewBox = "0 0 "+frameHeight+" "+frameWidth;
-      }
-    } else {
-      viewBox = "0 0 "+frameWidth+" "+frameHeight;
-    }
-
+  const getViewBox = () => {
+    const frameSize = getFrameSize();
+    const viewBox = "0 0 "+frameSize[0]+" "+frameSize[1];
     console.log("viewBox"+viewBox);
     return viewBox;
   }
+
+  const getFrameSize = ():number[] => {
+    let width:number, height:number;
+    if (Platform.OS === 'android') {
+      if (frameWidth>frameHeight && Dimensions.get('window').width>Dimensions.get('window').height){
+        width = frameWidth;
+        height = frameHeight;
+      }else {
+        console.log("Has rotation");
+        width = frameHeight;
+        height = frameWidth;
+      }
+    } else {
+      width = frameWidth;
+      height = frameHeight;
+    }
+    return [width, height];
+  } 
 
   React.useEffect(() => {
     (async () => {
