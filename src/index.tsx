@@ -17,6 +17,7 @@ export interface DBRConfig{
   template?:string;
   organizationID?:string;
   license?:string;
+  isFront?:boolean;
 }
 
 

@@ -29,10 +29,17 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
     @Override
     public Object callback(ImageProxy image, Object[] params) {
         ReadableNativeMap config = getConfig(params);
+        Boolean isFront;
+        if (config.hasKey("isFront")){
+            isFront = config.getBoolean("isFront");
+        }else{
+            isFront = false;
+        }
         if (reader==null){
             createDBRInstance(config);
         }
 
+        Log.d("DBR","rotation degrees:"+image.getImageInfo().getRotationDegrees());
         updateRuntimeSettingsWithTemplate(config);
 
         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
@@ -52,7 +59,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         if (results != null) {
             for (int i = 0; i < results.length; i++) {
                 Log.d("DBR",results[i].barcodeText);
-                array.pushMap(wrapResults(results[i], image));
+                array.pushMap(wrapResults(results[i], image, isFront));
             }
         }
 
@@ -140,14 +147,14 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private WritableNativeMap wrapResults(TextResult result, ImageProxy image) {
+    private WritableNativeMap wrapResults(TextResult result, ImageProxy image, Boolean isFront) {
         WritableNativeMap map = new WritableNativeMap();
         map.putString("barcodeText",result.barcodeText);
         map.putString("barcodeFormat",result.barcodeFormatString);
         Point[] points = result.localizationResult.resultPoints;
         for (int i = 0; i <4 ; i++) {
             Point point = points[i];
-            Point rotated = rotatedPoint(point, image);
+            Point rotated = rotatedPoint(point, image, isFront);
             map.putInt("x"+(i+1), rotated.x);
             map.putInt("y"+(i+1), rotated.y);
         }
@@ -157,7 +164,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
 
     //rotate point to match camera preview
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private Point rotatedPoint(Point point, ImageProxy image){
+    private Point rotatedPoint(Point point, ImageProxy image, Boolean isFront){
         Point rotatedPoint = new Point();
         switch (image.getImageInfo().getRotationDegrees()){
             case 90:
@@ -167,6 +174,9 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             case 180:
                 rotatedPoint.x = image.getWidth() - point.x;
                 rotatedPoint.y = image.getHeight() - point.y;
+                if (isFront){ //front cam landscape
+                    rotatedPoint.x = image.getWidth() - rotatedPoint.x;
+                }
                 break;
             case 270:
                 rotatedPoint.x = image.getHeight() - point.y;
@@ -175,7 +185,11 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             default:
                 rotatedPoint.x = point.x;
                 rotatedPoint.y = point.y;
+                if (isFront){ //front cam landscape
+                    rotatedPoint.x = image.getWidth() - rotatedPoint.x;
+                }
         }
+
         return rotatedPoint;
     }
 
