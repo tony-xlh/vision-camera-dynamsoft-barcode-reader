@@ -18,6 +18,7 @@ export interface DBRConfig{
   organizationID?:string;
   license?:string;
   isFront?:boolean;
+  rotateImage?:boolean;
 }
 
 

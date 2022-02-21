@@ -1,6 +1,7 @@
 package com.visioncameradynamsoftbarcodereader;
 
-
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.util.Log;
 
@@ -30,40 +31,63 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
     public Object callback(ImageProxy image, Object[] params) {
         ReadableNativeMap config = getConfig(params);
         Boolean isFront;
+        Boolean rotateImage;
         if (config.hasKey("isFront")){
             isFront = config.getBoolean("isFront");
         }else{
             isFront = false;
         }
+
+        if (config.hasKey("rotateImage")){
+            rotateImage = config.getBoolean("rotateImage");
+        }else{
+            rotateImage = true;
+        }
+
         if (reader==null){
             createDBRInstance(config);
         }
 
-        Log.d("DBR","rotation degrees:"+image.getImageInfo().getRotationDegrees());
         updateRuntimeSettingsWithTemplate(config);
-
-        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-        int nRowStride = image.getPlanes()[0].getRowStride();
-        int nPixelStride = image.getPlanes()[0].getPixelStride();
-        int length = buffer.remaining();
-        byte[] bytes = new byte[length];
-        buffer.get(bytes);
         TextResult[] results = null;
-
         try {
-            results = reader.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21, "");
+            results = decode(image, rotateImage);
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
         }
+
+        Log.d("DBR","rotation degrees:"+image.getImageInfo().getRotationDegrees());
+
         WritableNativeArray array = new WritableNativeArray();
         if (results != null) {
             for (int i = 0; i < results.length; i++) {
                 Log.d("DBR",results[i].barcodeText);
-                array.pushMap(wrapResults(results[i], image, isFront));
+                array.pushMap(wrapResults(results[i], image, isFront, rotateImage));
             }
         }
 
         return array;
+    }
+
+    @SuppressLint("UnsafeOptInUsageError")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private TextResult[] decode(ImageProxy image, Boolean rotateImage) throws BarcodeReaderException {
+        TextResult[] results = null;
+        if (rotateImage){
+            Bitmap bitmap = BitmapUtils.getBitmap(image);
+            Log.d("DBR","bitmap width: "+bitmap.getWidth());
+            Log.d("DBR","bitmap height: "+bitmap.getHeight());
+            results = reader.decodeBufferedImage(bitmap, "");
+        }else{
+            ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+            int nRowStride = image.getPlanes()[0].getRowStride();
+            int nPixelStride = image.getPlanes()[0].getPixelStride();
+            int length = buffer.remaining();
+            byte[] bytes = new byte[length];
+            buffer.get(bytes);
+            results = reader.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21, "");
+        }
+        return results;
     }
 
     private void createDBRInstance(ReadableNativeMap config) {
@@ -147,18 +171,19 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private WritableNativeMap wrapResults(TextResult result, ImageProxy image, Boolean isFront) {
+    private WritableNativeMap wrapResults(TextResult result, ImageProxy image, Boolean isFront, Boolean rotateImage) {
         WritableNativeMap map = new WritableNativeMap();
         map.putString("barcodeText",result.barcodeText);
         map.putString("barcodeFormat",result.barcodeFormatString);
         Point[] points = result.localizationResult.resultPoints;
         for (int i = 0; i <4 ; i++) {
             Point point = points[i];
-            Point rotated = rotatedPoint(point, image, isFront);
-            map.putInt("x"+(i+1), rotated.x);
-            map.putInt("y"+(i+1), rotated.y);
+            if (!rotateImage){
+                point = rotatedPoint(point, image, isFront);
+            }
+            map.putInt("x"+(i+1), point.x);
+            map.putInt("y"+(i+1), point.y);
         }
-
         return map;
     }
 

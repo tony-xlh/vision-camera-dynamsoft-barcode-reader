@@ -17,7 +17,7 @@ export default function App() {
     'worklet'
     const config:DBRConfig = {};
     //config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ONED\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
-    
+    config.rotateImage = true;
     const results:TextResult[] = decode(frame,config)
     
     console.log("height: "+frame.height);
