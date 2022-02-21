@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 
 TextResult:
 
-```typescript
+```js
  TextResult{
     barcodeText:string;
     barcodeFormat:string;
@@ -106,7 +106,7 @@ TextResult:
 
 Configuration:
 
-```typescript
+```js
 DBRConfig{
   template?:string;
   organizationID?:string;
