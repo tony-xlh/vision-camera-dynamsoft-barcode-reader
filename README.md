@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 
 ```
 
-### Props
+### Interfaces
 
 TextResult:
 
@@ -167,6 +167,7 @@ You can check out the [example](https://github.com/xulihang/vision-camera-dynams
 
 * [Build a React Native Vision Camera Frame Processor Plugin to Scan Barcodes for Android](https://www.dynamsoft.com/codepool/react-native-vision-camera-barcode-plugin-android.html)
 * [Build a React Native Vision Camera Frame Processor Plugin to Scan Barcodes for iOS](https://www.dynamsoft.com/codepool/react-native-vision-camera-barcode-plugin-ios.html)
+* [Build a React Native QR Code Scanner using Vision Camera](https://www.dynamsoft.com/codepool/react-native-qr-code-scanner-vision-camera.html)
 
 ## Contributing
 
