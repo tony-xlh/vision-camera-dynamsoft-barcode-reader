@@ -393,7 +393,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample-frameworks.sh",
-				"${PODS_ROOT}/../../../DynamsoftBarcodeReader.framework",
+				"${PODS_ROOT}/DynamsoftBarcodeReader/DynamsoftBarcodeReader.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -570,7 +570,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.visioncameradynamsoftbarcodereader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.visioncameradbr;
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReaderExample;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -593,7 +593,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.visioncameradynamsoftbarcodereader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.visioncameradbr;
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReaderExample;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
