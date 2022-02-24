@@ -15,7 +15,6 @@
     "cpp",
     "vision-camera-dynamsoft-barcode-reader.podspec",
     "!lib/typescript/example",
-    "downloadAndUnzip.js",
     "!android/build",
     "!ios/build",
     "!**/__tests__",
@@ -30,8 +29,7 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods",
-    "postinstall": "npm install download && node downloadAndUnzip.js"
+    "bootstrap": "yarn example && yarn && yarn pods"
   },
   "keywords": [
     "react-native",
