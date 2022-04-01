@@ -19,6 +19,15 @@ make sure you correctly setup react-native-reanimated and add this to your babel
 ]
 ```
 
+### Android ProGuard Configuration
+
+```
+-keep class com.swmansion.reanimated.** { *; }
+-keep class com.facebook.react.turbomodule.** { *; }
+-keep class com.dynamsoft.dbr.** { *; }
+-keep class androidx.camera.core.** {*;}
+```
+
 ## Usage
 
 ```js
