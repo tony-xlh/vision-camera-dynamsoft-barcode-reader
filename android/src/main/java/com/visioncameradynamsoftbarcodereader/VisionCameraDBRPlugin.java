@@ -11,6 +11,7 @@ import androidx.camera.core.ImageProxy;
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.DBRDLSLicenseVerificationListener;
+import com.dynamsoft.dbr.DBRLicenseVerificationListener;
 import com.dynamsoft.dbr.DMDLSConnectionParameters;
 import com.dynamsoft.dbr.EnumConflictMode;
 import com.dynamsoft.dbr.EnumImagePixelFormat;
@@ -77,7 +78,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             Bitmap bitmap = BitmapUtils.getBitmap(image);
             Log.d("DBR","bitmap width: "+bitmap.getWidth());
             Log.d("DBR","bitmap height: "+bitmap.getHeight());
-            results = reader.decodeBufferedImage(bitmap, "");
+            results = reader.decodeBufferedImage(bitmap);
         }else{
             ByteBuffer buffer = image.getPlanes()[0].getBuffer();
             int nRowStride = image.getPlanes()[0].getRowStride();
@@ -91,36 +92,23 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
     }
 
     private void createDBRInstance(ReadableNativeMap config) {
-        String license = null;
-        String organizationID = "200001";
+        String license = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
         if (config != null){
             if (config.hasKey("license")) {
                 license = config.getString("license");
             }
-            if (config.hasKey("organizationID")) {
-                organizationID = config.getString("organizationID");
-            }
         }
 
-        try {
-            // Create an instance of Dynamsoft Barcode Reader.
-            reader = new BarcodeReader();
-            if (license != null){
-                reader.initLicense(license);
-            }else{
-                // Initialize license for Dynamsoft Barcode Reader.
-                // The organization id 200001 here will grant you a public trial license good for 7 days. Note that network connection is required for this license to work.
-                // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-                // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
-                DMDLSConnectionParameters dbrParameters = new DMDLSConnectionParameters();
-                dbrParameters.organizationID = organizationID;
-                reader.initLicenseFromDLS(dbrParameters, new DBRDLSLicenseVerificationListener() {
-                    @Override
-                    public void DLSLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-
-                    }
-                });
+        BarcodeReader.initLicense(license, new DBRLicenseVerificationListener() {
+            @Override
+            public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
+                if (!isSuccessful) {
+                    e.printStackTrace();
+                }
             }
+        });
+        try {
+            reader = new BarcodeReader();
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
         }

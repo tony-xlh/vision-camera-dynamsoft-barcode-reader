@@ -57,13 +57,13 @@ repositories {
     }
     google()
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
+    def camerax_version = '1.1.0-beta01'
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"
-    implementation "androidx.camera:camera-core:1.1.0-alpha12"
+    implementation "androidx.camera:camera-core:$camerax_version"
     implementation project(path: ':react-native-vision-camera')  // From node_modules
-    implementation 'com.dynamsoft:dynamsoftbarcodereader:8.9.1@aar'
+    implementation 'com.dynamsoft:dynamsoftbarcodereader:9.0.0@aar'
 }

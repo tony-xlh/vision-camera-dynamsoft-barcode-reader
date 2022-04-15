@@ -15,7 +15,6 @@ export interface TextResult{
 
 export interface DBRConfig{
   template?:string;
-  organizationID?:string;
   license?:string;
   isFront?:boolean;
   rotateImage?:boolean;
