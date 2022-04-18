@@ -1,5 +1,5 @@
 //
-//  BarcodeScanner.swift
+//  BarcodeReaderInitializer.swift
 //  vision-camera-dynamsoft-barcode-reader
 //
 //  Created by xulihang on 2022/4/17.
