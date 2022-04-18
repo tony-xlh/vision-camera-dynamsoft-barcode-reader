@@ -9,7 +9,7 @@ import Foundation
 import DynamsoftBarcodeReader
 
 @objc(VisionCameraDBRPlugin)
-public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase, DBRLicenseVerificationListener {
+public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
 
     
     private static var barcodeReader:DynamsoftBarcodeReader! = nil
@@ -19,7 +19,7 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase, DBRLicen
     public static func callback(_ frame: Frame!, withArgs args: [Any]!) -> Any! {
         let config = getConfig(withArgs: args)
         if barcodeReader == nil {
-            configurationDBR(config: config)
+            initDBR(config: config)
         }
         
         updateRuntimeSettingsWithTemplate(config: config)
@@ -49,20 +49,13 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase, DBRLicen
         return returned_results
     }
     
-    static func configurationDBR(config: [String:String]!) {
+    static func initDBR(config: [String:String]!) {
         var license = "";
-        license = config?["license"] ?? ""
-        DynamsoftBarcodeReader.initLicense(license, verificationDelegate: self)
-        barcodeReader = DynamsoftBarcodeReader.init()
+        license = config?["license"] ?? "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ=="
+        let initializer = BarcodeReaderInitializer();
+        barcodeReader = initializer.configurationDBR(license: license)
      }
        
-    
-    public func dbrLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
-        let err = error as NSError?
-        if(err != nil){
-            print("Server DBR license verify failed")
-        }
-    }
     
     static func getConfig(withArgs args: [Any]!) -> [String:String]!{
         if args.count>0 {
