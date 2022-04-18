@@ -9,7 +9,9 @@ import Foundation
 import DynamsoftBarcodeReader
 
 @objc(VisionCameraDBRPlugin)
-public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
+public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase, DBRLicenseVerificationListener {
+
+    
     private static var barcodeReader:DynamsoftBarcodeReader! = nil
     private static var mTemplate:String! = nil
     private static let context = CIContext(options: nil)
@@ -35,7 +37,7 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
         var returned_results: [Any] = []
         let image = UIImage(cgImage: cgImage)
         // code goes here
-        let results = try? barcodeReader.decode(image, withTemplate: "")
+        let results = try? barcodeReader.decodeImage(image)
         let count = results?.count ?? 0
         if count > 0 {
             for index in 0..<count {
@@ -49,22 +51,18 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
     
     static func configurationDBR(config: [String:String]!) {
         var license = "";
-        var organizationID = "200001";
-
         license = config?["license"] ?? ""
-        organizationID = config?["organizationID"] ?? "200001"
-        
-
-        let dls = iDMDLSConnectionParameters()
-        if license != "" {
-           barcodeReader = DynamsoftBarcodeReader(license: license)
-        }else{
-           dls.organizationID = organizationID
-           barcodeReader = DynamsoftBarcodeReader(licenseFromDLS: dls, verificationDelegate: self)
-        }
-        
-
+        DynamsoftBarcodeReader.initLicense(license, verificationDelegate: self)
+        barcodeReader = DynamsoftBarcodeReader.init()
      }
+       
+    
+    public func dbrLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
+        let err = error as NSError?
+        if(err != nil){
+            print("Server DBR license verify failed")
+        }
+    }
     
     static func getConfig(withArgs args: [Any]!) -> [String:String]!{
         if args.count>0 {
@@ -88,15 +86,13 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
             }
             
             if shouldUpdate {
-                var error: NSError? = NSError()
-                barcodeReader.initRuntimeSettings(with: template, conflictMode: EnumConflictMode.overwrite, error: &error)
+                try? barcodeReader.initRuntimeSettingsWithString(template, conflictMode: EnumConflictMode.overwrite)
                 mTemplate = template
             }
             
         } else {
             if mTemplate != nil {
-                var error: NSError? = NSError()
-                barcodeReader.resetRuntimeSettings(&error)
+                try? barcodeReader.resetRuntimeSettings()
                 mTemplate = nil
             }
         }
