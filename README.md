@@ -118,7 +118,6 @@ Configuration:
 ```js
 DBRConfig{
   template?:string;
-  organizationID?:string;
   license?:string;
   isFront?:boolean;
   rotateImage?:boolean;
@@ -134,6 +133,7 @@ DBRConfig{
 
 ## Supported Barcode Symbologies
 
+* Code 11
 * Code 39
 * Code 93
 * Code 128
@@ -177,6 +177,12 @@ You can check out the [example](https://github.com/xulihang/vision-camera-dynams
 * [Build a React Native Vision Camera Frame Processor Plugin to Scan Barcodes for Android](https://www.dynamsoft.com/codepool/react-native-vision-camera-barcode-plugin-android.html)
 * [Build a React Native Vision Camera Frame Processor Plugin to Scan Barcodes for iOS](https://www.dynamsoft.com/codepool/react-native-vision-camera-barcode-plugin-ios.html)
 * [Build a React Native QR Code Scanner using Vision Camera](https://www.dynamsoft.com/codepool/react-native-qr-code-scanner-vision-camera.html)
+
+## Versions
+
+For versions >= 0.4.0, Dynamsoft Barcode Reader 9.x is used.
+
+For versions < 0.4.0, Dynamsoft Barcode Reader 8.x is used.
 
 ## Contributing
 

@@ -86,7 +86,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             int length = buffer.remaining();
             byte[] bytes = new byte[length];
             buffer.get(bytes);
-            results = reader.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21, "");
+            results = reader.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
         }
         return results;
     }
