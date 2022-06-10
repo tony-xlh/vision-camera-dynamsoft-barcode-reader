@@ -65,5 +65,5 @@ dependencies {
     implementation "com.facebook.react:react-native:+"
     implementation "androidx.camera:camera-core:$camerax_version"
     implementation project(path: ':react-native-vision-camera')  // From node_modules
-    implementation 'com.dynamsoft:dynamsoftbarcodereader:9.0.0@aar'
+    implementation 'com.dynamsoft:dynamsoftbarcodereader:9.0.2@aar'
 }
