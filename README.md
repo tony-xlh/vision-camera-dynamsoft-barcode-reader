@@ -1,6 +1,8 @@
 # vision-camera-dynamsoft-barcode-reader
 
-React Native Vision Camera Frame Processor Plugin of [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/)
+React Native Vision Camera Frame Processor Plugin of [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/).
+
+If you only need to scan barcodes and do not want to use Vision Camera, you can use [Dynamsoft Capture Vision](https://github.com/Dynamsoft/capture-vision-react-native).
 
 ## Installation
 
