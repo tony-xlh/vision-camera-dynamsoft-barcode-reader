@@ -1,7 +1,7 @@
 PODS:
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
-  - DynamsoftBarcodeReader (9.0.0)
+  - DynamsoftBarcodeReader (9.2.12)
   - FBLazyVector (0.64.3)
   - FBReactNativeSpec (0.64.3):
     - RCT-Folly (= 2020.01.13.00)
@@ -296,10 +296,10 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSVG (12.1.1):
-    - React
-  - vision-camera-dynamsoft-barcode-reader (0.4.0):
-    - DynamsoftBarcodeReader (= 9.0.0)
+  - RNSVG (12.3.0):
+    - React-Core
+  - vision-camera-dynamsoft-barcode-reader (0.4.4):
+    - DynamsoftBarcodeReader (= 9.2.12)
     - React-Core
   - VisionCamera (2.12.0):
     - React
@@ -417,9 +417,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
-  DynamsoftBarcodeReader: 906e1fc9dfde3cf55020f39cfaf551a28d9e278e
+  DynamsoftBarcodeReader: 0a72b82df80ed6dc896863dab22db8cdf0eb9a43
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
-  FBReactNativeSpec: 1051eb683f3abc84cd3066e961a50955eb7f53d2
+  FBReactNativeSpec: c0381ccfa55b6d8b7305084a6d8d74a790382fc2
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: d34bf57e17cb6e3b2681f4809b13843c021feb6c
@@ -445,8 +445,8 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 493d9abb8b23c3f84e19ae221eeba92cadcb70dc
   ReactCommon: 8fea6422328e2fc093e25c9fac67adbcf0f04fb4
   RNReanimated: 7f143675d94978c3555345d5bfa8ed6ae800c5d3
-  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
-  vision-camera-dynamsoft-barcode-reader: 7601dfd8cc1299f0ab75b3cddc9af80791cbe9df
+  RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
+  vision-camera-dynamsoft-barcode-reader: bc8ddd10d5607ad06bdd0eaea62de3233cc1425f
   VisionCamera: 2acf8cebb8924b6105ad6448af3a64b7b9ee816e
   Yoga: e6ecf3fa25af9d4c87e94ad7d5d292eedef49749
 
