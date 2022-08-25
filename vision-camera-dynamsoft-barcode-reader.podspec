@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
   s.libraries = 'c++'
-  s.dependency 'DynamsoftBarcodeReader', '= 9.0.2'
+  s.dependency 'DynamsoftBarcodeReader', '= 9.2.12'
   s.dependency "React-Core"
 end
