@@ -570,7 +570,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xulihang.visioncameradbr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xulihang.visioncameradbrexample;
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReaderExample;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -593,7 +593,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xulihang.visioncameradbr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xulihang.visioncameradbrexample;
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReaderExample;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
