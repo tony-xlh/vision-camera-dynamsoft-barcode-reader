@@ -3,6 +3,7 @@ package com.visioncameradynamsoftbarcodereader;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -163,6 +164,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         WritableNativeMap map = new WritableNativeMap();
         map.putString("barcodeText",result.barcodeText);
         map.putString("barcodeFormat",result.barcodeFormatString);
+        map.putString("barcodeBytesBase64", Base64.encodeToString(result.barcodeBytes,Base64.DEFAULT));
         Point[] points = result.localizationResult.resultPoints;
         for (int i = 0; i <4 ; i++) {
             Point point = points[i];

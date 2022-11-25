@@ -96,7 +96,8 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
         
         map["barcodeText"] = result.barcodeText
         map["barcodeFormat"] = result.barcodeFormatString
-        
+        map["barcodeBytesBase64"] = result.barcodeBytes?.base64EncodedString()
+
         let points = result.localizationResult?.resultPoints as! [CGPoint]
         map["x1"] = points[0].x
         map["x2"] = points[1].x

@@ -3,6 +3,7 @@ import type { Frame } from 'react-native-vision-camera'
 export interface TextResult{
     barcodeText:string;
     barcodeFormat:string;
+    barcodeBytesBase64:string;
     x1:number;
     x2:number;
     x3:number;
@@ -20,11 +21,9 @@ export interface DBRConfig{
   rotateImage?:boolean;
 }
 
-
-
-  export function decode(frame: Frame, config: DBRConfig): TextResult[] {
-    'worklet'
-    // @ts-ignore
-    // eslint-disable-next-line no-undef
-    return __decode(frame, config)
-  }
+export function decode(frame: Frame, config: DBRConfig): TextResult[] {
+  'worklet'
+  // @ts-ignore
+  // eslint-disable-next-line no-undef
+  return __decode(frame, config)
+}
