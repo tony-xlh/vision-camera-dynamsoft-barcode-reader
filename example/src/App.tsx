@@ -22,6 +22,7 @@ export default function App() {
     
     console.log("height: "+frame.height);
     console.log("width: "+frame.width);
+    console.log(results);
     
     REA.runOnJS(setBarcodeResults)(results);
     REA.runOnJS(setFrameWidth)(frame.width);
