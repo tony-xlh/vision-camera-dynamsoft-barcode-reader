@@ -104,7 +104,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1
+    flex:1,
+    alignItems:'center',
   },
   title: {
     textAlign: 'center',
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   switchView: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     flexDirection: "row",
   },
   barcodeText: {
