@@ -1,114 +1,121 @@
 import * as React from 'react';
-import { Dimensions, Platform, SafeAreaView, StyleSheet, Text } from 'react-native';
-import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
-import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
-import * as REA from 'react-native-reanimated';
-import { Polygon, Svg } from 'react-native-svg';
+import { Alert, Button, SafeAreaView, StyleSheet, Switch, Text, View } from 'react-native';
+import type { TextResult } from 'vision-camera-dynamsoft-barcode-reader';
+import BarcodeScanner from './components/BarcodeScanner';
+import * as DBR from 'vision-camera-dynamsoft-barcode-reader';
+import {launchImageLibrary, ImageLibraryOptions} from 'react-native-image-picker';
+
+const Separator = () => (
+  <View style={styles.separator} />
+);
 
 export default function App() {
-  const [hasPermission, setHasPermission] = React.useState(false);
+  const [useCamera,setUseCamera] = React.useState(false);
+  const [continuous, setContinuous] = React.useState(false);
   const [barcodeResults, setBarcodeResults] = React.useState([] as TextResult[]);
-  const [frameWidth, setFrameWidth] = React.useState(720);
-  const [frameHeight, setFrameHeight] = React.useState(1280);
-  const devices = useCameraDevices();
-  const device = devices.back;
+  const toggleSwitch = () => setContinuous(previousState => !previousState);
   
-  const frameProcessor = useFrameProcessor((frame) => {
-    'worklet'
-    const config:DBRConfig = {};
-    //config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ONED\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
-    config.rotateImage = false;
-    const results:TextResult[] = decode(frame,config)
-    
-    console.log("height: "+frame.height);
-    console.log("width: "+frame.width);
-    console.log(results);
-    
-    REA.runOnJS(setBarcodeResults)(results);
-    REA.runOnJS(setFrameWidth)(frame.width);
-    REA.runOnJS(setFrameHeight)(frame.height);
-  }, [])
-
-  const getPointsData = (lr:TextResult) => {
-    var pointsData = lr.x1 + "," + lr.y1 + " ";
-    pointsData = pointsData+lr.x2 + "," + lr.y2 +" ";
-    pointsData = pointsData+lr.x3 + "," + lr.y3 +" ";
-    pointsData = pointsData+lr.x4 + "," + lr.y4;
-    return pointsData;
-  }
-
-  const getViewBox = () => {
-    const frameSize = getFrameSize();
-    const viewBox = "0 0 "+frameSize[0]+" "+frameSize[1];
-    console.log("viewBox"+viewBox);
-    return viewBox;
-  }
-
-  const getFrameSize = ():number[] => {
-    let width:number, height:number;
-    if (Platform.OS === 'android') {
-      if (frameWidth>frameHeight && Dimensions.get('window').width>Dimensions.get('window').height){
-        width = frameWidth;
-        height = frameHeight;
-      }else {
-        console.log("Has rotation");
-        width = frameHeight;
-        height = frameWidth;
-      }
-    } else {
-      width = frameWidth;
-      height = frameHeight;
-    }
-    return [width, height];
-  } 
-
   React.useEffect(() => {
     (async () => {
-      const status = await Camera.requestCameraPermission();
-      setHasPermission(status === 'authorized');
+      await DBR.initLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
     })();
   }, []);
 
-  return (
-      <SafeAreaView style={styles.container}>
-        {device != null &&
-        hasPermission && (
-        <>
-            <Camera
-            style={StyleSheet.absoluteFill}
-            device={device}
-            isActive={true}
-            frameProcessor={frameProcessor}
-            frameProcessorFps={5}
-            />
-            {barcodeResults.map((barcode, idx) => (
-            <Text key={idx} style={styles.barcodeText}>
-                {barcode.barcodeFormat +": "+ barcode.barcodeText}
-            </Text>
-            ))}
-        </>)}
-        <Svg style={[StyleSheet.absoluteFill]} 
-          preserveAspectRatio="xMidYMid slice"
-          viewBox={getViewBox()}>
+  const onScanned = (results:TextResult[]) => {
+    setBarcodeResults(results);
+    if (results.length>0 && !continuous) {
+      setUseCamera(false);
+    }
+  }
 
-          {barcodeResults.map((barcode, idx) => (
-            <Polygon key={idx}
-            points={getPointsData(barcode)}
-            fill="lime"
-            stroke="green"
-            opacity="0.5"
-            strokeWidth="1"
-          />
-          ))}
+  const decodeFromAlbum = async () => {
+    let options: ImageLibraryOptions = {
+      mediaType: 'photo',
+      includeBase64: true,
+    }
+    let response = await launchImageLibrary(options);
+    if (response && response.assets) {
+      if (response.assets[0].base64) {
+        console.log(response.assets[0].base64);
+        let results = await DBR.decodeBase64(response.assets[0].base64);
+        setBarcodeResults(results);
+      }
+    }
+  }
+
+  return (
+    <>
+      {useCamera && (
+        <>
+          <BarcodeScanner onScanned={onScanned}></BarcodeScanner>
+          <View
+            style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'flex-end', alignItems: 'center'}}
+          >
+            <Button
+              title="Close"
+              onPress={() => setUseCamera(false)}
+            />
+          </View>
+        </>
+        
+      )}
+      {!useCamera &&(
+        <SafeAreaView style={styles.container}>
+          <View>
+            <Text style={styles.title}>
+              Dynamsoft Barcode Reader Demo
+            </Text>
+            <Button
+              title="Read Barcodes from the Camera"
+              onPress={() => setUseCamera(true)}
+            />
+            <Separator />
+            <View style={styles.switchView}>
+              <Text style={{alignSelf: 'center'}}>
+                Continues Scan
+              </Text>
+              <Switch 
+                style={{alignSelf: 'center'}}
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                thumbColor={continuous ? "#f5dd4b" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={continuous}
+              />
+            </View>
+            <Separator />
+            <Button
+              title="Read Barcodes from the Album"
+              onPress={() => decodeFromAlbum()}
+            />
+            <Separator />
+            {barcodeResults.map((barcode, idx) => (
+              <Text key={idx}>
+                {barcode.barcodeFormat+": "+barcode.barcodeText}
+              </Text>
+            ))}
+          </View>
           
-        </Svg>
-      </SafeAreaView>
+        </SafeAreaView>
+      )}
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex:1
+  },
+  title: {
+    textAlign: 'center',
+    marginVertical: 8,
+  },
+  separator: {
+    marginVertical: 4,
+  },
+  switchView: {
+    alignItems: 'flex-start',
+    flexDirection: "row",
   },
   barcodeText: {
     fontSize: 20,
