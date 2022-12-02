@@ -17,7 +17,7 @@ export default function App() {
     'worklet'
     const config:DBRConfig = {};
     //config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ONED\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
-    config.rotateImage = true;
+    config.rotateImage = false;
     const results:TextResult[] = decode(frame,config)
     
     console.log("height: "+frame.height);
@@ -87,7 +87,9 @@ export default function App() {
             </Text>
             ))}
         </>)}
-        <Svg style={[StyleSheet.absoluteFill]} viewBox={getViewBox()}>
+        <Svg style={[StyleSheet.absoluteFill]} 
+          preserveAspectRatio="xMidYMid slice"
+          viewBox={getViewBox()}>
 
           {barcodeResults.map((barcode, idx) => (
             <Polygon key={idx}
