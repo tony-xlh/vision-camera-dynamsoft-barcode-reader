@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Alert, Button, SafeAreaView, StyleSheet, Switch, Text, View } from 'react-native';
+import { Button, SafeAreaView, StyleSheet, Switch, Text, View } from 'react-native';
 import type { TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 import BarcodeScanner from './components/BarcodeScanner';
 import * as DBR from 'vision-camera-dynamsoft-barcode-reader';
@@ -44,7 +44,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <SafeAreaView style={styles.container}>
       {useCamera && (
         <>
           <BarcodeScanner onScanned={onScanned}></BarcodeScanner>
@@ -60,8 +60,7 @@ export default function App() {
         
       )}
       {!useCamera &&(
-        <SafeAreaView style={styles.container}>
-          <View>
+          <View style={{alignItems:"center"}}>
             <Text style={styles.title}>
               Dynamsoft Barcode Reader Demo
             </Text>
@@ -95,17 +94,14 @@ export default function App() {
               </Text>
             ))}
           </View>
-          
-        </SafeAreaView>
       )}
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    alignItems:'center',
   },
   title: {
     textAlign: 'center',

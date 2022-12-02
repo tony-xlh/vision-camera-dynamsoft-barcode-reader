@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, Platform, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { Dimensions, Platform, StyleSheet, Text } from 'react-native';
 import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 import * as REA from 'react-native-reanimated';
@@ -80,7 +80,7 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
   }, [barcodeResults]);
 
   return (
-      <SafeAreaView style={styles.container}>
+      <>
         {device != null &&
         hasPermission && (
         <>
@@ -111,16 +111,13 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
           />
           ))}
         </Svg>
-      </SafeAreaView>
+      </>
   );
 }
 
 export default BarcodeScanner;
 
 const styles = StyleSheet.create({
-  container: {
-    flex:1
-  },
   barcodeText: {
     fontSize: 20,
     color: 'white',
