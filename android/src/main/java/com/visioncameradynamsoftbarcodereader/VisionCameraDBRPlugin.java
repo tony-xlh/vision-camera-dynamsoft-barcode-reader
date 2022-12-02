@@ -47,6 +47,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             rotateImage = true;
         }
 
+        //for compability
         initLicense(config);
         updateRuntimeSettingsWithTemplate(config);
 
@@ -95,7 +96,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         if (config != null){
             if (config.hasKey("license")) {
                 String license = config.getString("license");
-                if (license != mLicense) {
+                if (mLicense == null || mLicense.equals(license) == false) {
                     mLicense = license;
                     BarcodeReader.initLicense(license, new DBRLicenseVerificationListener() {
                         @Override
