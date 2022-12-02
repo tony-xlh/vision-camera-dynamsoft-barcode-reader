@@ -48,7 +48,7 @@ export function decode(frame: Frame, config: DBRConfig): TextResult[] {
 }
 
 /**
- * Init the license of Dynamsoft Document Normalizer
+ * Init the license of Dynamsoft Barcode Reader
  */
  export function initLicense(license:string): Promise<boolean> {
   return VisionCameraDynamsoftBarcodeReader.initLicense(license);
