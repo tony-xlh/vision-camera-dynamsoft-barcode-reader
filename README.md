@@ -32,69 +32,83 @@ make sure you correctly setup react-native-reanimated and add this to your babel
 
 ## Usage
 
-```js
-import * as React from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
-import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
-import * as REA from 'react-native-reanimated';
+1. Scan barcodes from the camera preview.
 
-export default function App() {
-  const [hasPermission, setHasPermission] = React.useState(false);
-  const [barcodeResults, setBarcodeResults] = React.useState([] as TextResult[]);
-  const devices = useCameraDevices();
-  const device = devices.back;
-  const frameProcessor = useFrameProcessor((frame) => {
-    'worklet'
-    const config:DBRConfig = {};
-    config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}"; //scan qrcode only
+   ```ts
+   import * as React from 'react';
+   import { StyleSheet, Text } from 'react-native';
+   import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
+   import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
+   import * as REA from 'react-native-reanimated';
 
-    const results:TextResult[] = decode(frame,config)
-    REA.runOnJS(setBarcodeResults)(results);
-  }, [])
+   export default function App() {
+     const [hasPermission, setHasPermission] = React.useState(false);
+     const [barcodeResults, setBarcodeResults] = React.useState([] as TextResult[]);
+     const devices = useCameraDevices();
+     const device = devices.back;
+     const frameProcessor = useFrameProcessor((frame) => {
+       'worklet'
+       const config:DBRConfig = {};
+       config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}"; //scan qrcode only
 
-  React.useEffect(() => {
-    (async () => {
-      const status = await Camera.requestCameraPermission();
-      setHasPermission(status === 'authorized');
-    })();
-  }, []);
+       const results:TextResult[] = decode(frame,config)
+       REA.runOnJS(setBarcodeResults)(results);
+     }, [])
 
-  return (
-    device != null &&
-    hasPermission && (
-      <>
-        <Camera
-          style={StyleSheet.absoluteFill}
-          device={device}
-          isActive={true}
-          frameProcessor={frameProcessor}
-          frameProcessorFps={5}
-        />
-        {barcodeResults.map((barcode, idx) => (
-          <Text key={idx} style={styles.barcodeText}>
-            {barcode.barcodeFormat +": "+ barcode.barcodeText}
-          </Text>
-        ))}
-      </>
-    )
-  );
-}
+     React.useEffect(() => {
+       (async () => {
+         const status = await Camera.requestCameraPermission();
+         setHasPermission(status === 'authorized');
+       })();
+     }, []);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  barcodeText: {
-    fontSize: 20,
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
+     return (
+       device != null &&
+       hasPermission && (
+         <>
+           <Camera
+             style={StyleSheet.absoluteFill}
+             device={device}
+             isActive={true}
+             frameProcessor={frameProcessor}
+             frameProcessorFps={5}
+           />
+           {barcodeResults.map((barcode, idx) => (
+             <Text key={idx} style={styles.barcodeText}>
+               {barcode.barcodeFormat +": "+ barcode.barcodeText}
+             </Text>
+           ))}
+         </>
+       )
+     );
+   }
 
-```
+   const styles = StyleSheet.create({
+     container: {
+       flex: 1,
+       alignItems: 'center',
+       justifyContent: 'center',
+     },
+     barcodeText: {
+       fontSize: 20,
+       color: 'white',
+       fontWeight: 'bold',
+     },
+   });
+
+   ```
+
+2. Scan barcodes from a base64-encoded static image.
+
+   ```ts
+   let results = await decodeBase64(base64);
+   ```
+
+3. License initialization ([apply for a trial license](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr)).
+
+   ```ts
+   await initLicense("your license");
+   ```
 
 ### Interfaces
 
@@ -104,6 +118,7 @@ TextResult:
  TextResult{
     barcodeText:string;
     barcodeFormat:string;
+    barcodeBytesBase64:string;
     x1:number;
     x2:number;
     x3:number;
