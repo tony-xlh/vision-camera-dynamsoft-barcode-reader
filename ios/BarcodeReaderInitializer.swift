@@ -10,11 +10,8 @@ import DynamsoftBarcodeReader
 
 public class BarcodeReaderInitializer: NSObject, DBRLicenseVerificationListener {
     
-    func configurationDBR(license:String) -> DynamsoftBarcodeReader {
-        var dbr:DynamsoftBarcodeReader
+    func initLicense(license:String) {
         DynamsoftBarcodeReader.initLicense(license, verificationDelegate: self)
-        dbr = DynamsoftBarcodeReader.init()
-        return dbr
     }
     
     public func dbrLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {

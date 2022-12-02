@@ -11,17 +11,15 @@ import DynamsoftBarcodeReader
 @objc(VisionCameraDBRPlugin)
 public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
 
-    
-    private static var barcodeReader:DynamsoftBarcodeReader! = nil
     private static var mTemplate:String! = nil
+    private static var mLicense:String! = nil
     private static let context = CIContext(options: nil)
     @objc
     public static func callback(_ frame: Frame!, withArgs args: [Any]!) -> Any! {
         let config = getConfig(withArgs: args)
-        if barcodeReader == nil {
-            initDBR(config: config)
-        }
-        
+
+        //for compatibility
+        initLicense(config: config)
         updateRuntimeSettingsWithTemplate(config: config)
         
         guard let imageBuffer = CMSampleBufferGetImageBuffer(frame.buffer) else {
@@ -37,24 +35,30 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
         var returned_results: [Any] = []
         let image = UIImage(cgImage: cgImage)
         // code goes here
-        let results = try? barcodeReader.decodeImage(image)
+        let results = try? VisionCameraDynamsoftBarcodeReader.dbr.decodeImage(image)
         let count = results?.count ?? 0
         if count > 0 {
             for index in 0..<count {
                 let tr = results![index]
-                returned_results.append(wrapResult(result: tr))
+                returned_results.append(VisionCameraDynamsoftBarcodeReader.wrapResult(result: tr))
             }
             print("Found barcodes")
         }
         return returned_results
     }
     
-    static func initDBR(config: [String:String]!) {
-        var license = "";
-        license = config?["license"] ?? "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ=="
-        let initializer = BarcodeReaderInitializer();
-        barcodeReader = initializer.configurationDBR(license: license)
+    static func initLicense(config: [String:String]!) {
+        if config?["license"] != nil {
+            let license = config?["license"] ?? "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ=="
+            if license != mLicense {
+                mLicense = license
+                let initializer = BarcodeReaderInitializer()
+                initializer.initLicense(license: license)
+            }
+        }
      }
+    
+
        
     
     static func getConfig(withArgs args: [Any]!) -> [String:String]!{
@@ -79,37 +83,19 @@ public class VisionCameraDBRPlugin: NSObject, FrameProcessorPluginBase {
             }
             
             if shouldUpdate {
-                try? barcodeReader.initRuntimeSettingsWithString(template, conflictMode: EnumConflictMode.overwrite)
+                try? VisionCameraDynamsoftBarcodeReader.dbr.initRuntimeSettingsWithString(template, conflictMode: EnumConflictMode.overwrite)
                 mTemplate = template
             }
             
         } else {
             if mTemplate != nil {
-                try? barcodeReader.resetRuntimeSettings()
+                try? VisionCameraDynamsoftBarcodeReader.dbr.resetRuntimeSettings()
                 mTemplate = nil
             }
         }
     }
     
-    static func wrapResult(result: iTextResult) -> Any {
-        var map: [String: Any] = [:]
-        
-        map["barcodeText"] = result.barcodeText
-        map["barcodeFormat"] = result.barcodeFormatString
-        map["barcodeBytesBase64"] = result.barcodeBytes?.base64EncodedString()
-
-        let points = result.localizationResult?.resultPoints as! [CGPoint]
-        map["x1"] = points[0].x
-        map["x2"] = points[1].x
-        map["x3"] = points[2].x
-        map["x4"] = points[3].x
-        map["y1"] = points[0].y
-        map["y2"] = points[1].y
-        map["y3"] = points[2].y
-        map["y4"] = points[3].y
-        
-        return map
-    }
+    
 
 
 }
