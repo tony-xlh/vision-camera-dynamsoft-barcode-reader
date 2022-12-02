@@ -17,8 +17,10 @@ public class VisionCameraDynamsoftBarcodeReaderPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        //modules.add(new VisionCameraDynamsoftBarcodeReaderModule(reactContext));
-        FrameProcessorPlugin.register(new VisionCameraDBRPlugin());
+        VisionCameraDynamsoftBarcodeReaderModule module = new VisionCameraDynamsoftBarcodeReaderModule(reactContext);
+        modules.add(module);
+        VisionCameraDBRPlugin plugin = new VisionCameraDBRPlugin(module);
+        FrameProcessorPlugin.register(plugin);
         return modules;
     }
 

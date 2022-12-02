@@ -27,6 +27,8 @@ import android.media.Image;
 import android.media.Image.Plane;
 import android.os.Build.VERSION_CODES;
 import androidx.annotation.Nullable;
+
+import android.util.Base64;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.camera.core.ExperimentalGetImage;
@@ -206,4 +208,10 @@ public class BitmapUtils {
             rowStart += plane.getRowStride();
         }
     }
+
+    public static Bitmap base642Bitmap(String base64) {
+        byte[] decode = Base64.decode(base64,Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decode,0,decode.length);
+    }
+
 }

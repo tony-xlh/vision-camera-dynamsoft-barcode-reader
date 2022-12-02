@@ -26,8 +26,9 @@ import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
 import java.nio.ByteBuffer;
 
 public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
-    private BarcodeReader reader = null;
+    private VisionCameraDynamsoftBarcodeReaderModule mModule;
     private String mTemplate = null;
+    private String mLicense = null;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Object callback(ImageProxy image, Object[] params) {
@@ -46,11 +47,9 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             rotateImage = true;
         }
 
-        if (reader==null){
-            createDBRInstance(config);
-        }
-
+        initLicense(config);
         updateRuntimeSettingsWithTemplate(config);
+
         TextResult[] results = null;
         try {
             results = decode(image, rotateImage);
@@ -64,7 +63,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         if (results != null) {
             for (int i = 0; i < results.length; i++) {
                 Log.d("DBR",results[i].barcodeText);
-                array.pushMap(wrapResults(results[i], image, isFront, rotateImage));
+                array.pushMap(Utils.wrapResults(results[i], image, isFront, rotateImage));
             }
         }
 
@@ -79,7 +78,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             Bitmap bitmap = BitmapUtils.getBitmap(image);
             Log.d("DBR","bitmap width: "+bitmap.getWidth());
             Log.d("DBR","bitmap height: "+bitmap.getHeight());
-            results = reader.decodeBufferedImage(bitmap);
+            results = mModule.getDBR().decodeBufferedImage(bitmap);
         }else{
             ByteBuffer buffer = image.getPlanes()[0].getBuffer();
             int nRowStride = image.getPlanes()[0].getRowStride();
@@ -87,31 +86,27 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             int length = buffer.remaining();
             byte[] bytes = new byte[length];
             buffer.get(bytes);
-            results = reader.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
+            results = mModule.getDBR().decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
         }
         return results;
     }
 
-    private void createDBRInstance(ReadableNativeMap config) {
-        String license = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
+    private void initLicense(ReadableNativeMap config) {
         if (config != null){
             if (config.hasKey("license")) {
-                license = config.getString("license");
-            }
-        }
-
-        BarcodeReader.initLicense(license, new DBRLicenseVerificationListener() {
-            @Override
-            public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-                if (!isSuccessful) {
-                    e.printStackTrace();
+                String license = config.getString("license");
+                if (license != mLicense) {
+                    mLicense = license;
+                    BarcodeReader.initLicense(license, new DBRLicenseVerificationListener() {
+                        @Override
+                        public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
+                            if (!isSuccessful) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
             }
-        });
-        try {
-            reader = new BarcodeReader();
-        } catch (BarcodeReaderException e) {
-            e.printStackTrace();
         }
     }
 
@@ -131,7 +126,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             }
             if (shouldUpdate){
                 try {
-                    reader.initRuntimeSettingsWithString(template,EnumConflictMode.CM_OVERWRITE);
+                    mModule.getDBR().initRuntimeSettingsWithString(template,EnumConflictMode.CM_OVERWRITE);
                 } catch (BarcodeReaderException e) {
                     e.printStackTrace();
                 }
@@ -141,7 +136,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             if (mTemplate != null) {
                 mTemplate = null;
                 try {
-                    reader.resetRuntimeSettings();
+                    mModule.getDBR().resetRuntimeSettings();
                 } catch (BarcodeReaderException e) {
                     e.printStackTrace();
                 }
@@ -159,56 +154,9 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         return null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private WritableNativeMap wrapResults(TextResult result, ImageProxy image, Boolean isFront, Boolean rotateImage) {
-        WritableNativeMap map = new WritableNativeMap();
-        map.putString("barcodeText",result.barcodeText);
-        map.putString("barcodeFormat",result.barcodeFormatString);
-        map.putString("barcodeBytesBase64", Base64.encodeToString(result.barcodeBytes,Base64.DEFAULT));
-        Point[] points = result.localizationResult.resultPoints;
-        for (int i = 0; i <4 ; i++) {
-            Point point = points[i];
-            if (!rotateImage){
-                point = rotatedPoint(point, image, isFront);
-            }
-            map.putInt("x"+(i+1), point.x);
-            map.putInt("y"+(i+1), point.y);
-        }
-        return map;
-    }
-
-    //rotate point to match camera preview
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private Point rotatedPoint(Point point, ImageProxy image, Boolean isFront){
-        Point rotatedPoint = new Point();
-        switch (image.getImageInfo().getRotationDegrees()){
-            case 90:
-                rotatedPoint.x = image.getHeight() - point.y;
-                rotatedPoint.y = point.x;
-                break;
-            case 180:
-                rotatedPoint.x = image.getWidth() - point.x;
-                rotatedPoint.y = image.getHeight() - point.y;
-                if (isFront){ //front cam landscape
-                    rotatedPoint.x = image.getWidth() - rotatedPoint.x;
-                }
-                break;
-            case 270:
-                rotatedPoint.x = image.getHeight() - point.y;
-                rotatedPoint.y = image.getWidth() - point.x;
-                break;
-            default:
-                rotatedPoint.x = point.x;
-                rotatedPoint.y = point.y;
-                if (isFront){ //front cam landscape
-                    rotatedPoint.x = image.getWidth() - rotatedPoint.x;
-                }
-        }
-
-        return rotatedPoint;
-    }
-
-    VisionCameraDBRPlugin() {
+    VisionCameraDBRPlugin(VisionCameraDynamsoftBarcodeReaderModule module)
+    {
         super("decode");
+        mModule = module;
     }
 }

@@ -1,4 +1,20 @@
 import type { Frame } from 'react-native-vision-camera'
+import { NativeModules, Platform } from 'react-native';
+
+const LINKING_ERROR =
+  `The package 'vision-camera-dynamsoft-barcode-reader' doesn't seem to be linked. Make sure: \n\n` +
+  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+  '- You rebuilt the app after installing the package\n' +
+  '- You are not using Expo managed workflow\n';
+
+const VisionCameraDynamsoftBarcodeReader = NativeModules.VisionCameraDynamsoftLabelRecognizer  ? NativeModules.VisionCameraDynamsoftBarcodeReader  : new Proxy(
+  {},
+  {
+    get() {
+      throw new Error(LINKING_ERROR);
+    },
+  }
+);
 
 export interface TextResult{
     barcodeText:string;
@@ -21,9 +37,33 @@ export interface DBRConfig{
   rotateImage?:boolean;
 }
 
+/**
+ * Detect barcodes from the camera preview
+ */
 export function decode(frame: Frame, config: DBRConfig): TextResult[] {
   'worklet'
   // @ts-ignore
   // eslint-disable-next-line no-undef
   return __decode(frame, config)
+}
+
+/**
+ * Init the license of Dynamsoft Document Normalizer
+ */
+ export function initLicense(license:string): Promise<boolean> {
+  return VisionCameraDynamsoftBarcodeReader.initLicense(license);
+}
+
+/**
+ * Init the runtime settings from a JSON template
+ */
+export function initRuntimeSettingsFromString(template:string): Promise<boolean> {
+  return VisionCameraDynamsoftBarcodeReader.initRuntimeSettingsFromString(template);
+}
+
+/**
+ * Detect barcodes from base64
+ */
+ export function decodeBase64(base64:string): Promise<TextResult[]> {
+  return VisionCameraDynamsoftBarcodeReader.decodeBase64(base64);
 }
