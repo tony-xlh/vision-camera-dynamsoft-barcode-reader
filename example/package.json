@@ -12,7 +12,6 @@
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-image-picker": "^4.8.4",
-    "react-native-reanimated": "^2.13.0",
     "react-native-svg": "^12.1.1",
     "react-native-vision-camera": "^3.0.0"
   },
