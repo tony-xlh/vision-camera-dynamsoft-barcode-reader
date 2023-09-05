@@ -14,7 +14,7 @@
     "react-native-image-picker": "^4.8.4",
     "react-native-reanimated": "^2.13.0",
     "react-native-svg": "^12.1.1",
-    "react-native-vision-camera": "^2.15.2"
+    "react-native-vision-camera": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
