@@ -69,7 +69,7 @@
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-builder-bob": "^0.18.0",
-    "react-native-vision-camera": "^2.12.0",
+    "react-native-vision-camera": "^3.0.0",
     "release-it": "^14.2.2",
     "typescript": "^4.1.3"
   },
