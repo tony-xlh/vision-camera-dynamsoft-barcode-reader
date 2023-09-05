@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Dimensions, Platform, StyleSheet, Text } from 'react-native';
 import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
-import * as REA from 'react-native-reanimated';
 import { Polygon, Svg } from 'react-native-svg';
+import { Worklets } from 'react-native-worklets-core';
 
 interface props {
   onScanned?: (result:TextResult[]) => void;
@@ -28,9 +28,9 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
     console.log("width: "+frame.width);
     console.log(results);
     
-    REA.runOnJS(setBarcodeResults)(results);
-    REA.runOnJS(setFrameWidth)(frame.width);
-    REA.runOnJS(setFrameHeight)(frame.height);
+    Worklets.createRunInJsFn(setBarcodeResults)(results);
+    Worklets.createRunInJsFn(setFrameWidth)(frame.width);
+    Worklets.createRunInJsFn(setFrameHeight)(frame.height);
   }, [])
 
   const getPointsData = (lr:TextResult) => {
@@ -69,7 +69,7 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
   React.useEffect(() => {
     (async () => {
       const status = await Camera.requestCameraPermission();
-      setHasPermission(status === 'authorized');
+      setHasPermission(status === 'granted');
     })();
   }, []);
 
@@ -89,7 +89,6 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
             device={device}
             isActive={true}
             frameProcessor={frameProcessor}
-            frameProcessorFps={5}
             />
             {barcodeResults.map((barcode, idx) => (
             <Text key={idx} style={styles.barcodeText}>
