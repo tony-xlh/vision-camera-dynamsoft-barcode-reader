@@ -13,11 +13,5 @@ module.exports = {
         },
       },
     ],
-    [
-      'react-native-worklets-core/plugin',
-      {
-        globals: ['__decode'],
-      },
-    ],
   ],
 };

@@ -6,6 +6,11 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5E555C0D2413F4C50049A1A2 /* VisionCameraDynamsoftBarcodeReader.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* VisionCameraDynamsoftBarcodeReader.mm */; };
+		F4FF95D7245B92E800C19C63 /*  VisionCameraDynamsoftBarcodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /*  VisionCameraDynamsoftBarcodeReader.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		58B511D91A9E6C8500147676 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,12 +25,9 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libVisionCameraDynamsoftBarcodeReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVisionCameraDynamsoftBarcodeReader.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BEDBE30D2939F67C005796AC /* VisionCameraDBRPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionCameraDBRPlugin.swift; sourceTree = "<group>"; };
-		BEDBE30E2939F67C005796AC /* BarcodeReaderInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeReaderInitializer.swift; sourceTree = "<group>"; };
-		BEDBE30F2939F67C005796AC /* VisionCameraDBRPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisionCameraDBRPlugin.m; sourceTree = "<group>"; };
-		BEDBE3102939F6BA005796AC /* VisionCameraDynamsoftBarcodeReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisionCameraDynamsoftBarcodeReader.m; sourceTree = "<group>"; };
-		BEDBE3112939F6D7005796AC /* VisionCameraDynamsoftBarcodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionCameraDynamsoftBarcodeReader.swift; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* VisionCameraDynamsoftBarcodeReader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisionCameraDynamsoftBarcodeReader.mm; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* VisionCameraDynamsoftBarcodeReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h"; sourceTree = "<group>"; };
+		F4FF95D6245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionCameraDynamsoftBarcodeReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,11 +52,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				BEDBE3112939F6D7005796AC /* VisionCameraDynamsoftBarcodeReader.swift */,
-				BEDBE3102939F6BA005796AC /* VisionCameraDynamsoftBarcodeReader.m */,
-				BEDBE30E2939F67C005796AC /* BarcodeReaderInitializer.swift */,
-				BEDBE30F2939F67C005796AC /* VisionCameraDBRPlugin.m */,
-				BEDBE30D2939F67C005796AC /* VisionCameraDBRPlugin.swift */,
+				F4FF95D6245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift */,
+				B3E7B5891CC2AC0600A0062D /* VisionCameraDynamsoftBarcodeReader.mm */,
 				F4FF95D5245B92E700C19C63 /* VisionCameraDynamsoftBarcodeReader-Bridging-Header.h */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
@@ -117,6 +116,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4FF95D7245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift in Sources */,
+				B3E7B58A1CC2AC0600A0062D /* VisionCameraDynamsoftBarcodeReader.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +152,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -201,6 +203,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
