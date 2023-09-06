@@ -98,6 +98,7 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation 'com.dynamsoft:dynamsoftbarcodereader:9.6.20@aar'
+  implementation project(path: ':react-native-vision-camera')
 }
 
 if (isNewArchitectureEnabled()) {

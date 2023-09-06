@@ -4,15 +4,14 @@ import android.os.Build;
 import android.util.Base64;
 
 import androidx.annotation.RequiresApi;
-import androidx.camera.core.ImageProxy;
-
 import com.dynamsoft.dbr.Point;
 import com.dynamsoft.dbr.TextResult;
 import com.facebook.react.bridge.WritableNativeMap;
+import com.mrousavy.camera.frameprocessor.Frame;
 
 public class Utils {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static WritableNativeMap wrapResults(TextResult result, ImageProxy image, Boolean isFront, Boolean rotateImage) {
+    public static WritableNativeMap wrapResults(TextResult result, Frame image, Boolean isFront, Boolean rotateImage) {
         WritableNativeMap map = new WritableNativeMap();
         map.putString("barcodeText",result.barcodeText);
         map.putString("barcodeFormat",result.barcodeFormatString);
@@ -31,9 +30,9 @@ public class Utils {
 
     //rotate point to match camera preview
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static Point rotatedPoint(Point point, ImageProxy image, Boolean isFront){
+    public static Point rotatedPoint(Point point, Frame image, Boolean isFront){
         Point rotatedPoint = new Point();
-        switch (image.getImageInfo().getRotationDegrees()){
+        switch (BitmapUtils.getRotationDegreeFromOrientation(image.getOrientation())){
             case 90:
                 rotatedPoint.x = image.getHeight() - point.y;
                 rotatedPoint.y = point.x;
