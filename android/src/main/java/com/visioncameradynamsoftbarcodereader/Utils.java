@@ -8,6 +8,7 @@ import com.dynamsoft.dbr.Point;
 import com.dynamsoft.dbr.TextResult;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.mrousavy.camera.frameprocessor.Frame;
+import com.mrousavy.camera.parsers.Orientation;
 
 public class Utils {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
