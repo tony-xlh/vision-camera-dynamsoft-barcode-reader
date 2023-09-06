@@ -14,10 +14,10 @@ public class VisionCameraDBRPlugin: FrameProcessorPlugin  {
     private static var mTemplate:String! = nil
     private static var mLicense:String! = nil
     private static let context = CIContext(options: nil)
-    public override func callback(_ frame: Frame!, withArguments arguments: [String:Any]) -> Any! {
+    public func callback(_ frame: Frame!, withArguments arguments: [String:Any]) -> Any! {
         let config = arguments
 
-        updateRuntimeSettingsWithTemplate(config: config)
+        VisionCameraDBRPlugin.updateRuntimeSettingsWithTemplate(config: config)
         
         guard let imageBuffer = CMSampleBufferGetImageBuffer(frame.buffer) else {
           print("Failed to get CVPixelBuffer!")
@@ -25,7 +25,7 @@ public class VisionCameraDBRPlugin: FrameProcessorPlugin  {
         }
         let ciImage = CIImage(cvPixelBuffer: imageBuffer)
 
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
+        guard let cgImage = VisionCameraDBRPlugin.context.createCGImage(ciImage, from: ciImage.extent) else {
           print("Failed to create CGImage!")
           return nil
         }
@@ -44,15 +44,15 @@ public class VisionCameraDBRPlugin: FrameProcessorPlugin  {
         return returned_results
     }
     
-    static func updateRuntimeSettingsWithTemplate(config:[String:String]!){
-        let template = config?["template"] ?? ""
+    static func updateRuntimeSettingsWithTemplate(config:[String:Any]!){
+        let template = (config?["template"] ?? "") as! String
         var shouldUpdate = false
         
         if template != "" {
             if mTemplate == nil {
                 shouldUpdate = true
             } else {
-                if mTemplate != template {
+                if mTemplate != template  {
                     shouldUpdate = true
                 }
             }
