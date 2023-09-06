@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import { StyleSheet, Text } from 'react-native';
-import { decode } from 'vision-camera-dynamsoft-barcode-reader';
+import { decode, initLicense } from 'vision-camera-dynamsoft-barcode-reader';
 import { Worklets } from 'react-native-worklets-core';
 
 export default function App() {
@@ -20,10 +20,12 @@ export default function App() {
   
   React.useEffect(() => {
     (async () => {
+      await initLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
       const status = await Camera.requestCameraPermission();
       setHasPermission(status === 'granted');
     })();
   }, []);
+  
   if (hasPermission == false) return <Text>No camera permission</Text>
   if (device == null) return <Text>Loading...</Text>
   return (
