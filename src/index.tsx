@@ -34,7 +34,6 @@ export interface TextResult{
 
 export interface DBRConfig{
   template?:string;
-  license?:string;
   isFront?:boolean;
   rotateImage?:boolean;
 }
