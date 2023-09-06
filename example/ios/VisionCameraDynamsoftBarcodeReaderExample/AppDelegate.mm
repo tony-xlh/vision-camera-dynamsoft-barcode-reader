@@ -1,6 +1,9 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import <VisionCameraDynamsoftBarcodeReader-Bridging-Header.h>
+#import <VisionCamera/FrameProcessorPlugin.h>
+#import <VisionCamera/FrameProcessorPluginRegistry.h>
 
 @implementation AppDelegate
 
@@ -10,7 +13,10 @@
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
-
+  //[FrameProcessorPluginRegistry addFrameProcessorPlugin:@"decode"
+  //                                        withInitializer:^FrameProcessorPlugin*(NSDictionary* options) {
+  //    return [[VisionCameraDBRPlugin alloc] initWithOptions:options];
+  //  }];
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
