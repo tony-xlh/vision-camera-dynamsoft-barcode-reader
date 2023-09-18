@@ -4,6 +4,12 @@ React Native Vision Camera Frame Processor Plugin of [Dynamsoft Barcode Reader](
 
 If you only need to scan barcodes and do not want to use Vision Camera, you can use [Dynamsoft Capture Vision](https://github.com/Dynamsoft/capture-vision-react-native).
 
+This version of the plugin works for the following combination:
+
+* vision camera v2
+* react-native-reanimated v2
+* react native <= 0.71
+
 ## Installation
 
 ```sh
