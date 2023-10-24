@@ -1,20 +1,26 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'vision-camera-dynamsoft-barcode-reader';
+import { Camera, useCameraDevice } from 'react-native-vision-camera';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const device = useCameraDevice('back')
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    (async () => {
+      const status = await Camera.requestCameraPermission();
+      setHasPermission(status === 'granted');
+    })();
   }, []);
-
+  if (hasPermission == false) return <Text>No camera permission</Text>
+  if (device == null) return <Text>No Camera</Text>
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
-  );
+    <Camera
+      style={StyleSheet.absoluteFill}
+      device={device}
+      isActive={true}
+    />
+  )
 }
 
 const styles = StyleSheet.create({
