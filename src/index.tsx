@@ -1,7 +1,7 @@
 import { NativeModules, Platform } from 'react-native';
 import {VisionCameraProxy, type Frame} from 'react-native-vision-camera';
 
-const plugin = undefined// VisionCameraProxy.initFrameProcessorPlugin('decode')
+const plugin = VisionCameraProxy.initFrameProcessorPlugin('decode')
 
 const LINKING_ERROR =
   `The package 'vision-camera-dynamsoft-barcode-reader' doesn't seem to be linked. Make sure: \n\n` +
