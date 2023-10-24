@@ -23,10 +23,14 @@ const VisionCameraDynamsoftBarcodeReader = NativeModules.VisionCameraDynamsoftBa
 /**
  * Detect barcodes from the camera preview
  */
-export function decode(frame: Frame,config:DBRConfig) {
+export function decode(frame: Frame,config?:DBRConfig):TextResult[]|undefined {
   'worklet'
   if (plugin == null) throw new Error('Failed to load Frame Processor Plugin "decode"!')
-  return plugin.call(frame,convertDBRConfig(config));
+  if (config) {
+    return plugin.call(frame,convertDBRConfig(config)) as any;
+  }else{
+    return plugin.call(frame) as any;
+  }
 }
 
 function convertDBRConfig(config:DBRConfig):Record<string,any>{
