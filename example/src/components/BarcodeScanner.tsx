@@ -15,8 +15,8 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
   const frameProcessor = useFrameProcessor(frame => {
     'worklet'
     const config:DBRConfig = {};
+    console.log(frame.pixelFormat);
   }, [])
-
 
   React.useEffect(() => {
     (async () => {
@@ -41,6 +41,7 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
             device={device}
             isActive={true}
             frameProcessor={frameProcessor}
+            pixelFormat="yuv"
             />
             {barcodeResults.map((barcode, idx) => (
             <Text key={idx} style={styles.barcodeText}>
