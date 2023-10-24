@@ -10927,15 +10927,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-worklets-core@npm:^0.2.2":
+"react-native-worklets-core@https://github.com/margelo/react-native-worklets-core.git#800cf1b2cc65704cf5dfbc725aef1ac1dff32481":
   version: 0.2.2
-  resolution: "react-native-worklets-core@npm:0.2.2"
+  resolution: "react-native-worklets-core@https://github.com/margelo/react-native-worklets-core.git#commit=800cf1b2cc65704cf5dfbc725aef1ac1dff32481"
   dependencies:
     string-hash-64: ^1.0.3
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 211d7e49bda60bfdfd9cb2b4519cd02d65c166e4c67e39c815af527f7490830a8d44faecec60fa3d9d17ba9d9c15e4e1dab1cc74036bf18cd52b692293232a7c
+  checksum: b854067f507649b53b77f439c92bfa1f9bd613d24621b80bced58a1fdf611651903dcb5a6a7c939eb1c8051769a1e32fc3f45af56685175325eac3d92623f0fa
   languageName: node
   linkType: hard
 
@@ -13029,7 +13029,7 @@ __metadata:
     react: 18.2.0
     react-native: 0.72.6
     react-native-vision-camera: ^3.5.1
-    react-native-worklets-core: ^0.2.2
+    react-native-worklets-core: "https://github.com/margelo/react-native-worklets-core.git#800cf1b2cc65704cf5dfbc725aef1ac1dff32481"
   languageName: unknown
   linkType: soft
 

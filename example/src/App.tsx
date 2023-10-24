@@ -9,7 +9,7 @@ export default function App() {
   const [hasPermission, setHasPermission] = React.useState(false);
   const device = useCameraDevice('back');
   const [barcodeResults,setBarcodeResults] = React.useState<TextResult[]>([]);
-  const setResultsJS = Worklets.createRunInJsFn(setBarcodeResults);
+  //const setResultsJS = Worklets.createRunInJsFn(setBarcodeResults);
   const fps = 1;
 
   React.useEffect(() => {
