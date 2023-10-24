@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Camera, useCameraDevice, useFrameProcessor } from 'react-native-vision-camera';
-import { type DBRConfig, type TextResult } from 'vision-camera-dynamsoft-barcode-reader';
+import { decode, type DBRConfig, type TextResult } from 'vision-camera-dynamsoft-barcode-reader';
+import {useSharedValue, Worklets} from 'react-native-worklets-core';
 
 interface props {
   onScanned?: (result:TextResult[]) => void;
@@ -16,6 +17,8 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
     'worklet'
     const config:DBRConfig = {};
     console.log(frame.pixelFormat);
+    const results = decode(frame);
+    console.log(results);
   }, [])
 
   React.useEffect(() => {

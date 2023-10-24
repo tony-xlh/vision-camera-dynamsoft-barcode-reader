@@ -1,8 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
 import {VisionCameraProxy, type Frame} from 'react-native-vision-camera';
 
-const plugin = VisionCameraProxy.initFrameProcessorPlugin('decode')
-
 const LINKING_ERROR =
   `The package 'vision-camera-dynamsoft-barcode-reader' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
@@ -19,6 +17,9 @@ const VisionCameraDynamsoftBarcodeReader = NativeModules.VisionCameraDynamsoftBa
         },
       }
     );
+
+
+const plugin = VisionCameraProxy.initFrameProcessorPlugin('decode')
 
 /**
  * Detect barcodes from the camera preview
@@ -70,7 +71,7 @@ export interface DBRConfig{
 /**
  * Init the license of Dynamsoft Barcode Reader
  */
-  export function initLicense(license:string): Promise<boolean> {
+export function initLicense(license:string): Promise<boolean> {
   return VisionCameraDynamsoftBarcodeReader.initLicense(license);
 }
 
