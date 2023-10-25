@@ -13,12 +13,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class VisionCameraDynamsoftBarcodeReaderPackage implements ReactPackage {
+  static {
+    FrameProcessorPluginRegistry.addFrameProcessorPlugin("decode", options -> new VisionCameraDBRPlugin());
+  }
   @NonNull
   @Override
   public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
     List<NativeModule> modules = new ArrayList<>();
     VisionCameraDynamsoftBarcodeReaderModule module = new VisionCameraDynamsoftBarcodeReaderModule(reactContext);
-    FrameProcessorPluginRegistry.addFrameProcessorPlugin("decode", options -> new VisionCameraDBRPlugin(module));
     modules.add(module);
     return modules;
   }
