@@ -22,14 +22,18 @@ import java.nio.ByteBuffer;
 import java.util.Map;
 
 public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
-    private VisionCameraDynamsoftBarcodeReaderModule mModule;
     private String mTemplate = null;
     private String mLicense = null;
+
+    private BarcodeReader dbr = null;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public Object callback(@NonNull Frame frame, @Nullable Map<String, Object> arguments) {
       Log.d("DBR",frame.getImage().getWidth()+"x"+frame.getImage().getHeight());
+      if (dbr == null) {
+        initDBR();
+      }
       Boolean isFront;
       Boolean rotateImage;
       if (arguments.containsKey("isFront")){
@@ -64,13 +68,21 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
       return array;
     }
 
+    private void initDBR(){
+        try {
+            dbr = new BarcodeReader();
+        } catch (BarcodeReaderException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private TextResult[] decode(Frame image, Boolean rotateImage) throws BarcodeReaderException {
         TextResult[] results = null;
         if (rotateImage){
             Bitmap bitmap = BitmapUtils.getBitmap(image);
             Log.d("DBR","bitmap width: "+bitmap.getWidth());
             Log.d("DBR","bitmap height: "+bitmap.getHeight());
-            results = mModule.getDBR().decodeBufferedImage(bitmap);
+            results = dbr.decodeBufferedImage(bitmap);
         }else{
             ByteBuffer buffer = image.getImage().getPlanes()[0].getBuffer();
             int nRowStride = image.getImage().getPlanes()[0].getRowStride();
@@ -78,7 +90,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             int length = buffer.remaining();
             byte[] bytes = new byte[length];
             buffer.get(bytes);
-            results = mModule.getDBR().decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
+            results = dbr.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
         }
         return results;
     }
@@ -118,7 +130,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             }
             if (shouldUpdate){
                 try {
-                    mModule.getDBR().initRuntimeSettingsWithString(template,EnumConflictMode.CM_OVERWRITE);
+                    dbr.initRuntimeSettingsWithString(template,EnumConflictMode.CM_OVERWRITE);
                 } catch (BarcodeReaderException e) {
                     e.printStackTrace();
                 }
@@ -128,7 +140,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             if (mTemplate != null) {
                 mTemplate = null;
                 try {
-                    mModule.getDBR().resetRuntimeSettings();
+                    dbr.resetRuntimeSettings();
                 } catch (BarcodeReaderException e) {
                     e.printStackTrace();
                 }
@@ -136,9 +148,8 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         }
     }
 
-    VisionCameraDBRPlugin(VisionCameraDynamsoftBarcodeReaderModule module)
+    VisionCameraDBRPlugin()
     {
       super(null);
-      mModule = module;
     }
 }
