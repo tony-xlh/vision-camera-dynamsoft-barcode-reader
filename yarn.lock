@@ -13067,6 +13067,7 @@ __metadata:
     react-native: 0.72.6
     react-native-builder-bob: ^0.20.0
     react-native-vision-camera: ^3.5.1
+    react-native-worklets-core: "https://github.com/margelo/react-native-worklets-core.git#800cf1b2cc65704cf5dfbc725aef1ac1dff32481"
     release-it: ^15.0.0
     turbo: ^1.10.7
     typescript: ^5.0.2
