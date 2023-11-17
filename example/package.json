@@ -13,8 +13,8 @@
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-image-picker": "^4.8.4",
-    "react-native-vision-camera": "^3.5.1",
-    "react-native-worklets-core": "https://github.com/margelo/react-native-worklets-core.git#800cf1b2cc65704cf5dfbc725aef1ac1dff32481"
+    "react-native-vision-camera": "^3.6.6",
+    "react-native-worklets-core": "^0.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
