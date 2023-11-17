@@ -10937,15 +10937,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-worklets-core@https://github.com/margelo/react-native-worklets-core.git#800cf1b2cc65704cf5dfbc725aef1ac1dff32481":
-  version: 0.2.2
-  resolution: "react-native-worklets-core@https://github.com/margelo/react-native-worklets-core.git#commit=800cf1b2cc65704cf5dfbc725aef1ac1dff32481"
+"react-native-vision-camera@npm:^3.6.6":
+  version: 3.6.6
+  resolution: "react-native-vision-camera@npm:3.6.6"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-worklets-core: "*"
+  peerDependenciesMeta:
+    react-native-worklets-core:
+      optional: true
+  checksum: 6be1de0398ee2c228bcb2be52f45aa218bd629c4cb28744b58a19f42280c3e7f2a96e8f39c918c88a7107c9a19dcea76a1a3457b9cfcfcad7613a9853a9a8cb6
+  languageName: node
+  linkType: hard
+
+"react-native-worklets-core@npm:^0.2.4":
+  version: 0.2.4
+  resolution: "react-native-worklets-core@npm:0.2.4"
   dependencies:
     string-hash-64: ^1.0.3
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: b854067f507649b53b77f439c92bfa1f9bd613d24621b80bced58a1fdf611651903dcb5a6a7c939eb1c8051769a1e32fc3f45af56685175325eac3d92623f0fa
+  checksum: 8b6746a1f2b9544d4dcdea49908324b2449fa2fe03da59a048d290ecc4dd605c9f2664ffe1800f9dfe71c281be7e2d5467fce95bdf899ad02e0b3ced080e1862
   languageName: node
   linkType: hard
 
@@ -13039,8 +13053,8 @@ __metadata:
     react: 18.2.0
     react-native: 0.72.6
     react-native-image-picker: ^4.8.4
-    react-native-vision-camera: ^3.5.1
-    react-native-worklets-core: "https://github.com/margelo/react-native-worklets-core.git#800cf1b2cc65704cf5dfbc725aef1ac1dff32481"
+    react-native-vision-camera: ^3.6.6
+    react-native-worklets-core: ^0.2.4
   languageName: unknown
   linkType: soft
 
@@ -13067,7 +13081,7 @@ __metadata:
     react-native: 0.72.6
     react-native-builder-bob: ^0.20.0
     react-native-vision-camera: ^3.5.1
-    react-native-worklets-core: "https://github.com/margelo/react-native-worklets-core.git#800cf1b2cc65704cf5dfbc725aef1ac1dff32481"
+    react-native-worklets-core: ^0.2.4
     release-it: ^15.0.0
     turbo: ^1.10.7
     typescript: ^5.0.2
