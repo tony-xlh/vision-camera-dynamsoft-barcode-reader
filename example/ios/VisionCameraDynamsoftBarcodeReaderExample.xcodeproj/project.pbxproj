@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* VisionCameraOcrExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* VisionCameraOcrExampleTests.m */; };
+		00E356F31AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8EC72FA82AD0A33E00CA81BA /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC72FA72AD0A33E00CA81BA /* File.swift */; };
-		9A086967B649E8CAB74D03D0 /* libPods-VisionCameraOcrExample-VisionCameraOcrExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9065D6E90973BCC63B35C5 /* libPods-VisionCameraOcrExample-VisionCameraOcrExampleTests.a */; };
-		F7E37EFC697024C71BDF5398 /* libPods-VisionCameraOcrExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAAE9AF5DA379865E203D8F /* libPods-VisionCameraOcrExample.a */; };
+		9A086967B649E8CAB74D03D0 /* libPods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9065D6E90973BCC63B35C5 /* libPods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.a */; };
+		F7E37EFC697024C71BDF5398 /* libPods-VisionCameraDynamsoftBarcodeReaderExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAAE9AF5DA379865E203D8F /* libPods-VisionCameraDynamsoftBarcodeReaderExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,30 +23,30 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = VisionCameraOcrExample;
+			remoteInfo = VisionCameraDynamsoftBarcodeReaderExample;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisionCameraDynamsoftBarcodeReaderExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* VisionCameraOcrExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisionCameraOcrExampleTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisionCameraDynamsoftBarcodeReaderExampleTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* VisionCameraDynamsoftBarcodeReaderExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisionCameraDynamsoftBarcodeReaderExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = VisionCameraOcrExample/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = VisionCameraOcrExample/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = VisionCameraOcrExample/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = VisionCameraOcrExample/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VisionCameraOcrExample/main.m; sourceTree = "<group>"; };
-		1B2DF4659B727771F74962FA /* Pods-VisionCameraOcrExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisionCameraOcrExample.release.xcconfig"; path = "Target Support Files/Pods-VisionCameraOcrExample/Pods-VisionCameraOcrExample.release.xcconfig"; sourceTree = "<group>"; };
-		6DAAE9AF5DA379865E203D8F /* libPods-VisionCameraOcrExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VisionCameraOcrExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E939F154D883DEAEEB0E7B4 /* Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.release.xcconfig"; path = "Target Support Files/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VisionCameraOcrExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8EC72FA62AD0A33E00CA81BA /* VisionCameraOcrExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VisionCameraOcrExample-Bridging-Header.h"; sourceTree = "<group>"; };
-		8EC72FA72AD0A33E00CA81BA /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = VisionCameraOcrExample/File.swift; sourceTree = "<group>"; };
-		B27E0D6321DD6D421A3E813C /* Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = VisionCameraDynamsoftBarcodeReaderExample/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = VisionCameraDynamsoftBarcodeReaderExample/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = VisionCameraDynamsoftBarcodeReaderExample/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = VisionCameraDynamsoftBarcodeReaderExample/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VisionCameraDynamsoftBarcodeReaderExample/main.m; sourceTree = "<group>"; };
+		1B2DF4659B727771F74962FA /* Pods-VisionCameraDynamsoftBarcodeReaderExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisionCameraDynamsoftBarcodeReaderExample.release.xcconfig"; path = "Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample.release.xcconfig"; sourceTree = "<group>"; };
+		6DAAE9AF5DA379865E203D8F /* libPods-VisionCameraDynamsoftBarcodeReaderExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VisionCameraDynamsoftBarcodeReaderExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E939F154D883DEAEEB0E7B4 /* Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.release.xcconfig"; path = "Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VisionCameraDynamsoftBarcodeReaderExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8EC72FA62AD0A33E00CA81BA /* VisionCameraDynamsoftBarcodeReaderExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VisionCameraDynamsoftBarcodeReaderExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		8EC72FA72AD0A33E00CA81BA /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = VisionCameraDynamsoftBarcodeReaderExample/File.swift; sourceTree = "<group>"; };
+		B27E0D6321DD6D421A3E813C /* Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F9EF9CBEF8AD1F434BCAEC3D /* Pods-VisionCameraOcrExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisionCameraOcrExample.debug.xcconfig"; path = "Target Support Files/Pods-VisionCameraOcrExample/Pods-VisionCameraOcrExample.debug.xcconfig"; sourceTree = "<group>"; };
-		FA9065D6E90973BCC63B35C5 /* libPods-VisionCameraOcrExample-VisionCameraOcrExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VisionCameraOcrExample-VisionCameraOcrExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9EF9CBEF8AD1F434BCAEC3D /* Pods-VisionCameraDynamsoftBarcodeReaderExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisionCameraDynamsoftBarcodeReaderExample.debug.xcconfig"; path = "Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample.debug.xcconfig"; sourceTree = "<group>"; };
+		FA9065D6E90973BCC63B35C5 /* libPods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A086967B649E8CAB74D03D0 /* libPods-VisionCameraOcrExample-VisionCameraOcrExampleTests.a in Frameworks */,
+				9A086967B649E8CAB74D03D0 /* libPods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,20 +62,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7E37EFC697024C71BDF5398 /* libPods-VisionCameraOcrExample.a in Frameworks */,
+				F7E37EFC697024C71BDF5398 /* libPods-VisionCameraDynamsoftBarcodeReaderExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* VisionCameraOcrExampleTests */ = {
+		00E356EF1AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* VisionCameraOcrExampleTests.m */,
+				00E356F21AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = VisionCameraOcrExampleTests;
+			path = VisionCameraDynamsoftBarcodeReaderExampleTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -86,7 +86,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* VisionCameraOcrExample */ = {
+		13B07FAE1A68108700A75B9A /* VisionCameraDynamsoftBarcodeReaderExample */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -96,17 +96,17 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				8EC72FA72AD0A33E00CA81BA /* File.swift */,
-				8EC72FA62AD0A33E00CA81BA /* VisionCameraOcrExample-Bridging-Header.h */,
+				8EC72FA62AD0A33E00CA81BA /* VisionCameraDynamsoftBarcodeReaderExample-Bridging-Header.h */,
 			);
-			name = VisionCameraOcrExample;
+			name = VisionCameraDynamsoftBarcodeReaderExample;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				6DAAE9AF5DA379865E203D8F /* libPods-VisionCameraOcrExample.a */,
-				FA9065D6E90973BCC63B35C5 /* libPods-VisionCameraOcrExample-VisionCameraOcrExampleTests.a */,
+				6DAAE9AF5DA379865E203D8F /* libPods-VisionCameraDynamsoftBarcodeReaderExample.a */,
+				FA9065D6E90973BCC63B35C5 /* libPods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -121,9 +121,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* VisionCameraOcrExample */,
+				13B07FAE1A68108700A75B9A /* VisionCameraDynamsoftBarcodeReaderExample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* VisionCameraOcrExampleTests */,
+				00E356EF1AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -145,10 +145,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F9EF9CBEF8AD1F434BCAEC3D /* Pods-VisionCameraOcrExample.debug.xcconfig */,
-				1B2DF4659B727771F74962FA /* Pods-VisionCameraOcrExample.release.xcconfig */,
-				B27E0D6321DD6D421A3E813C /* Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.debug.xcconfig */,
-				6E939F154D883DEAEEB0E7B4 /* Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.release.xcconfig */,
+				F9EF9CBEF8AD1F434BCAEC3D /* Pods-VisionCameraDynamsoftBarcodeReaderExample.debug.xcconfig */,
+				1B2DF4659B727771F74962FA /* Pods-VisionCameraDynamsoftBarcodeReaderExample.release.xcconfig */,
+				B27E0D6321DD6D421A3E813C /* Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.debug.xcconfig */,
+				6E939F154D883DEAEEB0E7B4 /* Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -173,7 +173,7 @@
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
 			name = VisionCameraDynamsoftBarcodeReaderExampleTests;
-			productName = VisionCameraOcrExampleTests;
+			productName = VisionCameraDynamsoftBarcodeReaderExampleTests;
 			productReference = 00E356EE1AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -195,7 +195,7 @@
 			dependencies = (
 			);
 			name = VisionCameraDynamsoftBarcodeReaderExample;
-			productName = VisionCameraOcrExample;
+			productName = VisionCameraDynamsoftBarcodeReaderExample;
 			productReference = 13B07F961A680F5B00A75B9A /* VisionCameraDynamsoftBarcodeReaderExample.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -286,7 +286,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VisionCameraOcrExample-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VisionCameraDynamsoftBarcodeReaderExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -299,15 +299,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		859D3DF0E53CD9DA4DBC6A92 /* [CP] Copy Pods Resources */ = {
@@ -316,15 +316,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample/Pods-VisionCameraOcrExample-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample/Pods-VisionCameraOcrExample-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample/Pods-VisionCameraOcrExample-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		94A40C29D46C7EBEA4DFC943 /* [CP] Check Pods Manifest.lock */ = {
@@ -342,7 +342,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -355,15 +355,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests/Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests/Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CCB7E4558B721F5CB5516C20 /* [CP] Embed Pods Frameworks */ = {
@@ -372,15 +372,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample/Pods-VisionCameraOcrExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample/Pods-VisionCameraOcrExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VisionCameraOcrExample/Pods-VisionCameraOcrExample-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VisionCameraDynamsoftBarcodeReaderExample/Pods-VisionCameraDynamsoftBarcodeReaderExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -409,7 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* VisionCameraOcrExampleTests.m in Sources */,
+				00E356F31AD99517003FC87E /* VisionCameraDynamsoftBarcodeReaderExampleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +436,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B27E0D6321DD6D421A3E813C /* Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.debug.xcconfig */;
+			baseConfigurationReference = B27E0D6321DD6D421A3E813C /* Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -444,7 +444,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = VisionCameraOcrExampleTests/Info.plist;
+				INFOPLIST_FILE = VisionCameraDynamsoftBarcodeReaderExampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -464,12 +464,12 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E939F154D883DEAEEB0E7B4 /* Pods-VisionCameraOcrExample-VisionCameraOcrExampleTests.release.xcconfig */;
+			baseConfigurationReference = 6E939F154D883DEAEEB0E7B4 /* Pods-VisionCameraDynamsoftBarcodeReaderExample-VisionCameraDynamsoftBarcodeReaderExampleTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = VisionCameraOcrExampleTests/Info.plist;
+				INFOPLIST_FILE = VisionCameraDynamsoftBarcodeReaderExampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -489,14 +489,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F9EF9CBEF8AD1F434BCAEC3D /* Pods-VisionCameraOcrExample.debug.xcconfig */;
+			baseConfigurationReference = F9EF9CBEF8AD1F434BCAEC3D /* Pods-VisionCameraDynamsoftBarcodeReaderExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = VisionCameraOcrExample/Info.plist;
+				INFOPLIST_FILE = VisionCameraDynamsoftBarcodeReaderExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -509,7 +509,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReaderExample;
-				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraOcrExample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraDynamsoftBarcodeReaderExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -518,13 +518,13 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B2DF4659B727771F74962FA /* Pods-VisionCameraOcrExample.release.xcconfig */;
+			baseConfigurationReference = 1B2DF4659B727771F74962FA /* Pods-VisionCameraDynamsoftBarcodeReaderExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = VisionCameraOcrExample/Info.plist;
+				INFOPLIST_FILE = VisionCameraDynamsoftBarcodeReaderExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -537,7 +537,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReaderExample;
-				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraOcrExample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraDynamsoftBarcodeReaderExample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -612,7 +612,10 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
@@ -682,7 +685,10 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

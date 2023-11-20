@@ -25,7 +25,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'VisionCameraOcrExample' do
+target 'VisionCameraDynamsoftBarcodeReaderExample' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -48,7 +48,7 @@ target 'VisionCameraOcrExample' do
   pod 'vision-camera-dynamsoft-barcode-reader', :path => '../..'
   # pod 'vision-camera-ocr', :path => '../..'
   
-  target 'VisionCameraOcrExampleTests' do
+  target 'VisionCameraDynamsoftBarcodeReaderExampleTests' do
     inherit! :complete
     # Pods for testing
   end

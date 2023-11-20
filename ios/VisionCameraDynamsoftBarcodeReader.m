@@ -1,20 +1,25 @@
 #import <Foundation/Foundation.h>
-#import <VisionCamera/FrameProcessorPlugin.h>
-#import <VisionCamera/FrameProcessorPluginRegistry.h>
-
+#import <React/RCTBridgeModule.h>
 #import "VisionCameraDynamsoftBarcodeReader-Swift.h"
 
-@interface DBRFrameProcessorPlugin (FrameProcessorPluginLoader)
-@end
 
-@implementation DBRFrameProcessorPlugin (FrameProcessorPluginLoader)
+@interface RCT_EXTERN_MODULE(VisionCameraDynamsoftBarcodeReader, NSObject)
 
-+ (void)load
+RCT_EXTERN_METHOD(initLicense:(NSString)license
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(initRuntimeSettingsFromString:(NSString *)template
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(decodeBase64:(NSString *)base64
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
++ (BOOL)requiresMainQueueSetup
 {
-  [FrameProcessorPluginRegistry addFrameProcessorPlugin:@"decode"
-                                        withInitializer:^FrameProcessorPlugin* (NSDictionary* options) {
-    return [[DBRFrameProcessorPlugin alloc] init];
-  }];
+  return NO;
 }
 
 @end
