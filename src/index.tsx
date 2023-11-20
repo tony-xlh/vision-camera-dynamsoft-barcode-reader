@@ -1,69 +1,90 @@
-/* eslint-disable no-undef */
-import { VisionCameraProxy, Frame } from 'react-native-vision-camera';
+import { NativeModules, Platform } from 'react-native';
+import {VisionCameraProxy,  Frame} from 'react-native-vision-camera';
 
-type BoundingFrame = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  boundingCenterX: number;
-  boundingCenterY: number;
-};
+const LINKING_ERROR =
+  `The package 'vision-camera-dynamsoft-barcode-reader' doesn't seem to be linked. Make sure: \n\n` +
+  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+  '- You rebuilt the app after installing the package\n' +
+  '- You are not using Expo Go\n';
 
-type BoundingBox = {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-};
+const VisionCameraDynamsoftBarcodeReader = NativeModules.VisionCameraDynamsoftBarcodeReader
+  ? NativeModules.VisionCameraDynamsoftBarcodeReader
+  : new Proxy(
+      {},
+      {
+        get() {
+          throw new Error(LINKING_ERROR);
+        },
+      }
+    );
 
-type Point = { x: number; y: number };
 
-type TextElement = {
-  text: string;
-  frame?: BoundingFrame;
-  boundingBox?: BoundingBox;
-  cornerPoints?: Point[];
-};
-
-type TextLine = {
-  text: string;
-  elements: TextElement[];
-  frame?: BoundingFrame;
-  boundingBox?: BoundingBox;
-  recognizedLanguages: string[];
-  cornerPoints?: Point[];
-};
-
-type TextBlock = {
-  text: string;
-  lines: TextLine[];
-  frame?: BoundingFrame;
-  boundingBox?: BoundingBox;
-  recognizedLanguages: string[];
-  cornerPoints?: Point[];
-};
-
-type Text = {
-  text: string;
-  blocks: TextBlock[];
-};
-
-export type OCRFrame = {
-  result: Text;
-};
+const plugin = VisionCameraProxy.initFrameProcessorPlugin('decode')
 
 /**
- * Scans OCR.
+ * Detect barcodes from the camera preview
  */
-const plugin = VisionCameraProxy.initFrameProcessorPlugin('scanOCR');
-
-export function scanOCR(frame: Frame): OCRFrame {
-  'worklet';
-  if (plugin == null) {
-    throw new Error(
-      'Failed to load Frame Processor Plugin "scanOCR"! Please check your dependencies and make sure that the plugin is linked correctly.'
-    );
+export function decode(frame: Frame,config?:DBRConfig):TextResult[]|undefined {
+  'worklet'
+  if (plugin == null) throw new Error('Failed to load Frame Processor Plugin "decode"!')
+  if (config) {
+    return plugin.call(frame,convertDBRConfig(config)) as any;
+  }else{
+    return plugin.call(frame) as any;
   }
-  return plugin.call(frame) as any;
+}
+
+function convertDBRConfig(config:DBRConfig):Record<string,any>{
+  let record:Record<string,any> = {};
+  if (config.isFront) {
+    record["isFront"] = config.isFront;
+  }
+  if (config.rotateImage) {
+    record["rotateImage"] = config.rotateImage;
+  }
+  if (config.template) {
+    record["template"] = config.template;
+  }
+  return record;
+}
+
+export interface TextResult{
+  barcodeText:string;
+  barcodeFormat:string;
+  barcodeBytesBase64:string;
+  x1:number;
+  x2:number;
+  x3:number;
+  x4:number;
+  y1:number;
+  y2:number;
+  y3:number;
+  y4:number;
+}
+
+export interface DBRConfig{
+  template?:string;
+  isFront?:boolean;
+  rotateImage?:boolean;
+}
+
+/**
+ * Init the license of Dynamsoft Barcode Reader
+ */
+export function initLicense(license:string): Promise<boolean> {
+  return VisionCameraDynamsoftBarcodeReader.initLicense(license);
+}
+
+/**
+ * Init the runtime settings from a JSON template
+ */
+export function initRuntimeSettingsFromString(template:string): Promise<boolean> {
+  return VisionCameraDynamsoftBarcodeReader.initRuntimeSettingsFromString(template);
+}
+
+/**
+ * Detect barcodes from base64
+ */
+export function decodeBase64(base64:string): Promise<TextResult[]> {
+  return VisionCameraDynamsoftBarcodeReader.decodeBase64(base64);
 }

@@ -1,5 +1,5 @@
 {
-  "name": "vision-camera-ocr",
+  "name": "vision-camera-dynamsoft-barcode-reader",
   "version": "2.1.1",
   "private": false,
   "description": "VisionCamera Frame Processor Plugin to provide OCR support",

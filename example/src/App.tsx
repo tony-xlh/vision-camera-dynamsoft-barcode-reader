@@ -1,136 +1,123 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import * as React from 'react';
+import { Button, SafeAreaView, StyleSheet, Switch, Text, View } from 'react-native';
+import type { TextResult } from 'vision-camera-dynamsoft-barcode-reader';
+import * as DBR from 'vision-camera-dynamsoft-barcode-reader';
+import {launchImageLibrary, type ImageLibraryOptions} from 'react-native-image-picker';
+import BarcodeScanner from './components/BarcodeScanner';
 
-import {
-  View,
-  Text,
-  LayoutChangeEvent,
-  TouchableOpacity,
-  Alert,
-  Clipboard,
-} from 'react-native';
-import {
-  useFrameProcessor,
-  Camera,
-  useCameraDevice,
-  useCameraFormat,
-} from 'react-native-vision-camera';
-
-import {useSharedValue, Worklets} from 'react-native-worklets-core';
-
-import {scanOCR} from 'vision-camera-ocr';
+const Separator = () => (
+  <View style={styles.separator} />
+);
 
 export default function App() {
-  const [dimensions, setDimensions] = useState({width: 1, height: 1});
-
-  const frameWidthAndHeightRef = useSharedValue({height: 1, width: 1});
-
-  /**
-   * Camera
-   */
-  const [hasPermission, setHasPermission] = React.useState(false);
-  const [targetFps] = useState(60);
-
-  const [ocr, setOcr] = useState<any>();
-  const setOcrJS = Worklets.createRunInJsFn(setOcr);
-
-  const device = useCameraDevice('back');
-  const format = useCameraFormat(device, [
-    {videoResolution: 'max'},
-    {photoResolution: 'max'},
-  ]);
-
-  const fps = Math.min(format?.maxFps ?? 1, targetFps);
-
-  const frameProcessor = useFrameProcessor(frame => {
-    'worklet';
-
-    frameWidthAndHeightRef.value = {
-      height: frame.height,
-      width: frame.width,
-    };
-
-    const data = scanOCR(frame);
-    console.log(
-      '🚀 ~ file: App.tsx:68 ~ frameProcessor ~ data:',
-      data.result?.blocks?.map(_ => _.text),
-    );
-
-    setOcrJS({...data});
-  }, []);
-
+  const [useCamera,setUseCamera] = React.useState(false);
+  const [continuous, setContinuous] = React.useState(false);
+  const [barcodeResults, setBarcodeResults] = React.useState([] as TextResult[]);
+  const toggleSwitch = () => setContinuous(previousState => !previousState);
+  
   React.useEffect(() => {
     (async () => {
-      const status = await Camera.requestCameraPermission();
-      setHasPermission(status === 'granted');
+      const result = await DBR.initLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
+      console.log(result);
     })();
   }, []);
 
-  const renderOverlay = () => {
-    return (
-      <>
-        {ocr?.result?.blocks?.map((block, index) => {
-          const convertedWidth =
-            frameWidthAndHeightRef.value.width / dimensions.width;
-          const convertedHeight =
-            frameWidthAndHeightRef.value.height / dimensions.height;
+  const onScanned = (results:TextResult[]) => {
+    setBarcodeResults(results);
+    if (results.length>0 && !continuous) {
+      setUseCamera(false);
+    }
+  }
 
-          return (
-            <TouchableOpacity
-              key={`${index}-${block.text}+${new Date().getTime()}}`}
-              onPress={() => {
-                Clipboard.setString(block.text);
-                Alert.alert(`"${block.text}" copied to the clipboard`);
-              }}
-              style={{
-                position: 'absolute',
-                left: block.frame.x / convertedHeight,
-                top: block.frame.y / convertedWidth,
-                backgroundColor: 'white',
-                padding: 8,
-                borderRadius: 6,
-                zIndex: 100,
-              }}>
-              <Text
-                style={{
-                  fontSize: 25,
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                  color: 'black',
-                }}>
-                {block.text}
+  const decodeFromAlbum = async () => {
+    let options: ImageLibraryOptions = {
+      mediaType: 'photo',
+      includeBase64: true,
+    }
+    let response = await launchImageLibrary(options);
+    if (response && response.assets) {
+      if (response.assets[0]!.base64) {
+        console.log(response.assets[0]!.base64);
+        let results = await DBR.decodeBase64(response.assets[0]!.base64);
+        setBarcodeResults(results);
+      }
+    }
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {useCamera && (
+        <>
+          <BarcodeScanner onScanned={onScanned}></BarcodeScanner>
+          <View
+            style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'flex-end', alignItems: 'center'}}
+          >
+            <Button
+              title="Close"
+              onPress={() => setUseCamera(false)}
+            />
+          </View>
+        </>
+        
+      )}
+      {!useCamera &&(
+          <View style={{alignItems:"center"}}>
+            <Text style={styles.title}>
+              Dynamsoft Barcode Reader Demo
+            </Text>
+            <Button
+              title="Read Barcodes from the Camera"
+              onPress={() => setUseCamera(true)}
+            />
+            <Separator />
+            <View style={styles.switchView}>
+              <Text style={{alignSelf: 'center'}}>
+                Continues Scan
               </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </>
-    );
-  };
-
-  return device !== undefined && hasPermission ? (
-    <>
-      <Camera
-        style={{width: '100%', height: '100%', flex: 1}}
-        frameProcessor={frameProcessor}
-        device={device}
-        fps={fps}
-        pixelFormat="yuv"
-        isActive={true}
-        photo={true}
-        orientation="portrait"
-        format={format}
-        onLayout={(event: LayoutChangeEvent) => {
-          setDimensions({
-            height: event.nativeEvent.layout.height,
-            width: event.nativeEvent.layout.width,
-          });
-        }}>
-        {renderOverlay()}
-      </Camera>
-    </>
-  ) : (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>No available cameras</Text>
-    </View>
+              <Switch 
+                style={{alignSelf: 'center'}}
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                thumbColor={continuous ? "#f5dd4b" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={continuous}
+              />
+            </View>
+            <Separator />
+            <Button
+              title="Read Barcodes from the Album"
+              onPress={() => decodeFromAlbum()}
+            />
+            <Separator />
+            {barcodeResults.map((barcode, idx) => (
+              <Text key={idx}>
+                {barcode.barcodeFormat+": "+barcode.barcodeText}
+              </Text>
+            ))}
+          </View>
+      )}
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+  },
+  title: {
+    textAlign: 'center',
+    marginVertical: 8,
+  },
+  separator: {
+    marginVertical: 4,
+  },
+  switchView: {
+    alignItems: 'center',
+    flexDirection: "row",
+  },
+  barcodeText: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});

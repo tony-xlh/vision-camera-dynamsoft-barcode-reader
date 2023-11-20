@@ -15,7 +15,8 @@
     "react-native": "0.72.5",
     "react-native-vision-camera": "^3.6.4",
     "react-native-worklets-core": "^0.2.4",
-    "vision-camera-ocr": "../"
+    "react-native-image-picker":"4.8.4",
+    "vision-camera-dynamsoft-barcode-reader": "../"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

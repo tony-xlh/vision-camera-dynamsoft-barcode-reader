@@ -3,5 +3,4 @@ apply from: file("../node_modules/@react-native-community/cli-platform-android/n
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
 
-include ':visioncameraocr'
-project(':visioncameraocr').projectDir = new File(rootProject.projectDir, '../../android')
+project(':vision-camera-dynamsoft-barcode-reader').projectDir = new File(rootProject.projectDir, '../../android')

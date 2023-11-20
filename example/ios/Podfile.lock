@@ -436,6 +436,8 @@ PODS:
   - React-jsinspector (0.72.5)
   - React-logger (0.72.5):
     - glog
+  - react-native-image-picker (4.8.4):
+    - React-Core
   - react-native-worklets-core (0.2.4):
     - React
     - React-callinvoker
@@ -609,6 +611,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-worklets-core (from `../node_modules/react-native-worklets-core`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -628,7 +631,7 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
-  - VisionCameraOcr (from `../node_modules/vision-camera-ocr`)
+  - VisionCameraOcr (from `../node_modules/vision-camera-dynamsoft-barcode-reader`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -706,6 +709,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-worklets-core:
     :path: "../node_modules/react-native-worklets-core"
   React-NativeModulesApple:
@@ -745,7 +750,7 @@ EXTERNAL SOURCES:
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
   VisionCameraOcr:
-    :path: "../node_modules/vision-camera-ocr"
+    :path: "../node_modules/vision-camera-dynamsoft-barcode-reader"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -797,6 +802,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: ff70a72027dea5cc7d71cfcc6fad7f599f63987a
   React-jsinspector: aef73cbd43b70675f572214d10fa438c89bf11ba
   React-logger: 2e4aee3e11b3ec4fa6cfd8004610bbb3b8d6cca4
+  react-native-image-picker: cffb727cf2f59bd5c0408e30b3dbe0b935f88835
   react-native-worklets-core: b4094f51cb2bc649e297206425cb8956f4945e3e
   React-NativeModulesApple: 797bc6078d566eef3fb3f74127e6e1d2e945a15f
   React-perflogger: cd8886513f68e1c135a1e79d20575c6489641597
