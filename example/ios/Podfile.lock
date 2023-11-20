@@ -2,6 +2,7 @@ PODS:
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
+  - DynamsoftBarcodeReader (9.6.20)
   - FBLazyVector (0.72.5)
   - FBReactNativeSpec (0.72.5):
     - RCT-Folly (= 2021.07.22.00)
@@ -553,6 +554,9 @@ PODS:
     - React-logger (= 0.72.5)
     - React-perflogger (= 0.72.5)
   - SocketRocket (0.6.1)
+  - vision-camera-dynamsoft-barcode-reader (2.1.1):
+    - DynamsoftBarcodeReader (= 9.6.20)
+    - React-Core
   - VisionCamera (3.6.4):
     - React
     - React-callinvoker
@@ -630,6 +634,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - vision-camera-dynamsoft-barcode-reader (from `../..`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - VisionCameraOcr (from `../node_modules/vision-camera-dynamsoft-barcode-reader`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -637,6 +642,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - CocoaAsyncSocket
+    - DynamsoftBarcodeReader
     - Flipper
     - Flipper-Boost-iOSX
     - Flipper-DoubleConversion
@@ -747,6 +753,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  vision-camera-dynamsoft-barcode-reader:
+    :path: "../.."
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
   VisionCameraOcr:
@@ -758,6 +766,7 @@ SPEC CHECKSUMS:
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
+  DynamsoftBarcodeReader: 666141039518d161d31a0e5e78286f7855a51264
   FBLazyVector: 71803c074f6325f10b5ec891c443b6bbabef0ca7
   FBReactNativeSpec: 448e08a759d29a96e15725ae532445bf4343567c
   Flipper: 6edb735e6c3e332975d1b17956bcc584eccf5818
@@ -822,11 +831,12 @@ SPEC CHECKSUMS:
   React-utils: 7a9918a1ffdd39aba67835d42386f592ea3f8e76
   ReactCommon: 91ece8350ebb3dd2be9cef662abd78b6948233c0
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  vision-camera-dynamsoft-barcode-reader: 80bf2c616d2bf54ece9ce8cbb3aa9f4ce6067a88
   VisionCamera: db57ca079c4f933f1ddd07f2f8fb2d171a826b85
   VisionCameraOcr: 2f3b773e8a00ad670db56057d56df6dd8fb2fc39
   Yoga: 86fed2e4d425ee4c6eab3813ba1791101ee153c6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 4807c75636e8f86e92319e0ee3fc6513998b5bce
+PODFILE CHECKSUM: df99e8622329ec90a0bfe5814ec4f62be465428e
 
 COCOAPODS: 1.14.2
