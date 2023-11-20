@@ -1,4 +1,4 @@
-package com.visioncameraocrexample;
+package com.visioncameradynamsoftbarcodereaderexample;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

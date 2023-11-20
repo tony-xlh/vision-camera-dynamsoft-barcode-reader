@@ -1,4 +1,4 @@
-package com.visioncameraocrexample;
+package com.visioncameradynamsoftbarcodereaderexample;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

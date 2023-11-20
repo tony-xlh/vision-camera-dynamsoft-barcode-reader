@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.visioncameraocrexample"
+    namespace "com.visioncameradynamsoftbarcodereaderexample"
     defaultConfig {
-        applicationId "com.visioncameraocrexample"
+        applicationId "com.visioncameradynamsoftbarcodereaderexample"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
