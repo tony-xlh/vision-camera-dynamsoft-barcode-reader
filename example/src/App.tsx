@@ -90,7 +90,7 @@ export default function App() {
             />
             <Separator />
             {barcodeResults.map((barcode, idx) => (
-              <Text key={idx}>
+              <Text key={"barcode"+idx}>
                 {barcode.barcodeFormat+": "+barcode.barcodeText}
               </Text>
             ))}
