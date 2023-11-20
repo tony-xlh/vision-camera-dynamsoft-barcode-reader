@@ -48,6 +48,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
                 if (arguments.containsKey("rotateImage")){
                     rotateImage = (Boolean) arguments.get("rotateImage");
                 }
+                initLicense(arguments);
                 updateRuntimeSettingsWithTemplate(arguments);
             }
 
@@ -97,10 +98,10 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         return results;
     }
 
-    private void initLicense(ReadableNativeMap config) {
+    private void initLicense(Map<String, Object> config) {
         if (config != null){
-            if (config.hasKey("license")) {
-                String license = config.getString("license");
+            if (config.containsKey("license")) {
+                String license = (String) config.get("license");
                 if (mLicense == null || mLicense.equals(license) == false) {
                     mLicense = license;
                     BarcodeReader.initLicense(license, new DBRLicenseVerificationListener() {

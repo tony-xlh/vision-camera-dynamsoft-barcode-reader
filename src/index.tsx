@@ -66,6 +66,7 @@ export interface DBRConfig{
   template?:string;
   isFront?:boolean;
   rotateImage?:boolean;
+  license?:string;
 }
 
 /**
