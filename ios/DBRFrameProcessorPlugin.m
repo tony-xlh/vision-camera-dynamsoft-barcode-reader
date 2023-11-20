@@ -8,21 +8,32 @@
 #import <Foundation/Foundation.h>
 #import <VisionCamera/FrameProcessorPlugin.h>
 #import <VisionCamera/FrameProcessorPluginRegistry.h>
-#import "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h"
+#import <VisionCamera/Frame.h>
 #import "DBRFrameProcessorPlugin.h"
-
-@interface DBRFrameProcessorPlugin (FrameProcessorPluginLoader)
+// Example for an Objective-C Frame Processor plugin
+@interface ExampleFrameProcessorPlugin : FrameProcessorPlugin
 @end
 
-@implementation DBRFrameProcessorPlugin (FrameProcessorPluginLoader)
+@implementation ExampleFrameProcessorPlugin
 
-+ (void)load
+- (instancetype)initWithOptions:(NSDictionary* _Nullable)options
 {
-  [FrameProcessorPluginRegistry addFrameProcessorPlugin:@"decode"
-                                        withInitializer:^FrameProcessorPlugin* (NSDictionary* options) {
-    return [[DBRFrameProcessorPlugin alloc] init];
-  }];
+  self = [super initWithOptions:options];
+  NSLog(@"ExampleFrameProcessorPlugin initialized with options: %@", options);
+  return self;
 }
 
-@end
+- (id)callback:(Frame *)frame withArguments:(NSDictionary *)arguments {
+  CVPixelBufferRef imageBuffer = CMSampleBufferGetImageBuffer(frame.buffer);
+  NSLog(@"ExamplePlugin: %zu x %zu Image. Logging %lu parameters:", CVPixelBufferGetWidth(imageBuffer), CVPixelBufferGetHeight(imageBuffer), (unsigned long)arguments.count);
 
+  for (id param in arguments) {
+    NSLog(@"ExamplePlugin:   -> %@ (%@)", param == nil ? @"(nil)" : [param description], NSStringFromClass([param classForCoder]));
+  }
+
+    return @[];
+}
+
+VISION_EXPORT_FRAME_PROCESSOR(ExampleFrameProcessorPlugin, decode)
+
+@end

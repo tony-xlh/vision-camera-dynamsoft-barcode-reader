@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
-#import "VisionCameraDynamsoftBarcodeReader-Swift.h"
+
 
 
 @interface RCT_EXTERN_MODULE(VisionCameraDynamsoftBarcodeReader, NSObject)
