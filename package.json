@@ -14,7 +14,7 @@
     "android",
     "ios",
     "cpp",
-    "VisionCameraOcr.podspec",
+    "vision-camera-dynamsoft-barcode-reader.podspec",
     "!lib/typescript/example",
     "!android/build",
     "!ios/build",

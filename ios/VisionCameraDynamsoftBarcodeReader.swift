@@ -5,8 +5,8 @@ import MLKitTextRecognition
 import CoreImage
 import UIKit
 
-@objc(OCRFrameProcessorPlugin)
-public class OCRFrameProcessorPlugin: FrameProcessorPlugin {
+@objc(DBRFrameProcessorPlugin)
+public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
     
     private static let textRecognizer = TextRecognizer.textRecognizer(options: TextRecognizerOptions.init())
     

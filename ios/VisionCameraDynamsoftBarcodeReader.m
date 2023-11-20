@@ -2,18 +2,18 @@
 #import <VisionCamera/FrameProcessorPlugin.h>
 #import <VisionCamera/FrameProcessorPluginRegistry.h>
 
-#import "VisionCameraOcr-Swift.h"
+#import "VisionCameraDynamsoftBarcodeReader-Swift.h"
 
-@interface OCRFrameProcessorPlugin (FrameProcessorPluginLoader)
+@interface DBRFrameProcessorPlugin (FrameProcessorPluginLoader)
 @end
 
-@implementation OCRFrameProcessorPlugin (FrameProcessorPluginLoader)
+@implementation DBRFrameProcessorPlugin (FrameProcessorPluginLoader)
 
 + (void)load
 {
-  [FrameProcessorPluginRegistry addFrameProcessorPlugin:@"scanOCR"
+  [FrameProcessorPluginRegistry addFrameProcessorPlugin:@"decode"
                                         withInitializer:^FrameProcessorPlugin* (NSDictionary* options) {
-    return [[OCRFrameProcessorPlugin alloc] init];
+    return [[DBRFrameProcessorPlugin alloc] init];
   }];
 }
 

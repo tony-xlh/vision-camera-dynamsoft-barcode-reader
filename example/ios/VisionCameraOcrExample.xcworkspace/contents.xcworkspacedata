@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:VisionCameraOcrExample.xcodeproj">
+      location = "group:/Users/xulihang/Documents/vision-camera-dynamsoft-barcode-reader/example/ios/VisionCameraDynamsoftBarcodeReaderExample.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
