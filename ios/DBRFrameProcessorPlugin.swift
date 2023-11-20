@@ -30,7 +30,6 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
         
         let image = UIImage(cgImage: cgImage)
         var returned_results: [Any] = []
-        let image = UIImage(cgImage: cgImage)
         // code goes here
         let results = try? VisionCameraDynamsoftBarcodeReader.dbr.decodeImage(image)
         let count = results?.count ?? 0

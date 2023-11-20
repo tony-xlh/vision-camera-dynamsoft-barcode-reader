@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import <VisionCamera/FrameProcessorPlugin.h>
 #import <VisionCamera/FrameProcessorPluginRegistry.h>
+#import "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h"
+#import "DBRFrameProcessorPlugin.h"
 
 @interface DBRFrameProcessorPlugin (FrameProcessorPluginLoader)
 @end
