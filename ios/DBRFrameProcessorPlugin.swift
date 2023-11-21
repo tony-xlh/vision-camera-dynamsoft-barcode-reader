@@ -15,7 +15,7 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
     private static var mLicense:String! = nil
     private static let context = CIContext(options: nil)
     public override func callback(_ frame: Frame, withArguments arguments: [AnyHashable: Any]?) -> Any? {
-        
+        print("frame processor in swift")
         guard let imageBuffer = CMSampleBufferGetImageBuffer(frame.buffer) else {
           print("Failed to get image buffer from sample buffer.")
           return nil

@@ -29,6 +29,7 @@
 		BE19B8722B0B530D000D8CDE /* DBRFrameProcessorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBRFrameProcessorPlugin.swift; sourceTree = "<group>"; };
 		BE19B8732B0B530D000D8CDE /* DBRFrameProcessorPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBRFrameProcessorPlugin.m; sourceTree = "<group>"; };
 		BE19B8742B0B53E7000D8CDE /* DBRFrameProcessorPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBRFrameProcessorPlugin.h; sourceTree = "<group>"; };
+		BE4111A92B0C4750005FE9C1 /* VisionCameraDynamsoftBarcodeReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisionCameraDynamsoftBarcodeReader.h; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* VisionCameraDynamsoftBarcodeReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4FF95D6245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionCameraDynamsoftBarcodeReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,6 +56,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				BE4111A92B0C4750005FE9C1 /* VisionCameraDynamsoftBarcodeReader.h */,
 				BE19B8742B0B53E7000D8CDE /* DBRFrameProcessorPlugin.h */,
 				BE19B8732B0B530D000D8CDE /* DBRFrameProcessorPlugin.m */,
 				BE19B8722B0B530D000D8CDE /* DBRFrameProcessorPlugin.swift */,
