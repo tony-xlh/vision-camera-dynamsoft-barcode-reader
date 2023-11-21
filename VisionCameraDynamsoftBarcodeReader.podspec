@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.authors      = package["author"]
 
   s.platforms    = { :ios => "11.0" }
-  s.source       = { :git => "https://github.com/aarongrider/vision-camera-ocr.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/tony-xlh/vision-camera-dynamsoft-barcode-reader.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
