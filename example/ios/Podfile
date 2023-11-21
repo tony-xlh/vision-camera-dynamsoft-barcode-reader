@@ -45,7 +45,7 @@ target 'VisionCameraDynamsoftBarcodeReaderExample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'vision-camera-dynamsoft-barcode-reader', :path => '../..'
+  # pod 'vision-camera-dynamsoft-barcode-reader', :path => '../..'
   # pod 'vision-camera-ocr', :path => '../..'
   
   target 'VisionCameraDynamsoftBarcodeReaderExampleTests' do
