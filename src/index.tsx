@@ -29,11 +29,11 @@ export function decode(frame: Frame,config?:DBRConfig):TextResult[]|undefined {
   if (plugin == null) throw new Error('Failed to load Frame Processor Plugin "decode"!')
   if (config) {
     let record:Record<string,any> = {};
-    if (config.isFront) {
-      record["isFront"] = config.isFront.toString();
+    if (config.isFront != undefined && config.isFront != null) {
+      record["isFront"] = config.isFront;
     }
-    if (config.rotateImage) {
-      record["rotateImage"] = config.rotateImage.toString();
+    if (config.rotateImage != undefined && config.rotateImage != null) {
+      record["rotateImage"] = config.rotateImage;
     }
     if (config.template) {
       record["template"] = config.template;

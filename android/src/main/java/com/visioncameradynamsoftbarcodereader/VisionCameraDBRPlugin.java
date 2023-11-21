@@ -39,15 +39,16 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             Boolean isFront = false;
             Boolean rotateImage = true;
             if (arguments != null ){
+                //for (String key:
+                //     arguments.keySet()) {
+                //    Log.d("DBR",key);
+                //}
                 if (arguments.containsKey("isFront")){
-                    if (((String) arguments.get("isFront")).equals("true")){
-                        isFront = true;
-                    }
+                    isFront = (Boolean) arguments.get("isFront");
                 }
                 if (arguments.containsKey("rotateImage")){
-                    if (((String) arguments.get("rotateImage")).equals("false")){
-                        rotateImage = false;
-                    }
+                    rotateImage = (Boolean) arguments.get("rotateImage");
+                    //Log.d("DBR","rot: "+rotateImage);
                 }
                 initLicense(arguments);
                 updateRuntimeSettingsWithTemplate(arguments);
