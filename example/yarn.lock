@@ -6369,7 +6369,7 @@ vary@~1.1.2:
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
 vision-camera-dynamsoft-barcode-reader@../:
-  version "2.1.1"
+  version "1.0.0"
 
 vlq@^1.0.0:
   version "1.0.1"

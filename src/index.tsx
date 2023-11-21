@@ -28,25 +28,25 @@ export function decode(frame: Frame,config?:DBRConfig):TextResult[]|undefined {
   'worklet'
   if (plugin == null) throw new Error('Failed to load Frame Processor Plugin "decode"!')
   if (config) {
-    return plugin.call(frame,convertDBRConfig(config)) as any;
+    let record:Record<string,any> = {};
+    if (config.isFront) {
+      record["isFront"] = config.isFront;
+    }
+    if (config.rotateImage) {
+      record["rotateImage"] = config.rotateImage;
+    }
+    if (config.template) {
+      record["template"] = config.template;
+    }
+    if (config.license) {
+      record["license"] = config.license;
+    }
+    return plugin.call(frame,record) as any;
   }else{
     return plugin.call(frame) as any;
   }
 }
 
-function convertDBRConfig(config:DBRConfig):Record<string,any>{
-  let record:Record<string,any> = {};
-  if (config.isFront) {
-    record["isFront"] = config.isFront;
-  }
-  if (config.rotateImage) {
-    record["rotateImage"] = config.rotateImage;
-  }
-  if (config.template) {
-    record["template"] = config.template;
-  }
-  return record;
-}
 
 export interface TextResult{
   barcodeText:string;
