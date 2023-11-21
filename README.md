@@ -9,8 +9,6 @@ For vision-camera v2, use versions 0.x.
 
 For vision-camera v3, use versions >= 1.0.0.
 
-Please note that this version of the plugin works for Vision Camera v2.
-
 ## Installation
 
 ```sh
