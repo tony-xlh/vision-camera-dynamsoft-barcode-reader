@@ -28,7 +28,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
     private String mTemplate = null;
     private String mLicense = null;
 
-    private BarcodeReader dbr = null;
+    private BarcodeReader dbr = VisionCameraDynamsoftBarcodeReaderModule.dbr;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
@@ -36,9 +36,6 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         List<Object> array = new ArrayList<>();
         try {
             //Log.d("DBR",frame.getImage().getWidth()+"x"+frame.getImage().getHeight());
-            if (dbr == null) {
-                initDBR();
-            }
             Boolean isFront = false;
             Boolean rotateImage = true;
             if (arguments != null ){
@@ -61,7 +58,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
 
             if (results != null) {
                 for (int i = 0; i < results.length; i++) {
-                    Log.d("DBR",results[i].barcodeText);
+                    //Log.d("DBR",results[i].barcodeText);
                     array.add(Utils.wrapResults(results[i], frame, isFront, rotateImage));
                 }
             }
@@ -71,20 +68,12 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         return array;
     }
 
-    private void initDBR(){
-        try {
-            dbr = new BarcodeReader();
-        } catch (BarcodeReaderException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private TextResult[] decode(Frame image, Boolean rotateImage) throws BarcodeReaderException {
         TextResult[] results = null;
         if (rotateImage){
             Bitmap bitmap = BitmapUtils.getBitmap(image);
-            Log.d("DBR","bitmap width: "+bitmap.getWidth());
-            Log.d("DBR","bitmap height: "+bitmap.getHeight());
+            //Log.d("DBR","bitmap width: "+bitmap.getWidth());
+            //Log.d("DBR","bitmap height: "+bitmap.getHeight());
             results = dbr.decodeBufferedImage(bitmap);
         }else{
             ByteBuffer buffer = image.getImage().getPlanes()[0].getBuffer();

@@ -24,7 +24,7 @@ import com.facebook.react.module.annotations.ReactModule;
 public class VisionCameraDynamsoftBarcodeReaderModule extends ReactContextBaseJavaModule {
   public static final String NAME = "VisionCameraDynamsoftBarcodeReader";
   private Context mContext;
-  private BarcodeReader dbr;
+  public static BarcodeReader dbr;
   public VisionCameraDynamsoftBarcodeReaderModule(ReactApplicationContext reactContext) {
     super(reactContext);
     mContext = reactContext;
