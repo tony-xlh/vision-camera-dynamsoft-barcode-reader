@@ -80,16 +80,16 @@ public class BitmapUtils {
     }
 
     public static int getRotationDegreeFromOrientation(String orientation) {
-      if (orientation.equals(Orientation.PORTRAIT)) {
-        return 90;
-      }else if (orientation.equals(Orientation.LANDSCAPE_LEFT)) {
+        if (orientation.equals(Orientation.PORTRAIT.getUnionValue())) {
+            return 90;
+        }else if (orientation.equals(Orientation.LANDSCAPE_LEFT.getUnionValue())) {
+            return 0;
+        } else if (orientation.equals(Orientation.LANDSCAPE_RIGHT.getUnionValue())) {
+            return 270;
+        }else if (orientation.equals(Orientation.PORTRAIT_UPSIDE_DOWN.getUnionValue())) {
+            return 180;
+        }
         return 0;
-      } else if (orientation.equals(Orientation.LANDSCAPE_RIGHT)) {
-        return 270;
-      }else if (orientation.equals(Orientation.PORTRAIT_UPSIDE_DOWN)) {
-        return 180;
-      }
-      return 0;
     }
 
     /** Rotates a bitmap if it is converted from a bytebuffer. */
