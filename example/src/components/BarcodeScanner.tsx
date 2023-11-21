@@ -17,7 +17,7 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
   const frameProcessor = useFrameProcessor(frame => {
     'worklet'
     const config:DBRConfig = {
-      template:"{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}"
+      template:"{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}"
     };
     const results = decode(frame,config);
     console.log(results);
