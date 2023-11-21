@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "vision-camera-ocr": ["./src/index"]
+      "vision-camera-dynamsoft-barcode-reader": ["./src/index"]
     },
     "allowJs": false,
     "allowUnreachableCode": false,

@@ -240,7 +240,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReader;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraOcr-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.2;
 			};
@@ -259,7 +259,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReader;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraOcr-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h";
 				SWIFT_VERSION = 5.2;
 			};
 			name = Release;
