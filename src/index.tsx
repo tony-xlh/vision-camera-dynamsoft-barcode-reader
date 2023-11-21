@@ -30,10 +30,10 @@ export function decode(frame: Frame,config?:DBRConfig):TextResult[]|undefined {
   if (config) {
     let record:Record<string,any> = {};
     if (config.isFront) {
-      record["isFront"] = config.isFront;
+      record["isFront"] = config.isFront.toString();
     }
     if (config.rotateImage) {
-      record["rotateImage"] = config.rotateImage;
+      record["rotateImage"] = config.rotateImage.toString();
     }
     if (config.template) {
       record["template"] = config.template;

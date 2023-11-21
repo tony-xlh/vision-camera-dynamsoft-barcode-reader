@@ -40,10 +40,14 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             Boolean rotateImage = true;
             if (arguments != null ){
                 if (arguments.containsKey("isFront")){
-                    isFront = (Boolean) arguments.get("isFront");
+                    if (((String) arguments.get("isFront")).equals("true")){
+                        isFront = true;
+                    }
                 }
                 if (arguments.containsKey("rotateImage")){
-                    rotateImage = (Boolean) arguments.get("rotateImage");
+                    if (((String) arguments.get("rotateImage")).equals("false")){
+                        rotateImage = false;
+                    }
                 }
                 initLicense(arguments);
                 updateRuntimeSettingsWithTemplate(arguments);
