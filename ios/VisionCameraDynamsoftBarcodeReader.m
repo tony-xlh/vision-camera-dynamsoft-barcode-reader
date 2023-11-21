@@ -1,13 +1,7 @@
-//
-//  VisionCameraDynamsoftBarcodeReader.m
-//  VisionCameraDynamsoftBarcodeReader
-//
-//  Created by xulihang on 2022/12/2.
-//  Copyright © 2022 Facebook. All rights reserved.
-//
-
-
+#import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
+
+
 
 @interface RCT_EXTERN_MODULE(VisionCameraDynamsoftBarcodeReader, NSObject)
 

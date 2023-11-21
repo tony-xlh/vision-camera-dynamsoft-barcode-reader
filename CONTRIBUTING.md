@@ -51,7 +51,7 @@ Remember to add tests for your change if possible. Run the unit tests by:
 yarn test
 ```
 
-To edit the Objective-C files, open `example/ios/VisionCameraDynamsoftBarcodeReaderExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > vision-camera-dynamsoft-barcode-reader`.
+To edit the Objective-C files, open `example/ios/VisionCameraDynamsoftBarcodeReaderExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > VisionCameraDynamsoftBarcodeReader`.
 
 To edit the Kotlin files, open `example/android` in Android studio and find the source files at `visioncameradynamsoftbarcodereader` under `Android`.
 
@@ -100,7 +100,7 @@ The `package.json` file contains various scripts for common tasks:
 
 ### Sending a pull request
 
-> **Working on your first pull request?** You can learn how from this _free_ series: [How to Contribute to an Open Source Project on GitHub](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github).
+> **Working on your first pull request?** You can learn how from this _free_ series: [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
 
 When you're sending a pull request:
 

@@ -31,8 +31,10 @@ import androidx.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
-import androidx.camera.core.ExperimentalGetImage;
-import androidx.camera.core.ImageProxy;
+
+import com.mrousavy.camera.frameprocessor.Frame;
+import com.mrousavy.camera.types.Orientation;
+
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
@@ -63,21 +65,31 @@ public class BitmapUtils {
         return null;
     }
 
-    /** Converts a YUV_420_888 image from CameraX API to a bitmap. */
-    @RequiresApi(VERSION_CODES.LOLLIPOP)
-    @Nullable
-    @ExperimentalGetImage
-    public static Bitmap getBitmap(ImageProxy image) {
+    /** Converts a YUV_420_888 image from Vision Camera API to a bitmap. */
+    public static Bitmap getBitmap(Frame image) {
         FrameMetadata frameMetadata =
                 new FrameMetadata.Builder()
                         .setWidth(image.getWidth())
                         .setHeight(image.getHeight())
-                        .setRotation(image.getImageInfo().getRotationDegrees())
+                        .setRotation(getRotationDegreeFromOrientation(image.getOrientation()))
                         .build();
 
         ByteBuffer nv21Buffer =
                 yuv420ThreePlanesToNV21(image.getImage().getPlanes(), image.getWidth(), image.getHeight());
         return getBitmap(nv21Buffer, frameMetadata);
+    }
+
+    public static int getRotationDegreeFromOrientation(String orientation) {
+      if (orientation.equals(Orientation.PORTRAIT)) {
+        return 90;
+      }else if (orientation.equals(Orientation.LANDSCAPE_LEFT)) {
+        return 0;
+      } else if (orientation.equals(Orientation.LANDSCAPE_RIGHT)) {
+        return 270;
+      }else if (orientation.equals(Orientation.PORTRAIT_UPSIDE_DOWN)) {
+        return 180;
+      }
+      return 0;
     }
 
     /** Rotates a bitmap if it is converted from a bytebuffer. */

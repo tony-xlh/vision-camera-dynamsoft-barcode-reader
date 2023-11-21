@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Button, SafeAreaView, StyleSheet, Switch, Text, View } from 'react-native';
 import type { TextResult } from 'vision-camera-dynamsoft-barcode-reader';
-import BarcodeScanner from './components/BarcodeScanner';
 import * as DBR from 'vision-camera-dynamsoft-barcode-reader';
-import {launchImageLibrary, ImageLibraryOptions} from 'react-native-image-picker';
+import {launchImageLibrary, type ImageLibraryOptions} from 'react-native-image-picker';
+import BarcodeScanner from './components/BarcodeScanner';
 
 const Separator = () => (
   <View style={styles.separator} />
@@ -17,7 +17,8 @@ export default function App() {
   
   React.useEffect(() => {
     (async () => {
-      await DBR.initLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
+      const result = await DBR.initLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
+      console.log(result);
     })();
   }, []);
 
@@ -35,9 +36,9 @@ export default function App() {
     }
     let response = await launchImageLibrary(options);
     if (response && response.assets) {
-      if (response.assets[0].base64) {
-        console.log(response.assets[0].base64);
-        let results = await DBR.decodeBase64(response.assets[0].base64);
+      if (response.assets[0]!.base64) {
+        console.log(response.assets[0]!.base64);
+        let results = await DBR.decodeBase64(response.assets[0]!.base64);
         setBarcodeResults(results);
       }
     }
@@ -89,7 +90,7 @@ export default function App() {
             />
             <Separator />
             {barcodeResults.map((barcode, idx) => (
-              <Text key={idx}>
+              <Text key={"barcode"+idx}>
                 {barcode.barcodeFormat+": "+barcode.barcodeText}
               </Text>
             ))}

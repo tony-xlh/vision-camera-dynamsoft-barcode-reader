@@ -1,7 +1,7 @@
 # OSX
 #
 .DS_Store
-*.framework
+
 # XDE
 .expo/
 
@@ -31,12 +31,8 @@ project.xcworkspace
 
 # Android/IJ
 #
-.classpath
-.cxx
-.gradle
 .idea
-.project
-.settings
+.gradle
 local.properties
 android.iml
 

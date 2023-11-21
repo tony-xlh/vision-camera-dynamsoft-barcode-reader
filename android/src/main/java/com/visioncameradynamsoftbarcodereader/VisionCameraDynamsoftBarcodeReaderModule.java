@@ -22,79 +22,77 @@ import com.facebook.react.module.annotations.ReactModule;
 
 @ReactModule(name = VisionCameraDynamsoftBarcodeReaderModule.NAME)
 public class VisionCameraDynamsoftBarcodeReaderModule extends ReactContextBaseJavaModule {
-    public static final String NAME = "VisionCameraDynamsoftBarcodeReader";
-    private Context mContext;
-    private BarcodeReader dbr;
-    public VisionCameraDynamsoftBarcodeReaderModule(ReactApplicationContext reactContext) {
-        super(reactContext);
-        mContext = reactContext;
-        initDBR();
+  public static final String NAME = "VisionCameraDynamsoftBarcodeReader";
+  private Context mContext;
+  public static BarcodeReader dbr;
+  public VisionCameraDynamsoftBarcodeReaderModule(ReactApplicationContext reactContext) {
+    super(reactContext);
+    mContext = reactContext;
+    initDBR();
+  }
+  private void initDBR(){
+    try {
+      dbr = new BarcodeReader();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 
-    private void initDBR(){
-        try {
-            dbr = new BarcodeReader();
-        } catch (Exception e) {
-            e.printStackTrace();
+  public Context getContext(){
+    return mContext;
+  }
+  public BarcodeReader getDBR(){
+    return dbr;
+  }
+
+  @Override
+  @NonNull
+  public String getName() {
+    return NAME;
+  }
+  @ReactMethod
+  public void initLicense(String license, Promise promise) {
+    BarcodeReader.initLicense(license, new DBRLicenseVerificationListener() {
+      @Override
+      public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
+        if (!isSuccessful) {
+          e.printStackTrace();
+          promise.reject("DBR",e.getMessage());
+        }else {
+          promise.resolve(true);
         }
-    }
+      }
+    });
+  }
 
-    public Context getContext(){
-        return mContext;
+  @ReactMethod
+  public void initRuntimeSettingsFromString(String template, Promise promise) {
+    try {
+      dbr.initRuntimeSettingsWithString(template, EnumConflictMode.CM_OVERWRITE);
+      promise.resolve(true);
+    } catch (BarcodeReaderException e) {
+      e.printStackTrace();
+      promise.reject("DBR",e.getMessage());
     }
-    public BarcodeReader getDBR(){
-        return dbr;
-    }
+  }
 
-    @Override
-    @NonNull
-    public String getName() {
-        return NAME;
-    }
-
-    @ReactMethod
-    public void initLicense(String license, Promise promise) {
-        BarcodeReader.initLicense(license, new DBRLicenseVerificationListener() {
-            @Override
-            public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-                if (!isSuccessful) {
-                    e.printStackTrace();
-                    promise.reject("DBR",e.getMessage());
-                }else {
-                    promise.resolve(true);
-                }
-            }
-        });
-    }
-
-    @ReactMethod
-    public void initRuntimeSettingsFromString(String template, Promise promise) {
-        try {
-            dbr.initRuntimeSettingsWithString(template, EnumConflictMode.CM_OVERWRITE);
-            promise.resolve(true);
-        } catch (BarcodeReaderException e) {
-            e.printStackTrace();
-            promise.reject("DBR",e.getMessage());
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @ReactMethod
+  public void decodeBase64(String base64, Promise promise) {
+    try {
+      Bitmap bitmap = BitmapUtils.base642Bitmap(base64);
+      TextResult[] results = dbr.decodeBufferedImage(bitmap);
+      WritableNativeArray array = new WritableNativeArray();
+      if (results != null) {
+        for (int i = 0; i < results.length; i++) {
+          Log.d("DBR",results[i].barcodeText);
+          array.pushMap(Utils.wrapResultsAsNativeMap(results[i], null, false, true));
         }
+      }
+      promise.resolve(array);
+    } catch (BarcodeReaderException e) {
+      e.printStackTrace();
+      promise.reject("DBR",e.getMessage());
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @ReactMethod
-    public void decodeBase64(String base64, Promise promise) {
-        try {
-            Bitmap bitmap = BitmapUtils.base642Bitmap(base64);
-            TextResult[] results = dbr.decodeBufferedImage(bitmap);
-            WritableNativeArray array = new WritableNativeArray();
-            if (results != null) {
-                for (int i = 0; i < results.length; i++) {
-                    Log.d("DBR",results[i].barcodeText);
-                    array.pushMap(Utils.wrapResults(results[i], null, false, true));
-                }
-            }
-            promise.resolve(array);
-        } catch (BarcodeReaderException e) {
-            e.printStackTrace();
-            promise.reject("DBR",e.getMessage());
-        }
-    }
+  }
 }

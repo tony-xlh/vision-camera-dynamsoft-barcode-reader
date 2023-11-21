@@ -6,6 +6,10 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F4FF95D7245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		58B511D91A9E6C8500147676 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,12 +24,14 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libVisionCameraDynamsoftBarcodeReader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVisionCameraDynamsoftBarcodeReader.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BEDBE30D2939F67C005796AC /* VisionCameraDBRPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionCameraDBRPlugin.swift; sourceTree = "<group>"; };
-		BEDBE30E2939F67C005796AC /* BarcodeReaderInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeReaderInitializer.swift; sourceTree = "<group>"; };
-		BEDBE30F2939F67C005796AC /* VisionCameraDBRPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisionCameraDBRPlugin.m; sourceTree = "<group>"; };
-		BEDBE3102939F6BA005796AC /* VisionCameraDynamsoftBarcodeReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisionCameraDynamsoftBarcodeReader.m; sourceTree = "<group>"; };
-		BEDBE3112939F6D7005796AC /* VisionCameraDynamsoftBarcodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionCameraDynamsoftBarcodeReader.swift; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* VisionCameraDynamsoftBarcodeReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisionCameraDynamsoftBarcodeReader.m; sourceTree = "<group>"; };
+		BE19B86F2B0B4CFC000D8CDE /* BarcodeReaderInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeReaderInitializer.swift; sourceTree = "<group>"; };
+		BE19B8722B0B530D000D8CDE /* DBRFrameProcessorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBRFrameProcessorPlugin.swift; sourceTree = "<group>"; };
+		BE19B8732B0B530D000D8CDE /* DBRFrameProcessorPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBRFrameProcessorPlugin.m; sourceTree = "<group>"; };
+		BE19B8742B0B53E7000D8CDE /* DBRFrameProcessorPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBRFrameProcessorPlugin.h; sourceTree = "<group>"; };
+		BE4111A92B0C4750005FE9C1 /* VisionCameraDynamsoftBarcodeReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisionCameraDynamsoftBarcodeReader.h; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* VisionCameraDynamsoftBarcodeReader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h"; sourceTree = "<group>"; };
+		F4FF95D6245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionCameraDynamsoftBarcodeReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,11 +56,13 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				BEDBE3112939F6D7005796AC /* VisionCameraDynamsoftBarcodeReader.swift */,
-				BEDBE3102939F6BA005796AC /* VisionCameraDynamsoftBarcodeReader.m */,
-				BEDBE30E2939F67C005796AC /* BarcodeReaderInitializer.swift */,
-				BEDBE30F2939F67C005796AC /* VisionCameraDBRPlugin.m */,
-				BEDBE30D2939F67C005796AC /* VisionCameraDBRPlugin.swift */,
+				BE4111A92B0C4750005FE9C1 /* VisionCameraDynamsoftBarcodeReader.h */,
+				BE19B8742B0B53E7000D8CDE /* DBRFrameProcessorPlugin.h */,
+				BE19B8732B0B530D000D8CDE /* DBRFrameProcessorPlugin.m */,
+				BE19B8722B0B530D000D8CDE /* DBRFrameProcessorPlugin.swift */,
+				BE19B86F2B0B4CFC000D8CDE /* BarcodeReaderInitializer.swift */,
+				F4FF95D6245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift */,
+				B3E7B5891CC2AC0600A0062D /* VisionCameraDynamsoftBarcodeReader.m */,
 				F4FF95D5245B92E700C19C63 /* VisionCameraDynamsoftBarcodeReader-Bridging-Header.h */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
@@ -117,6 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4FF95D7245B92E800C19C63 /* VisionCameraDynamsoftBarcodeReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +135,7 @@
 		58B511ED1A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -176,6 +186,7 @@
 		58B511EE1A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -231,7 +242,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.2;
 			};
 			name = Debug;
 		};
@@ -249,7 +260,7 @@
 				PRODUCT_NAME = VisionCameraDynamsoftBarcodeReader;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "VisionCameraDynamsoftBarcodeReader-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.2;
 			};
 			name = Release;
 		};

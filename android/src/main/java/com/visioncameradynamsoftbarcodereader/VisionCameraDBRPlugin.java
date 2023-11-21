@@ -1,101 +1,96 @@
 package com.visioncameradynamsoftbarcodereader;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.util.Base64;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.camera.core.ImageProxy;
-
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
-import com.dynamsoft.dbr.DBRDLSLicenseVerificationListener;
 import com.dynamsoft.dbr.DBRLicenseVerificationListener;
-import com.dynamsoft.dbr.DMDLSConnectionParameters;
 import com.dynamsoft.dbr.EnumConflictMode;
 import com.dynamsoft.dbr.EnumImagePixelFormat;
-import com.dynamsoft.dbr.Point;
 import com.dynamsoft.dbr.TextResult;
 import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.WritableNativeArray;
-import com.facebook.react.bridge.WritableNativeMap;
+import com.mrousavy.camera.frameprocessor.Frame;
 import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.nio.ByteBuffer;
 
+
 public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
-    private VisionCameraDynamsoftBarcodeReaderModule mModule;
     private String mTemplate = null;
     private String mLicense = null;
+
+    private BarcodeReader dbr = VisionCameraDynamsoftBarcodeReaderModule.dbr;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Nullable
     @Override
-    public Object callback(ImageProxy image, Object[] params) {
-        ReadableNativeMap config = getConfig(params);
-        Boolean isFront;
-        Boolean rotateImage;
-        if (config.hasKey("isFront")){
-            isFront = config.getBoolean("isFront");
-        }else{
-            isFront = false;
-        }
-
-        if (config.hasKey("rotateImage")){
-            rotateImage = config.getBoolean("rotateImage");
-        }else{
-            rotateImage = true;
-        }
-
-        //for compability
-        initLicense(config);
-        updateRuntimeSettingsWithTemplate(config);
-
-        TextResult[] results = null;
+    public Object callback(@NonNull Frame frame, @Nullable Map<String, Object> arguments) {
+        List<Object> array = new ArrayList<>();
         try {
-            results = decode(image, rotateImage);
-        } catch (BarcodeReaderException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("DBR","rotation degrees:"+image.getImageInfo().getRotationDegrees());
-
-        WritableNativeArray array = new WritableNativeArray();
-        if (results != null) {
-            for (int i = 0; i < results.length; i++) {
-                Log.d("DBR",results[i].barcodeText);
-                array.pushMap(Utils.wrapResults(results[i], image, isFront, rotateImage));
+            //Log.d("DBR",frame.getImage().getWidth()+"x"+frame.getImage().getHeight());
+            Boolean isFront = false;
+            Boolean rotateImage = true;
+            if (arguments != null ){
+                if (arguments.containsKey("isFront")){
+                    isFront = (Boolean) arguments.get("isFront");
+                }
+                if (arguments.containsKey("rotateImage")){
+                    rotateImage = (Boolean) arguments.get("rotateImage");
+                }
+                initLicense(arguments);
+                updateRuntimeSettingsWithTemplate(arguments);
             }
-        }
 
+            TextResult[] results = null;
+            try {
+                results = decode(frame, rotateImage);
+            } catch (BarcodeReaderException e) {
+                e.printStackTrace();
+            }
+
+            if (results != null) {
+                for (int i = 0; i < results.length; i++) {
+                    //Log.d("DBR",results[i].barcodeText);
+                    array.add(Utils.wrapResults(results[i], frame, isFront, rotateImage));
+                }
+            }
+        }catch(Exception e) {
+            Log.d("DBR",e.getMessage());
+        }
         return array;
     }
 
-    @SuppressLint("UnsafeOptInUsageError")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private TextResult[] decode(ImageProxy image, Boolean rotateImage) throws BarcodeReaderException {
+    private TextResult[] decode(Frame image, Boolean rotateImage) throws BarcodeReaderException {
         TextResult[] results = null;
         if (rotateImage){
             Bitmap bitmap = BitmapUtils.getBitmap(image);
-            Log.d("DBR","bitmap width: "+bitmap.getWidth());
-            Log.d("DBR","bitmap height: "+bitmap.getHeight());
-            results = mModule.getDBR().decodeBufferedImage(bitmap);
+            //Log.d("DBR","bitmap width: "+bitmap.getWidth());
+            //Log.d("DBR","bitmap height: "+bitmap.getHeight());
+            results = dbr.decodeBufferedImage(bitmap);
         }else{
-            ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-            int nRowStride = image.getPlanes()[0].getRowStride();
-            int nPixelStride = image.getPlanes()[0].getPixelStride();
+            ByteBuffer buffer = image.getImage().getPlanes()[0].getBuffer();
+            int nRowStride = image.getImage().getPlanes()[0].getRowStride();
+            int nPixelStride = image.getImage().getPlanes()[0].getPixelStride();
             int length = buffer.remaining();
             byte[] bytes = new byte[length];
             buffer.get(bytes);
-            results = mModule.getDBR().decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
+            results = dbr.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
         }
         return results;
     }
 
-    private void initLicense(ReadableNativeMap config) {
+    private void initLicense(Map<String, Object> config) {
         if (config != null){
-            if (config.hasKey("license")) {
-                String license = config.getString("license");
+            if (config.containsKey("license")) {
+                String license = (String) config.get("license");
                 if (mLicense == null || mLicense.equals(license) == false) {
                     mLicense = license;
                     BarcodeReader.initLicense(license, new DBRLicenseVerificationListener() {
@@ -111,12 +106,12 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         }
     }
 
-    private void updateRuntimeSettingsWithTemplate(ReadableNativeMap config){
+    private void updateRuntimeSettingsWithTemplate(Map<String,Object> config){
         if (config == null){
             return;
         }
-        if (config.hasKey("template")) {
-            String template = config.getString("template");
+        if (config.containsKey("template")) {
+            String template = (String) config.get("template");
             Boolean shouldUpdate = false;
             if (mTemplate == null){
                 shouldUpdate = true;
@@ -127,7 +122,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             }
             if (shouldUpdate){
                 try {
-                    mModule.getDBR().initRuntimeSettingsWithString(template,EnumConflictMode.CM_OVERWRITE);
+                    dbr.initRuntimeSettingsWithString(template,EnumConflictMode.CM_OVERWRITE);
                 } catch (BarcodeReaderException e) {
                     e.printStackTrace();
                 }
@@ -137,7 +132,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             if (mTemplate != null) {
                 mTemplate = null;
                 try {
-                    mModule.getDBR().resetRuntimeSettings();
+                    dbr.resetRuntimeSettings();
                 } catch (BarcodeReaderException e) {
                     e.printStackTrace();
                 }
@@ -145,19 +140,8 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         }
     }
 
-    private ReadableNativeMap getConfig(Object[] params){
-        if (params.length>0) {
-            if (params[0] instanceof ReadableNativeMap) {
-                ReadableNativeMap config = (ReadableNativeMap) params[0];
-                return config;
-            }
-        }
-        return null;
-    }
-
-    VisionCameraDBRPlugin(VisionCameraDynamsoftBarcodeReaderModule module)
+    VisionCameraDBRPlugin()
     {
-        super("decode");
-        mModule = module;
+      super(null);
     }
 }
