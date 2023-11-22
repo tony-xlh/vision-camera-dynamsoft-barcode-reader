@@ -28,8 +28,8 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
         }
         
         if arguments != nil {
-            DBRFrameProcessorPlugin.initLicense(config: arguments as? [String:String])
-            DBRFrameProcessorPlugin.updateRuntimeSettingsWithTemplate(config: arguments as? [String:String])
+            DBRFrameProcessorPlugin.initLicense(config: arguments)
+            DBRFrameProcessorPlugin.updateRuntimeSettingsWithTemplate(config: arguments)
         }
         
         let image = UIImage(cgImage: cgImage)
@@ -45,9 +45,9 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
         return returned_results
     }
     
-    static func initLicense(config: [String:String]!) {
+    static func initLicense(config: [AnyHashable: Any]?) {
         if config?["license"] != nil {
-           let license = config?["license"] ?? "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ=="
+           let license = config?["license"] as! String
            if license != mLicense {
                mLicense = license
                let initializer = BarcodeReaderInitializer()
@@ -56,28 +56,30 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
         }
     }
     
-    static func updateRuntimeSettingsWithTemplate(config:[String:String]!){
-        let template = config?["template"] ?? ""
-        var shouldUpdate = false
-        
-        if template != "" {
-            if mTemplate == nil {
-                shouldUpdate = true
-            } else {
-                if mTemplate != template {
+    static func updateRuntimeSettingsWithTemplate(config:[AnyHashable: Any]?){
+        if config?["template"] != nil {
+            let template = config?["template"] as! String
+            var shouldUpdate = false
+            
+            if template != "" {
+                if mTemplate == nil {
                     shouldUpdate = true
+                } else {
+                    if mTemplate != template {
+                        shouldUpdate = true
+                    }
                 }
-            }
-            
-            if shouldUpdate {
-                try? VisionCameraDynamsoftBarcodeReader.dbr.initRuntimeSettingsWithString(template, conflictMode: EnumConflictMode.overwrite)
-                mTemplate = template
-            }
-            
-        } else {
-            if mTemplate != nil {
-                try? VisionCameraDynamsoftBarcodeReader.dbr.resetRuntimeSettings()
-                mTemplate = nil
+                
+                if shouldUpdate {
+                    try? VisionCameraDynamsoftBarcodeReader.dbr.initRuntimeSettingsWithString(template, conflictMode: EnumConflictMode.overwrite)
+                    mTemplate = template
+                }
+                
+            } else {
+                if mTemplate != nil {
+                    try? VisionCameraDynamsoftBarcodeReader.dbr.resetRuntimeSettings()
+                    mTemplate = nil
+                }
             }
         }
     }
