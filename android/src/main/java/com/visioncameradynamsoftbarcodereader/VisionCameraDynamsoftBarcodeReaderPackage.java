@@ -14,7 +14,7 @@ import java.util.List;
 
 public class VisionCameraDynamsoftBarcodeReaderPackage implements ReactPackage {
   static {
-    FrameProcessorPluginRegistry.addFrameProcessorPlugin("decode", options -> new VisionCameraDBRPlugin());
+    FrameProcessorPluginRegistry.addFrameProcessorPlugin("decode", VisionCameraDBRPlugin::new);
   }
   @NonNull
   @Override

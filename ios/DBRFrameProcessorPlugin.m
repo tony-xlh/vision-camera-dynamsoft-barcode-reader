@@ -18,10 +18,10 @@
 
 + (void)load
 {
-  [FrameProcessorPluginRegistry addFrameProcessorPlugin:@"decode"
-                                        withInitializer:^FrameProcessorPlugin* (NSDictionary* options) {
-    return [[DBRFrameProcessorPlugin alloc] init];
-  }];
+    [FrameProcessorPluginRegistry addFrameProcessorPlugin:@"decode"
+                                        withInitializer:^FrameProcessorPlugin* (VisionCameraProxyHolder* proxy, NSDictionary* options) {
+        return [[DBRFrameProcessorPlugin alloc] initWithProxy:proxy withOptions:options];
+    }];
 }
 
 @end

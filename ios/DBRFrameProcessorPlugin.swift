@@ -11,6 +11,9 @@ import DynamsoftBarcodeReader
 
 @objc(DBRFrameProcessorPlugin)
 public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
+    public override init(proxy: VisionCameraProxyHolder, options: [AnyHashable : Any]! = [:]) {
+        super.init(proxy: proxy, options: options)
+    }
     private static var mTemplate:String! = nil
     private static var mLicense:String! = nil
     private static let context = CIContext(options: nil)

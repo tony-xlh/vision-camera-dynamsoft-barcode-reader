@@ -17,6 +17,8 @@ import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.mrousavy.camera.frameprocessor.Frame;
 import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
+import com.mrousavy.camera.frameprocessor.VisionCameraProxy;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -144,9 +146,6 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             }
         }
     }
+    VisionCameraDBRPlugin(@NonNull VisionCameraProxy proxy, @Nullable Map<String, Object> options) {super();}
 
-    VisionCameraDBRPlugin()
-    {
-      super(null);
-    }
 }

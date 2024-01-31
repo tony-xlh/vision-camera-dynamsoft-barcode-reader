@@ -79,14 +79,14 @@ public class BitmapUtils {
         return getBitmap(nv21Buffer, frameMetadata);
     }
 
-    public static int getRotationDegreeFromOrientation(String orientation) {
-        if (orientation.equals(Orientation.PORTRAIT.getUnionValue())) {
+    public static int getRotationDegreeFromOrientation(Orientation orientation) {
+        if (orientation.getUnionValue().equals(Orientation.PORTRAIT.getUnionValue())) {
             return 90;
-        }else if (orientation.equals(Orientation.LANDSCAPE_LEFT.getUnionValue())) {
+        }else if (orientation.getUnionValue().equals(Orientation.LANDSCAPE_LEFT.getUnionValue())) {
             return 0;
-        } else if (orientation.equals(Orientation.LANDSCAPE_RIGHT.getUnionValue())) {
+        } else if (orientation.getUnionValue().equals(Orientation.LANDSCAPE_RIGHT.getUnionValue())) {
             return 270;
-        }else if (orientation.equals(Orientation.PORTRAIT_UPSIDE_DOWN.getUnionValue())) {
+        }else if (orientation.getUnionValue().equals(Orientation.PORTRAIT_UPSIDE_DOWN.getUnionValue())) {
             return 180;
         }
         return 0;
