@@ -24,7 +24,7 @@ const plugin = VisionCameraProxy.initFrameProcessorPlugin('decode')
 /**
  * Detect barcodes from the camera preview
  */
-export function decode(frame: Frame,config?:DBRConfig):TextResult[]|undefined {
+export function decode(frame: Frame,config?:DBRConfig):Record<string, TextResult>|undefined {
   'worklet'
   if (plugin == null) throw new Error('Failed to load Frame Processor Plugin "decode"!')
   if (config) {

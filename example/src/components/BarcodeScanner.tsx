@@ -11,7 +11,7 @@ interface props {
 const BarcodeScanner: React.FC<props> = (props: props) => {
   const [hasPermission, setHasPermission] = React.useState(false);
   const [isActive, setIsActive] = React.useState(false);
-  const [results, setResults] = React.useState([] as TextResult[]);
+  const [results, setResults] = React.useState<Record<string,TextResult>>();
   const setResultsJS = Worklets.createRunInJsFn(setResults);
   const device = useCameraDevice("back");
   const cameraFormat = useCameraFormat(device, [
@@ -27,12 +27,23 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
         template:"{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}"
       };
       const results = decode(frame,config);
+      console.log("decode");
       console.log(results);
       if (results) {
         setResultsJS(results);
       }
     })
   }, [])
+
+  const convertRecordsToArray = (records:Record<string,TextResult>) =>{
+    let results:TextResult[] = [];
+    for (let index = 0; index < Object.keys(records).length; index++) {
+      const result = records[Object.keys(records)[index]];
+      results.push(result);
+    }
+    console.log(results);
+    return results;
+  }
 
   React.useEffect(() => {
     (async () => {
@@ -43,10 +54,25 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
   }, []);
 
   React.useEffect(() => {
-    if (props.onScanned) {
-      props.onScanned(results);
+    if (props.onScanned && results) {
+      props.onScanned(convertRecordsToArray(results));
     }
   }, [results]);
+
+  const renderBarcodeResults = ()=> {
+    if (results) {
+      const listItems = convertRecordsToArray(results).map((barcode,idx) =>
+        <Text key={"barcode"+idx} style={styles.barcodeText}>
+            {barcode.barcodeFormat +": "+ barcode.barcodeText}
+        </Text>
+      );
+      return (
+        <>
+          {listItems}
+        </>
+      );
+    }
+  }
 
   return (
       <>
@@ -61,11 +87,7 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
             frameProcessor={frameProcessor}
             pixelFormat="yuv"
             />
-            {results.map((barcode, idx) => (
-            <Text key={"barcode"+idx} style={styles.barcodeText}>
-                {barcode.barcodeFormat +": "+ barcode.barcodeText}
-            </Text>
-            ))}
+            {renderBarcodeResults()}
         </>)}
       </>
   );
