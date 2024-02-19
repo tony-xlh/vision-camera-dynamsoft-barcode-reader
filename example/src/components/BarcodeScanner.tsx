@@ -11,8 +11,16 @@ interface props {
 const BarcodeScanner: React.FC<props> = (props: props) => {
   const [hasPermission, setHasPermission] = React.useState(false);
   const [isActive, setIsActive] = React.useState(false);
-  const [results, setResults] = React.useState<Record<string,TextResult>>();
-  const setResultsJS = Worklets.createRunInJsFn(setResults);
+  const [results, setResults] = React.useState([] as TextResult[]);
+  const convertAndSetResults = (records:Record<string,TextResult>) => {
+    let results:TextResult[] = [];
+    for (let index = 0; index < Object.keys(records).length; index++) {
+      const result = records[Object.keys(records)[index]];
+      results.push(result);
+    }
+    setResults(results);
+  }
+  const convertAndSetResultsJS = Worklets.createRunInJsFn(convertAndSetResults);
   const device = useCameraDevice("back");
   const cameraFormat = useCameraFormat(device, [
     { videoResolution: { width: 1280, height: 720 } },
@@ -30,20 +38,10 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
       console.log("decode");
       console.log(results);
       if (results) {
-        setResultsJS(results);
+        convertAndSetResultsJS(results);
       }
     })
   }, [])
-
-  const convertRecordsToArray = (records:Record<string,TextResult>) =>{
-    let results:TextResult[] = [];
-    for (let index = 0; index < Object.keys(records).length; index++) {
-      const result = records[Object.keys(records)[index]];
-      results.push(result);
-    }
-    console.log(results);
-    return results;
-  }
 
   React.useEffect(() => {
     (async () => {
@@ -55,13 +53,13 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
 
   React.useEffect(() => {
     if (props.onScanned && results) {
-      props.onScanned(convertRecordsToArray(results));
+      props.onScanned(results);
     }
   }, [results]);
 
   const renderBarcodeResults = ()=> {
     if (results) {
-      const listItems = convertRecordsToArray(results).map((barcode,idx) =>
+      const listItems = results.map((barcode,idx) =>
         <Text key={"barcode"+idx} style={styles.barcodeText}>
             {barcode.barcodeFormat +": "+ barcode.barcodeText}
         </Text>
