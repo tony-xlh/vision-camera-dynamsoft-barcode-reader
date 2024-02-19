@@ -32,6 +32,7 @@ import android.util.Base64;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 
+import com.mrousavy.camera.core.FrameInvalidError;
 import com.mrousavy.camera.frameprocessor.Frame;
 import com.mrousavy.camera.types.Orientation;
 
@@ -66,7 +67,7 @@ public class BitmapUtils {
     }
 
     /** Converts a YUV_420_888 image from Vision Camera API to a bitmap. */
-    public static Bitmap getBitmap(Frame image) {
+    public static Bitmap getBitmap(Frame image) throws FrameInvalidError {
         FrameMetadata frameMetadata =
                 new FrameMetadata.Builder()
                         .setWidth(image.getWidth())

@@ -15,6 +15,7 @@ import com.dynamsoft.dbr.EnumImagePixelFormat;
 import com.dynamsoft.dbr.TextResult;
 import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.WritableNativeArray;
+import com.mrousavy.camera.core.FrameInvalidError;
 import com.mrousavy.camera.frameprocessor.Frame;
 import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
 import com.mrousavy.camera.frameprocessor.VisionCameraProxy;
@@ -57,11 +58,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             }
 
             TextResult[] results = null;
-            try {
-                results = decode(frame, rotateImage);
-            } catch (BarcodeReaderException e) {
-                e.printStackTrace();
-            }
+            results = decode(frame, rotateImage);
 
             if (results != null) {
                 for (int i = 0; i < results.length; i++) {
@@ -69,13 +66,13 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
                     array.add(Utils.wrapResults(results[i], frame, isFront, rotateImage));
                 }
             }
-        }catch(Exception e) {
+        }catch(Exception | FrameInvalidError e) {
             Log.d("DBR",e.getMessage());
         }
         return array;
     }
 
-    private TextResult[] decode(Frame image, Boolean rotateImage) throws BarcodeReaderException {
+    private TextResult[] decode(Frame image, Boolean rotateImage) throws BarcodeReaderException, FrameInvalidError {
         TextResult[] results = null;
         if (rotateImage){
             Bitmap bitmap = BitmapUtils.getBitmap(image);

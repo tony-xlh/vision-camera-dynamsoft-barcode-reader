@@ -19,6 +19,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.module.annotations.ReactModule;
+import com.mrousavy.camera.core.FrameInvalidError;
 
 @ReactModule(name = VisionCameraDynamsoftBarcodeReaderModule.NAME)
 public class VisionCameraDynamsoftBarcodeReaderModule extends ReactContextBaseJavaModule {
@@ -90,7 +91,7 @@ public class VisionCameraDynamsoftBarcodeReaderModule extends ReactContextBaseJa
         }
       }
       promise.resolve(array);
-    } catch (BarcodeReaderException e) {
+    } catch (BarcodeReaderException | FrameInvalidError e) {
       e.printStackTrace();
       promise.reject("DBR",e.getMessage());
     }

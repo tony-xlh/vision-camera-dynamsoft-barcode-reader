@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import com.dynamsoft.dbr.Point;
 import com.dynamsoft.dbr.TextResult;
 import com.facebook.react.bridge.WritableNativeMap;
+import com.mrousavy.camera.core.FrameInvalidError;
 import com.mrousavy.camera.frameprocessor.Frame;
 
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public class Utils {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static Map<String, Object> wrapResults(TextResult result, Frame image, Boolean isFront, Boolean rotateImage) {
+    public static Map<String, Object> wrapResults(TextResult result, Frame image, Boolean isFront, Boolean rotateImage) throws FrameInvalidError {
         Map<String, Object> map = new HashMap<>();
         map.put("barcodeText",result.barcodeText);
         map.put("barcodeFormat",result.barcodeFormatString);
@@ -31,7 +32,7 @@ public class Utils {
         return map;
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static WritableNativeMap wrapResultsAsNativeMap(TextResult result, Frame image, Boolean isFront, Boolean rotateImage) {
+    public static WritableNativeMap wrapResultsAsNativeMap(TextResult result, Frame image, Boolean isFront, Boolean rotateImage) throws FrameInvalidError {
         WritableNativeMap map = new WritableNativeMap();
         map.putString("barcodeText",result.barcodeText);
         map.putString("barcodeFormat",result.barcodeFormatString);
@@ -50,7 +51,7 @@ public class Utils {
 
     //rotate point to match camera preview
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static Point rotatedPoint(Point point, Frame image, Boolean isFront){
+    public static Point rotatedPoint(Point point, Frame image, Boolean isFront) throws FrameInvalidError {
         Point rotatedPoint = new Point();
         switch (BitmapUtils.getRotationDegreeFromOrientation(image.getOrientation())){
             case 90:
