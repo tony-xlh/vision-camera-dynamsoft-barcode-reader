@@ -13,8 +13,8 @@
   "dependencies": {
     "react": "18.2.0",
     "react-native": "0.72.5",
-    "react-native-vision-camera": "3.9.0",
-    "react-native-worklets-core": "^0.2.4",
+    "react-native-vision-camera": "4.0.1",
+    "react-native-worklets-core": "^1.1.1",
     "react-native-image-picker":"7.0.2",
     "vision-camera-dynamsoft-barcode-reader": "../"
   },

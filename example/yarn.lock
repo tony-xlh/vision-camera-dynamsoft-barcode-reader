@@ -5453,15 +5453,15 @@ react-native-image-picker@7.0.2:
   resolved "https://registry.npmmirror.com/react-native-image-picker/-/react-native-image-picker-7.0.2.tgz#41eb49e7d808752ef448e26d256036470252936d"
   integrity sha512-2Y+TMzv2l32IikqYpj4WOqkYvv42SXkSvL9zAo0XdhA3Rbe3lc0Oz12KlR6M2bGh8RxXz5lUrs+9mxy/GpcLIg==
 
-react-native-vision-camera@3.9.0:
-  version "3.9.0"
-  resolved "https://registry.npmmirror.com/react-native-vision-camera/-/react-native-vision-camera-3.9.0.tgz#6a96a6cbad53c2db84d671c388b250327681a553"
-  integrity sha512-q0HejFTS56s5DXWHZhlWLLZMKn/8OXALrqET+FySPIKskwYEdJ5rOV2aDlD6hlo67qCNFGUIMZWGFFc9L2os1g==
+react-native-vision-camera@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmmirror.com/react-native-vision-camera/-/react-native-vision-camera-4.0.1.tgz#045c8ff9c236d3bf7e1dba24172a4c11b19bbd37"
+  integrity sha512-TuXLw/ak+LPaJOCuUaYG1g2EmTAEEeIVAhSbCsqEHlklMjkO0oRBGcPC6HpKw3++jkcKRBVVyY48HbB002UZfg==
 
-react-native-worklets-core@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/react-native-worklets-core/-/react-native-worklets-core-0.2.4.tgz#a4a79c04f2c6769ff03e96b7529c8638c88fa560"
-  integrity sha512-NKqxLRDOYfO7RJRZHHDA/1yztdiSadSTTILgHw2VwSrcQcmnWAZGXWr9EYpzKblpbk/vXfJa6QpWIKHjNrbe4w==
+react-native-worklets-core@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmmirror.com/react-native-worklets-core/-/react-native-worklets-core-1.1.1.tgz#c0a454c3be6d1ceab09ff925424ab371f5b048d3"
+  integrity sha512-mcZl5dDRJo+VI23HS6fPExr8YOW2fpxk+EtY1FIt81SyKt5FBHl97sSmdEjAOLKOb9myW6IiG5DWL8WQJ0iCWg==
   dependencies:
     string-hash-64 "^1.0.3"
 
@@ -6369,7 +6369,7 @@ vary@~1.1.2:
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
 vision-camera-dynamsoft-barcode-reader@../:
-  version "1.1.0"
+  version "1.2.0"
 
 vlq@^1.0.0:
   version "1.0.1"
