@@ -33,8 +33,8 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.mrousavy.camera.core.FrameInvalidError;
-import com.mrousavy.camera.frameprocessor.Frame;
-import com.mrousavy.camera.types.Orientation;
+import com.mrousavy.camera.frameprocessors.Frame;
+import com.mrousavy.camera.core.types.Orientation;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
@@ -81,13 +81,13 @@ public class BitmapUtils {
     }
 
     public static int getRotationDegreeFromOrientation(Orientation orientation) {
-        if (orientation.getUnionValue().equals(Orientation.PORTRAIT.getUnionValue())) {
-            return 90;
-        }else if (orientation.getUnionValue().equals(Orientation.LANDSCAPE_LEFT.getUnionValue())) {
+        if (orientation.name().equals(Orientation.PORTRAIT.name())) {
             return 0;
-        } else if (orientation.getUnionValue().equals(Orientation.LANDSCAPE_RIGHT.getUnionValue())) {
+        }else if (orientation.name().equals(Orientation.LANDSCAPE_LEFT.name())) {
+            return 90;
+        } else if (orientation.name().equals(Orientation.LANDSCAPE_RIGHT.name())) {
             return 270;
-        }else if (orientation.getUnionValue().equals(Orientation.PORTRAIT_UPSIDE_DOWN.getUnionValue())) {
+        }else if (orientation.name().equals(Orientation.PORTRAIT_UPSIDE_DOWN.name())) {
             return 180;
         }
         return 0;
