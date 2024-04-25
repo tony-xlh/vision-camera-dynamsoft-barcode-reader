@@ -20,7 +20,7 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
     }
     setResults(results);
   }
-  const convertAndSetResultsJS = Worklets.createRunInJsFn(convertAndSetResults);
+  const convertAndSetResultsJS = Worklets.createRunOnJS(convertAndSetResults);
   const device = useCameraDevice("back");
   const cameraFormat = useCameraFormat(device, [
     { videoResolution: { width: 1280, height: 720 } },

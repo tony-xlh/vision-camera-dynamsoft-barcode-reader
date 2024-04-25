@@ -8,7 +8,7 @@ import com.dynamsoft.dbr.Point;
 import com.dynamsoft.dbr.TextResult;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.mrousavy.camera.core.FrameInvalidError;
-import com.mrousavy.camera.frameprocessor.Frame;
+import com.mrousavy.camera.frameprocessors.Frame;
 
 import java.util.HashMap;
 import java.util.Map;
