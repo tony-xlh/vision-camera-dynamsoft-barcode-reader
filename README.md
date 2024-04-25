@@ -7,7 +7,9 @@ React Native Vision Camera Frame Processor Plugin of [Dynamsoft Barcode Reader](
 
 For vision-camera v2, use versions 0.x.
 
-For vision-camera v3, use versions >= 1.0.0.
+For vision-camera v3, use versions 1.x.
+
+For vision-camera v4, use versions >= 2.0.0.
 
 ## Installation
 
