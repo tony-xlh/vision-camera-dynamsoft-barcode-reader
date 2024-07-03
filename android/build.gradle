@@ -81,11 +81,20 @@ repositories {
   google()
 }
 
+rootProject.allprojects {
+  repositories {
+    maven {
+      url "https://download2.dynamsoft.com/maven/aar"
+    }
+  }
+}
 
 dependencies {
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
+  implementation project(':react-native-vision-camera')
+  implementation 'com.dynamsoft:dynamsoftbarcodereader:9.6.40@aar'
 }
 

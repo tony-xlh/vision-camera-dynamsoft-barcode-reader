@@ -1,6 +1,6 @@
 {
   "name": "vision-camera-dynamsoft-barcode-reader",
-  "version": "0.1.0",
+  "version": "2.1.0",
   "description": "React Native Vision Camera Frame Processor Plugin of Dynamsoft Barcode Reader",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -37,7 +37,12 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "pdf417",
+    "barcode",
+    "qr-code",
+    "ean13",
+    "data-matrix"
   ],
   "repository": {
     "type": "git",
@@ -69,6 +74,8 @@
     "react": "18.2.0",
     "react-native": "0.74.3",
     "react-native-builder-bob": "^0.23.2",
+    "react-native-vision-camera": "^4.4.0",
+    "react-native-worklets-core": "^1.3.3",
     "release-it": "^15.0.0",
     "turbo": "^1.10.7",
     "typescript": "^5.2.2"
@@ -78,7 +85,9 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-vision-camera": "*",
+    "react-native-worklets-core": "*"
   },
   "workspaces": [
     "example"
