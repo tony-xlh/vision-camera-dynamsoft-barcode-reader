@@ -1,8 +1,0 @@
-{
-  "extends": "@tsconfig/react-native/tsconfig.json",
-  "compilerOptions": {
-    "paths": {
-      "vision-camera-dynamsoft-barcode-reader": ["../src/index"]
-    }
-  }
-}

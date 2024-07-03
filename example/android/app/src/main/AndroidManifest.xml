@@ -2,12 +2,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-	  <!-- Begin Vision Camera -->
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <!-- optionally, if you want to record audio: -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- End Vision Camera -->
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
