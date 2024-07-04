@@ -34,6 +34,10 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
             DBRFrameProcessorPlugin.initLicense(config: arguments)
             DBRFrameProcessorPlugin.updateRuntimeSettingsWithTemplate(config: arguments)
         }
+        var templateName = ""
+        if arguments?["templateName"] != nil {
+            templateName = arguments?["templateName"] as! String
+        }
         
         var image = UIImage(cgImage: cgImage)
         var degree = 0.0;
@@ -46,7 +50,12 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
             image = DBRFrameProcessorPlugin.rotate(image:image,degree:degree)
         }
         var returned_results: [Any] = []
-        let results = try? VisionCameraDynamsoftBarcodeReader.dbr.decodeImage(image)
+        var results:[iTextResult]?;
+        if templateName != "" {
+            results = try? VisionCameraDynamsoftBarcodeReader.dbr.decodeImage(image,templateName: templateName)
+        }else{
+            results = try? VisionCameraDynamsoftBarcodeReader.dbr.decodeImage(image)
+        }
         let count = results?.count ?? 0
         if count > 0 {
             for index in 0..<count {

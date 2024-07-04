@@ -79,10 +79,15 @@ public class VisionCameraDynamsoftBarcodeReaderModule extends ReactContextBaseJa
 
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @ReactMethod
-  public void decodeBase64(String base64, Promise promise) {
+  public void decodeBase64(String base64, String templateName, Promise promise) {
     try {
       Bitmap bitmap = BitmapUtils.base642Bitmap(base64);
-      TextResult[] results = dbr.decodeBufferedImage(bitmap);
+      TextResult[] results = null;
+      if (templateName.equals("")) {
+        results = dbr.decodeBufferedImage(bitmap);
+      }else{
+        results = dbr.decodeBufferedImage(bitmap,templateName);
+      }
       WritableNativeArray array = new WritableNativeArray();
       if (results != null) {
         for (int i = 0; i < results.length; i++) {

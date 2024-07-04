@@ -24,12 +24,18 @@ class VisionCameraDynamsoftBarcodeReader: NSObject  {
         }
     }
     
-    @objc(decodeBase64:withResolver:withRejecter:)
-    func decodeBase64(base64:String,resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
+    @objc(decodeBase64:templateName:withResolver:withRejecter:)
+    func decodeBase64(base64:String,templateName:String,resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
         var returned_results: [Any] = []
         let image = VisionCameraDynamsoftBarcodeReader.convertBase64ToImage(base64)
         if image != nil {
-            let results = try? VisionCameraDynamsoftBarcodeReader.dbr.decodeImage(image!)
+            var results:[iTextResult]?
+            if templateName != "" {
+                results = try? VisionCameraDynamsoftBarcodeReader.dbr.decodeImage(image!,templateName: templateName)
+            }else{
+                results = try? VisionCameraDynamsoftBarcodeReader.dbr.decodeImage(image!)
+            }
+            
             let count = results?.count ?? 0
             if count > 0 {
                 for index in 0..<count {

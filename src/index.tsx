@@ -38,6 +38,9 @@ export function decode(frame: Frame,config?:DBRConfig):Record<string, TextResult
     if (config.template) {
       record["template"] = config.template;
     }
+    if (config.templateName) {
+      record["templateName"] = config.templateName;
+    }
     if (config.license) {
       record["license"] = config.license;
     }
@@ -67,6 +70,7 @@ export interface DBRConfig{
   isFront?:boolean;
   rotateImage?:boolean;
   license?:string;
+  templateName?:string;
 }
 
 /**
@@ -86,6 +90,6 @@ export function initRuntimeSettingsFromString(template:string): Promise<boolean>
 /**
  * Detect barcodes from base64
  */
-export function decodeBase64(base64:string): Promise<TextResult[]> {
-  return VisionCameraDynamsoftBarcodeReader.decodeBase64(base64);
+export function decodeBase64(base64:string,templateName?:string): Promise<TextResult[]> {
+  return VisionCameraDynamsoftBarcodeReader.decodeBase64(base64,templateName ?? "");
 }

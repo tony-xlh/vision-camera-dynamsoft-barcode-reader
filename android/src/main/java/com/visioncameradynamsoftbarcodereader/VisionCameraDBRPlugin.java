@@ -41,6 +41,7 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             //Log.d("DBR",frame.getImage().getWidth()+"x"+frame.getImage().getHeight());
             Boolean isFront = false;
             Boolean rotateImage = true;
+            String templateName = "";
             if (arguments != null ){
                 //for (String key:
                 //     arguments.keySet()) {
@@ -53,12 +54,15 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
                     rotateImage = (Boolean) arguments.get("rotateImage");
                     //Log.d("DBR","rot: "+rotateImage);
                 }
+                if (arguments.containsKey("templateName")){
+                    templateName = (String) arguments.get("templateName");
+                }
                 initLicense(arguments);
                 updateRuntimeSettingsWithTemplate(arguments);
             }
 
             TextResult[] results = null;
-            results = decode(frame, rotateImage);
+            results = decode(frame, rotateImage, templateName);
 
             if (results != null) {
                 for (int i = 0; i < results.length; i++) {
@@ -72,13 +76,17 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
         return array;
     }
 
-    private TextResult[] decode(Frame image, Boolean rotateImage) throws BarcodeReaderException, FrameInvalidError {
+    private TextResult[] decode(Frame image, Boolean rotateImage,String templateName) throws BarcodeReaderException, FrameInvalidError {
         TextResult[] results = null;
         if (rotateImage){
             Bitmap bitmap = BitmapUtils.getBitmap(image);
             //Log.d("DBR","bitmap width: "+bitmap.getWidth());
             //Log.d("DBR","bitmap height: "+bitmap.getHeight());
-            results = dbr.decodeBufferedImage(bitmap);
+            if (templateName.equals("")) {
+                results = dbr.decodeBufferedImage(bitmap);
+            }else{
+                results = dbr.decodeBufferedImage(bitmap,templateName);
+            }
         }else{
             ByteBuffer buffer = image.getImage().getPlanes()[0].getBuffer();
             int nRowStride = image.getImage().getPlanes()[0].getRowStride();
@@ -86,7 +94,11 @@ public class VisionCameraDBRPlugin extends FrameProcessorPlugin {
             int length = buffer.remaining();
             byte[] bytes = new byte[length];
             buffer.get(bytes);
-            results = dbr.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
+            if (templateName.equals("")) {
+              results = dbr.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
+            }else{
+              results = dbr.decodeBuffer(bytes, image.getWidth(), image.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21,templateName);
+            }
         }
         return results;
     }

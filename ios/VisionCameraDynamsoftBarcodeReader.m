@@ -14,6 +14,7 @@ RCT_EXTERN_METHOD(initRuntimeSettingsFromString:(NSString *)template
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(decodeBase64:(NSString *)base64
+                 templateName:(NSString *)templateName
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
