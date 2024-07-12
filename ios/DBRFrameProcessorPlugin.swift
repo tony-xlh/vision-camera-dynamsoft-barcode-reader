@@ -41,10 +41,10 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
         
         var image = UIImage(cgImage: cgImage)
         var degree = 0.0;
-        if UIDevice.current.orientation == UIDeviceOrientation.portrait {
+        if frame.orientation == UIImage.Orientation.left {
             degree = 90.0;
-        }else if UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
-            degree = 270.0;
+        }else if frame.orientation == UIImage.Orientation.down {
+            degree = 180.0;
         }
         if degree != 0.0 {
             image = DBRFrameProcessorPlugin.rotate(image:image,degree:degree)
