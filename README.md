@@ -11,6 +11,12 @@ For vision-camera v3, use versions 1.x.
 
 For vision-camera v4, use versions >= 2.0.0.
 
+## SDK Versions Used for Different Platforms
+
+| Product      | Android |    iOS |
+| ----------- | ----------- | -----------  |
+| Dynamsoft Barcode Reader    | 9.x       | 9.x     |
+
 ## Installation
 
 ```sh
