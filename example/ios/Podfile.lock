@@ -1171,6 +1171,8 @@ PODS:
     - React-logger (= 0.74.3)
     - React-perflogger (= 0.74.3)
     - React-utils (= 0.74.3)
+  - RNSVG (15.5.0):
+    - React-Core
   - SocketRocket (0.7.0)
   - VisionCamera (4.3.2):
     - VisionCamera/Core (= 4.3.2)
@@ -1184,7 +1186,7 @@ PODS:
   - VisionCamera/React (4.3.2):
     - React-Core
     - VisionCamera/FrameProcessors
-  - VisionCameraDynamsoftBarcodeReader (0.1.0):
+  - VisionCameraDynamsoftBarcodeReader (2.1.3):
     - DoubleConversion
     - DynamsoftBarcodeReader (= 9.6.40)
     - glog
@@ -1266,6 +1268,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - VisionCameraDynamsoftBarcodeReader (from `../..`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1387,6 +1390,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
   VisionCameraDynamsoftBarcodeReader:
@@ -1451,9 +1456,10 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 0c80752bceb80924cb8a4babc2a8e3ed70d41e87
   React-utils: a06061b3887c702235d2dac92dacbd93e1ea079e
   ReactCommon: f00e436b3925a7ae44dfa294b43ef360fbd8ccc4
+  RNSVG: b986585e367f4a49d8aa43065066cc9c290b3d9b
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   VisionCamera: 9f7b70431c8662ff933e1ed66d074bdba3a63f7d
-  VisionCameraDynamsoftBarcodeReader: bb5369fb53f74c8bce0854e4ff326ad200057ace
+  VisionCameraDynamsoftBarcodeReader: 57eb6a3e78456aa43d5557ed49338a3d0cbc5ba3
   Yoga: 04f1db30bb810187397fa4c37dd1868a27af229c
 
 PODFILE CHECKSUM: 29460dd649bc3b41031f39a97aebb0a9d7894941

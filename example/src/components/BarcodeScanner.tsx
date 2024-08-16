@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { Camera, runAsync, runAtTargetFps, useCameraDevice, useCameraFormat, useFrameProcessor } from 'react-native-vision-camera';
+import { StyleSheet } from 'react-native';
+import { Camera, runAsync, useCameraDevice, useCameraFormat, useFrameProcessor } from 'react-native-vision-camera';
 import { decode, type DBRConfig, type TextResult } from 'vision-camera-dynamsoft-barcode-reader';
 import { Worklets} from 'react-native-worklets-core';
-
+import { Polygon, Svg, Text as SVGText } from 'react-native-svg';
 interface props {
   onScanned?: (result:TextResult[]) => void;
 }
@@ -28,7 +28,7 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
   ])
   const frameProcessor = useFrameProcessor(frame => {
     'worklet'
-    runAtTargetFps(3, () => {
+    runAsync(frame, () => {
       'worklet'
       const config:DBRConfig = {
         rotateImage:false,
@@ -57,21 +57,14 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
     }
   }, [results]);
 
-  const renderBarcodeResults = ()=> {
-    if (results) {
-      const listItems = results.map((barcode,idx) =>
-        <Text key={"barcode"+idx} style={styles.barcodeText}>
-            {barcode.barcodeFormat +": "+ barcode.barcodeText}
-        </Text>
-      );
-      return (
-        <>
-          {listItems}
-        </>
-      );
-    }
+  const getPointsData = (lr:TextResult) => {
+    var pointsData = lr.x1 + "," + lr.y1 + " ";
+    pointsData = pointsData+lr.x2 + "," + lr.y2 +" ";
+    pointsData = pointsData+lr.x3 + "," + lr.y3 +" ";
+    pointsData = pointsData+lr.x4 + "," + lr.y4;
+    return pointsData;
   }
-
+  
   return (
       <>
         {device &&
@@ -86,7 +79,32 @@ const BarcodeScanner: React.FC<props> = (props: props) => {
             resizeMode='contain'
             pixelFormat="yuv"
             />
-            {renderBarcodeResults()}
+            <Svg style={StyleSheet.absoluteFill} 
+              preserveAspectRatio="xMidYMid slice"
+              viewBox="0 0 720 1280">
+              {results.map((barcode, idx) => (
+                <Polygon key={"poly-"+idx}
+                  points={getPointsData(barcode)}
+                  fill="lime"
+                  stroke="green"
+                  opacity="0.5"
+                  strokeWidth="1"
+                />
+              ))}
+              {results.map((barcode, idx) => (
+                <SVGText key={"text-"+idx}
+                  fill="white"
+                  stroke="purple"
+                  fontSize={720/400*20}
+                  fontWeight="bold"
+                  x={barcode.x1}
+                  y={barcode.y1}
+                >
+                  {barcode.barcodeText}
+                </SVGText>
+              ))}
+            
+            </Svg>
         </>)}
       </>
   );
