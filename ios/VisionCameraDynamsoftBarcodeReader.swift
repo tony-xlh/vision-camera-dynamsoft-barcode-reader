@@ -40,7 +40,7 @@ class VisionCameraDynamsoftBarcodeReader: NSObject  {
             if count > 0 {
                 for index in 0..<count {
                     let tr = results![index]
-                    returned_results.append(VisionCameraDynamsoftBarcodeReader.wrapResult(result: tr))
+                    returned_results.append(VisionCameraDynamsoftBarcodeReader.wrapResult(result: tr, image: image!, rotate: false, degree: 0))
                 }
             }
         }
@@ -54,7 +54,7 @@ class VisionCameraDynamsoftBarcodeReader: NSObject  {
         resolve(true)
     }
     
-    static func wrapResult(result: iTextResult) -> Any {
+    static func wrapResult(result: iTextResult, image: UIImage, rotate: Bool, degree: Int) -> Any {
         var map: [String: Any] = [:]
         
         map["barcodeText"] = result.barcodeText
@@ -62,16 +62,35 @@ class VisionCameraDynamsoftBarcodeReader: NSObject  {
         map["barcodeBytesBase64"] = result.barcodeBytes?.base64EncodedString()
 
         let points = result.localizationResult?.resultPoints as! [CGPoint]
-        map["x1"] = points[0].x
-        map["x2"] = points[1].x
-        map["x3"] = points[2].x
-        map["x4"] = points[3].x
-        map["y1"] = points[0].y
-        map["y2"] = points[1].y
-        map["y3"] = points[2].y
-        map["y4"] = points[3].y
-        
+        for i in 0...3{
+            var point = points[i]
+            if rotate {
+                point = rotatedPoint(point, image: image, degree:degree)
+            }
+            map["x\(i)"] = point.x
+            map["y\(i)"] = point.y
+        }
         return map
+    }
+    
+    static public func rotatedPoint(_ point:CGPoint, image: UIImage, degree: Int) -> CGPoint {
+        var x = point.x
+        var y = point.y
+        switch (degree) {
+            case 90:
+                x = image.size.width - point.y
+                y = point.x
+            case 180:
+                x = image.size.width - point.x;
+                y = image.size.height - point.y;
+            case 270:
+                x = image.size.height - point.x;
+                y = image.size.width - point.y;
+            default:
+                x = point.x
+                y = point.y
+        }
+        return CGPoint(x: x, y: y)
     }
     
     static public func convertBase64ToImage(_ imageStr:String) ->UIImage?{

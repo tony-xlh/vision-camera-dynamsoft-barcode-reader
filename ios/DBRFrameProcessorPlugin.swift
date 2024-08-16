@@ -39,6 +39,11 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
             templateName = arguments?["templateName"] as! String
         }
         
+        var rotateImage = true
+        if arguments?["rotateImage"] != nil {
+            rotateImage = arguments?["rotateImage"] as! Bool
+        }
+        
         var image = UIImage(cgImage: cgImage)
         var degree = 0.0;
         if frame.orientation == UIImage.Orientation.left {
@@ -46,9 +51,12 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
         }else if frame.orientation == UIImage.Orientation.down {
             degree = 180.0;
         }
-        if degree != 0.0 {
-            image = DBRFrameProcessorPlugin.rotate(image:image,degree:degree)
+        if rotateImage {
+            if degree != 0.0 {
+                image = DBRFrameProcessorPlugin.rotate(image:image,degree:degree)
+            }
         }
+        
         var returned_results: [Any] = []
         var results:[iTextResult]?;
         if templateName != "" {
@@ -60,7 +68,7 @@ public class DBRFrameProcessorPlugin: FrameProcessorPlugin {
         if count > 0 {
             for index in 0..<count {
                 let tr = results![index]
-                returned_results.append(VisionCameraDynamsoftBarcodeReader.wrapResult(result: tr))
+                returned_results.append(VisionCameraDynamsoftBarcodeReader.wrapResult(result: tr,image:image,rotate: !rotateImage,degree: Int(degree)))
             }
         }
         return returned_results
