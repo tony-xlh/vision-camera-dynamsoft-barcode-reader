@@ -1,6 +1,6 @@
 {
   "name": "vision-camera-dynamsoft-barcode-reader",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "React Native Vision Camera Frame Processor Plugin of Dynamsoft Barcode Reader",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
