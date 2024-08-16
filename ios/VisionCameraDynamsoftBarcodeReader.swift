@@ -67,8 +67,8 @@ class VisionCameraDynamsoftBarcodeReader: NSObject  {
             if rotate {
                 point = rotatedPoint(point, image: image, degree:degree)
             }
-            map["x\(i)"] = point.x
-            map["y\(i)"] = point.y
+            map["x\(i+1)"] = point.x
+            map["y\(i+1)"] = point.y
         }
         return map
     }
@@ -78,14 +78,14 @@ class VisionCameraDynamsoftBarcodeReader: NSObject  {
         var y = point.y
         switch (degree) {
             case 90:
-                x = image.size.width - point.y
+                x = image.size.height - point.y
                 y = point.x
             case 180:
                 x = image.size.width - point.x;
                 y = image.size.height - point.y;
             case 270:
-                x = image.size.height - point.x;
-                y = image.size.width - point.y;
+                x = image.size.height - point.y;
+                y = image.size.width - point.x;
             default:
                 x = point.x
                 y = point.y
