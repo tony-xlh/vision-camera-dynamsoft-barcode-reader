@@ -3,6 +3,8 @@
 
 React Native Vision Camera Frame Processor Plugin of [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/).
 
+If you do not want to use Vision Camera, you can use the [offical React Native package](https://www.dynamsoft.com/capture-vision/react-native/) by Dynamsoft.
+
 ## Versions
 
 For vision-camera v2, use versions 0.x.
