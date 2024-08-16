@@ -93,7 +93,7 @@ DBRConfig{
 }
 ```
 
- Since the natural camera sensor's orientation is landscape, the camera image may be rotated for preview while the raw image we get is still not rotated. If we enable `rotateImage`, the plugin will rotate the image automatically to match the camera preview. If it is disabled, the plugin will rotate the returned coordinates instead of the image which may have a slight performance gain. `isFront` is needed for rotating the coordinates since the image of front camera is mirrored. `isFront` are Android-only.
+ Since the natural camera sensor's orientation is landscape, the camera image may be rotated for preview while the raw image we get is still not rotated. If we enable `rotateImage`, the plugin will rotate the image automatically to match the camera preview. If it is disabled, the plugin will rotate the returned coordinates instead of the image which may have a slight performance gain. `isFront` is needed for rotating the coordinates since the image of front camera is mirrored. `isFront` is Android-only.
 
 ## Supported Platforms
 
