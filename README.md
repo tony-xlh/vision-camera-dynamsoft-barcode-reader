@@ -126,6 +126,11 @@ DBRConfig{
 * Postal Code
 * Dot Code
 
+## Blog
+
+* [Build a React Native Vision Camera Frame Processor Plugin to Scan Barcodes for Android](https://www.dynamsoft.com/codepool/react-native-vision-camera-barcode-plugin-android.html)
+* [Build a React Native Vision Camera Frame Processor Plugin to Scan Barcodes for iOS](https://www.dynamsoft.com/codepool/react-native-vision-camera-barcode-plugin-ios.html)
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
